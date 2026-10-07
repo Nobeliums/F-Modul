@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using _Project.Develop.Runtime.ConfigManagement;
 using _Project.Develop.Runtime.CoroutineManagement;
+using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.ResourcesManagement;
 using UnityEngine;
 
@@ -8,38 +10,52 @@ namespace _Project.Develop.Runtime
 {
     public class TestStarter : MonoBehaviour
     {
-        private CoroutinePerformer  _coroutinePerformer;
-        private ResourceLoadService _loadService;
-        private ConfigService _configService;
+        DIContainer _container;
 
         private void Awake()
         {
-            CreateLoadService();
-            CreateCoroutinePerformer();
-            CreateConfigService();
+            _container = new DIContainer();
+            _container.RegistryAsSingle(CreateLoadService);
+            _container.RegistryAsSingle(CreateCoroutinePerformer);
+            _container.RegistryAsSingle(CreateConfigService);
+
+            _container.Resolve<CoroutinePerformer>().StartPerform(LoadConfig());
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
-                Debug.Log($"{_configService.GetConfig<TestConfig>().Damage}");
+            {
+                var configService = _container.Resolve<ConfigService>();
+                Debug.Log($"{configService.GetConfig<TestConfig>().Damage}");
+            }
         }
 
-        public void CreateLoadService()
+        public ResourceLoadService CreateLoadService(DIContainer c)
         {
-            _loadService = new ResourceLoadService();
+            return new ResourceLoadService();
         }
 
-        public void CreateCoroutinePerformer()
+        public CoroutinePerformer CreateCoroutinePerformer(DIContainer c)
         {
-            CoroutinePerformer performerPrefab = _loadService.Load<CoroutinePerformer>("CoroutinePerformer");
-            _coroutinePerformer = Instantiate(performerPrefab);
+            ResourceLoadService loadService = c.Resolve<ResourceLoadService>();
+    
+            CoroutinePerformer performerPrefab = loadService.Load<CoroutinePerformer>("CoroutinePerformer");
+            return Instantiate(performerPrefab);
         }
 
-        public void CreateConfigService()
+        public ConfigService CreateConfigService(DIContainer c)
         {
-             _configService = new ConfigService(new ResourcesConfigLoader(_loadService));
-             _coroutinePerformer.StartPerform(_configService.LoadAsync());
+            ResourceLoadService loadService = c.Resolve<ResourceLoadService>();
+            
+             return new ConfigService(new ResourcesConfigLoader(loadService));
+        }
+
+        public IEnumerator LoadConfig()
+        {
+            ConfigService service = _container.Resolve<ConfigService>();
+
+            yield return service.LoadAsync();
         }
     }
 }
