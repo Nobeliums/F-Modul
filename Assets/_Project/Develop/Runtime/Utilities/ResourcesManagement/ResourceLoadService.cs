@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Project.Develop.Runtime.ResourcesManagement
+namespace _Project.Develop.Runtime.Utilities.ResourcesManagement
 {
     public class ResourceLoadService
     {

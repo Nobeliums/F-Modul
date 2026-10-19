@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using _Project.Develop.Runtime.ResourcesManagement;
+using _Project.Develop.Runtime.Utilities.ResourcesManagement;
 using UnityEngine;
 
-namespace _Project.Develop.Runtime.ConfigManagement
+namespace _Project.Develop.Runtime.Utilities.ConfigManagement
 {
     public class ResourcesConfigLoader : IConfigLoader
     {
@@ -12,7 +12,7 @@ namespace _Project.Develop.Runtime.ConfigManagement
 
         private Dictionary<Type, string> _configsPaths = new()
         {
-            {typeof(TestConfig), "TestConfig"}
+            
         };
         
         public ResourcesConfigLoader(ResourceLoadService resources)

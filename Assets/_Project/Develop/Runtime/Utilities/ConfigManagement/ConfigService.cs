@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using _Project.Develop.Runtime.ResourcesManagement;
+using _Project.Develop.Runtime.Utilities;
 using Unity.VisualScripting;
 
-namespace _Project.Develop.Runtime.ConfigManagement
+namespace _Project.Develop.Runtime.Utilities.ConfigManagement
 {
     public class ConfigService
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace _Project.Develop.Runtime.ConfigManagement
+namespace _Project.Develop.Runtime.Utilities.ConfigManagement
 {
     public interface IConfigLoader
     {
