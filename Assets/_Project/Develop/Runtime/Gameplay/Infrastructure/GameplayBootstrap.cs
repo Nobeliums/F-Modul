@@ -12,9 +12,14 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 	{
 		private DIContainer _container;
 		
-		public override IEnumerator Initialize(DIContainer c)
+		public override IEnumerator Initialize(DIContainer c, IInputSceneArgs sceneArgs)
 		{
 			_container = c;
+			
+			if (sceneArgs is not GameplayInputArgs gameplayInputArgs)
+				throw new ArgumentException($"{nameof(sceneArgs)} must be of type GameplayInputArgs");
+			
+			
 			
 			Debug.Log("[Gameplay Bootstrap] Gameplay Bootstrap initialized]");
 			

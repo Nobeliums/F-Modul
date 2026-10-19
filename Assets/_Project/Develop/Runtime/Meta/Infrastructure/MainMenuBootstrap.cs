@@ -12,7 +12,7 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 	{
 		private DIContainer _container;
 	
-		public override IEnumerator Initialize(DIContainer c)
+		public override IEnumerator Initialize(DIContainer c, IInputSceneArgs sceneArgs)
 		{
 			_container = c;
 			
