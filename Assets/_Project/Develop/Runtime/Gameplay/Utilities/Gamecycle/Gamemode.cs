@@ -59,14 +59,16 @@ namespace _Project.Develop.Runtime.Gamecycle
 
 		private void Win()
 		{
-			Debug.Log("Gamemode won!");
+			Debug.Log("Gamemode won! Press space to main menu");
 			_isStarted = false;
+			_isWin = true;
 		}
 
 		private void Lose()
 		{
-			Debug.Log("Gamemode lost!");
+			Debug.Log("Gamemode lost! Press space to restart");
 			_isStarted = false;
+			_isLose = true;
 		}
 	}
 }

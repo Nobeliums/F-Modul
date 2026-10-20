@@ -16,5 +16,5 @@ MonoBehaviour:
   - <GameCharsSequenceType>k__BackingField: 1
     <GameCharsSequence>k__BackingField: 0123456789
   - <GameCharsSequenceType>k__BackingField: 2
-    <GameCharsSequence>k__BackingField: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    <GameCharsSequence>k__BackingField: abcdefghijklmnopqrstuvwxyz
   <PhraseLenght>k__BackingField: 5

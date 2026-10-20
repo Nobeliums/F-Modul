@@ -14,10 +14,12 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 	public class MainMenuBootstrap : SceneBootstrap
 	{
 		private DIContainer _container;
+		private SceneSwitcherService _sceneSwitcher;
+		private ICoroutinePerformer _performer;
 
 		public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
 		{
-			_container  = container;
+			_container = container;
 			
 			MainMenuContextRegistrations.Process(container);
 		}
@@ -32,23 +34,25 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 		public override void Run()
 		{
 			Debug.Log("[MainMenuBootstrap] Run");
+			_sceneSwitcher = _container.Resolve<SceneSwitcherService>();
+			_performer = _container.Resolve<ICoroutinePerformer>();
 		}
 
 		private void Update()
 		{
-			SceneSwitcherService switcherService = _container.Resolve<SceneSwitcherService>();
-			ICoroutinePerformer performer = _container.Resolve<ICoroutinePerformer>();
+			if (_container == null)
+				return;
 
 			if (InputService.GetDigitsGameModeButton())
 			{
-				performer.StartPerform(switcherService.ProcessSceneSwitchTo(
+				_performer.StartPerform(_sceneSwitcher.ProcessSceneSwitchTo(
 					Scenes.Gameplay,
 					new GameplayInputArgs(GameCharsSequenceType.Digits)));
 			}
 
 			if (InputService.GetLettersGameModeButton())
 			{
-				performer.StartPerform(switcherService.ProcessSceneSwitchTo(
+				_performer.StartPerform(_sceneSwitcher.ProcessSceneSwitchTo(
 					Scenes.Gameplay,
 					new GameplayInputArgs(GameCharsSequenceType.Letters)));
 			}
