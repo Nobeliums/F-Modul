@@ -1,30 +1,65 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace _Project.Develop.Runtime.Infrastructure.DI
 {
     public class DIContainer
     {
-        private DIContainer _headContainer;
+        private readonly DIContainer _headContainer;
 
-        private Dictionary<Type, Registration> _registrations = new();
+        private readonly Dictionary<Type, Registration> _container = new();
+        
+        private readonly List<Type> _requests = new();
+
+        public DIContainer() : this(null) {}
+
+        public DIContainer(DIContainer headContainer) => _headContainer = headContainer;
 
         public void RegistryAsSingle<T>(Func<DIContainer, T> factory)
         {
+            if (IsAlreadyRegister<T>())
+                throw new InvalidOperationException($"{typeof(T)} already registered");
+            
             Registration registration = new Registration(container => factory.Invoke(container));
             
-            _registrations.Add(typeof(T), registration);
+            _container.Add(typeof(T), registration);
+            
+            Debug.Log($"Registering {typeof(T)}");
         }
 
         public T Resolve<T>()
         {
-            if (_registrations.TryGetValue(typeof(T), out Registration result))
-                return (T) result.CreateInstanceFrom(this);
+            if (_requests.Contains(typeof(T)))
+                throw new InvalidOperationException($"{typeof(T)} cycled resolve");
             
-            if (_headContainer != null)
-                _headContainer.Resolve<T>();
-            
+            _requests.Add(typeof(T));
+
+            try
+            {
+                if (_container.TryGetValue(typeof(T), out Registration result))
+                    return (T)result.CreateInstanceFrom(this);
+                
+                if (_headContainer != null)
+                    return _headContainer.Resolve<T>();
+            }
+            finally
+            {
+                _requests.Remove(typeof(T));
+            }
+
             throw new InvalidOperationException($"No registered registration for {typeof(T)}");
+        }
+
+        public bool IsAlreadyRegister<T>()
+        {
+            if (_container.ContainsKey(typeof(T)))
+                return true;
+
+            if (_headContainer != null)
+                return _headContainer.IsAlreadyRegister<T>();
+
+            return false;
         }
     }
 }
