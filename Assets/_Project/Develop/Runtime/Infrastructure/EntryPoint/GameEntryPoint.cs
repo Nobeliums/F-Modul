@@ -15,11 +15,11 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 		{
 			SetupAppSettings();
 			
-			DIContainer container = new DIContainer();
+			DIContainer projectContainer = new DIContainer();
 			
-			EntryPointRegistrations.Process(container);
+			ProjectContextRegistrations.Process(projectContainer);
 			
-			container.Resolve<ICoroutinePerformer>().StartPerform(Initialize(container));
+			projectContainer.Resolve<ICoroutinePerformer>().StartPerform(Initialize(projectContainer));
 		}
 
 		private void SetupAppSettings()
