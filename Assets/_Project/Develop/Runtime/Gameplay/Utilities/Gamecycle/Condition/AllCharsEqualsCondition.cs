@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _Project.Develop.Runtime.Gameplay.Utilities.Gamemode.Condition
+namespace _Project.Develop.Runtime.Gameplay.Utilities.Gamecycle.Condition
 {
 	public class AllCharsEqualsCondition : ICondition
 	{
