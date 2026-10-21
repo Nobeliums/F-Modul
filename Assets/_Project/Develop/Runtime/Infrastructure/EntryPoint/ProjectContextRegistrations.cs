@@ -2,6 +2,10 @@
 using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Infrastructure.DI;
+using _Project.Develop.Runtime.Utilities.DataManagment.DataRepository;
+using _Project.Develop.Runtime.Utilities.DataManagment.KeysStorage;
+using _Project.Develop.Runtime.Utilities.DataManagment.SaveLoadService;
+using _Project.Develop.Runtime.Utilities.DataManagment.Serializers;
 using _Project.Develop.Runtime.Utilities.LoadingScreen;
 using _Project.Develop.Runtime.Utilities.ResourcesManagement;
 using _Project.Develop.Runtime.Utilities.SceneManagment;
@@ -20,6 +24,19 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 			container.RegistryAsSingle(CreateSceneLoaderService);
 			container.RegistryAsSingle(CreateLoadingScreen);
 			container.RegistryAsSingle(CreateSceneSwitcherService);
+			container.RegistryAsSingle(CreateSaveLoadService);
+		}
+
+		private static ISaveLoadService CreateSaveLoadService(DIContainer c)
+		{
+			string path = Application.isEditor ? Application.dataPath : Application.persistentDataPath;
+
+			IDataRepository dataRepository = new LocalFileDataRepository(path);
+			IDataKeysStorage dataKeysStorage = new MapDataKeysStorage();
+			IDataSerializer serializer = new JsonDataSerializer();
+			
+			return new SaveLoadService(dataRepository, serializer, dataKeysStorage);
+
 		}
 
 		private static SceneSwitcherService CreateSceneSwitcherService(DIContainer c)
