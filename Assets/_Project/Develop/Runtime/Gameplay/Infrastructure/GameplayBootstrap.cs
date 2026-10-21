@@ -26,6 +26,8 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 				throw new ArgumentException($"{nameof(sceneArgs)} must be of type GameplayInputArgs");
 			
 			GameplayContextRegistrations.Process(_container, gameplayInputArgs);
+			
+			_container.Initialize();
 		}
 
 		public override IEnumerator Initialize()

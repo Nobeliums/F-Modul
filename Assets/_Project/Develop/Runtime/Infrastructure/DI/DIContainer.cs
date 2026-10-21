@@ -16,7 +16,7 @@ namespace _Project.Develop.Runtime.Infrastructure.DI
 
         public DIContainer(DIContainer headContainer) => _headContainer = headContainer;
 
-        public void RegistryAsSingle<T>(Func<DIContainer, T> factory)
+        public IRegistrationOptions RegistryAsSingle<T>(Func<DIContainer, T> factory)
         {
             if (IsAlreadyRegister<T>())
                 throw new InvalidOperationException($"{typeof(T)} already registered");
@@ -26,6 +26,8 @@ namespace _Project.Develop.Runtime.Infrastructure.DI
             _container.Add(typeof(T), registration);
             
             Debug.Log($"Registering {typeof(T)}");
+            
+            return registration;
         }
 
         public T Resolve<T>()
@@ -60,6 +62,13 @@ namespace _Project.Develop.Runtime.Infrastructure.DI
                 return _headContainer.IsAlreadyRegister<T>();
 
             return false;
+        }
+
+        public void Initialize()
+        {
+            foreach (Registration registration in _container.Values)
+                if (registration.IsNonLazy)
+                    registration.CreateInstanceFrom(this);
         }
     }
 }

@@ -1,12 +1,16 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
 using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Infrastructure.DI;
+using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataRepository;
 using _Project.Develop.Runtime.Utilities.DataManagment.KeysStorage;
 using _Project.Develop.Runtime.Utilities.DataManagment.SaveLoadService;
 using _Project.Develop.Runtime.Utilities.DataManagment.Serializers;
 using _Project.Develop.Runtime.Utilities.LoadingScreen;
+using _Project.Develop.Runtime.Utilities.Reactive;
 using _Project.Develop.Runtime.Utilities.ResourcesManagement;
 using _Project.Develop.Runtime.Utilities.SceneManagment;
 using UnityEngine;
@@ -24,8 +28,18 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 			container.RegistryAsSingle(CreateSceneLoaderService);
 			container.RegistryAsSingle(CreateLoadingScreen);
 			container.RegistryAsSingle(CreateSceneSwitcherService);
+			container.RegistryAsSingle(CreatePlayerDataProvider);
+			container.RegistryAsSingle(CreateWalletService);
 			container.RegistryAsSingle(CreateSaveLoadService);
 		}
+
+		private static WalletService CreateWalletService(DIContainer c)
+			=> new WalletService(new Dictionary<WalletCurrencyType, ReactiveVabiable<int>>());
+
+		private static PlayerDataProvider CreatePlayerDataProvider(DIContainer c)
+			=> new PlayerDataProvider(
+				c.Resolve<ISaveLoadService>(),
+				c.Resolve<ConfigService>());
 
 		private static ISaveLoadService CreateSaveLoadService(DIContainer c)
 		{

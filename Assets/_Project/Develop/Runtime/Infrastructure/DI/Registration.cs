@@ -2,11 +2,13 @@ using System;
 
 namespace _Project.Develop.Runtime.Infrastructure.DI
 {
-    public class Registration
+    public class Registration : IRegistrationOptions
     {
         private Func<DIContainer, object> _register;
         
         private object _cachedInstance;
+
+        public bool IsNonLazy { get; private set; }
         
         public Registration(Func<DIContainer, object> register) => _register = register;
 
@@ -22,5 +24,7 @@ namespace _Project.Develop.Runtime.Infrastructure.DI
             
             return _cachedInstance;
         }
+
+        public void NonLazy() =>  IsNonLazy = true;
     }
 }

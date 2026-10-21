@@ -13,7 +13,8 @@ namespace _Project.Develop.Runtime.Utilities.ConfigManagement
 
         private Dictionary<Type, string> _configsPaths = new()
         {
-            {typeof(GameModeConfig), "Configs/GameModeConfig"}
+            {typeof(GameModeConfig), "Configs/GameModeConfig"},
+            {typeof(StartWalletConfig), "Configs/StartWalletConfig"}
         };
         
         public ResourcesConfigLoader(ResourceLoadService resources)

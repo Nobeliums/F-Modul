@@ -5,6 +5,8 @@ using _Project.Develop.Runtime.Gameplay.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
+using _Project.Develop.Runtime.Utilities.DataManagment;
+using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
 using _Project.Develop.Runtime.Utilities.Input;
 using _Project.Develop.Runtime.Utilities.SceneManagment;
 using UnityEngine;
@@ -22,11 +24,24 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 			_container = container;
 			
 			MainMenuContextRegistrations.Process(container);
+			
+			_container.Initialize();
 		}
 
 		public override IEnumerator Initialize()
 		{
 			Debug.Log("[MainMenuBootstrap] initialized]");
+			
+			PlayerDataProvider playerDataProvider = _container.Resolve<PlayerDataProvider>();
+
+			bool isExists = false;
+			
+			playerDataProvider.Exists(result => isExists = result);
+			
+			if (isExists)
+				_container.Resolve<ICoroutinePerformer>().StartPerform(playerDataProvider.Load());
+			else
+				_container.Resolve<ICoroutinePerformer>().StartPerform(playerDataProvider.Reset());
 			
 			yield break;
 		}
@@ -56,6 +71,17 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 					Scenes.Gameplay,
 					new GameplayInputArgs(GameCharsSequenceType.Letters)));
 			}
+
+			if (Input.GetKeyDown(KeyCode.S))
+			{
+				PlayerDataProvider playerData = _container.Resolve<PlayerDataProvider>();
+
+				_container.Resolve<ICoroutinePerformer>().StartPerform(playerData.Save());
+				
+				Debug.Log("[MainMenuBootstrap] Saved player data");
+			}
 		}
+		
+		
 	}
 }
