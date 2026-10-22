@@ -89,6 +89,7 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 		{
 			_gameMode.WinEvent -= OnWinGame;
 			_gameMode.LoseEvent -= OnLoseGame;
+			_gameMode.Dispose();
 			
 			Debug.Log("[Gameplay Bootstrap] Gameplay Bootstrap OnDestroy");
 		}
