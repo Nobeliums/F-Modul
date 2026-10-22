@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Project.Develop.Runtime.Gamecycle
 {
-	public class Gamemode
+	public class Gamemode : IDisposable
 	{
 		private bool _isStarted;
 		private bool _isWin;
@@ -69,6 +69,12 @@ namespace _Project.Develop.Runtime.Gamecycle
 			Debug.Log("Gamemode lost! Press space to restart");
 			_isStarted = false;
 			_isLose = true;
+		}
+
+		public void Dispose()
+		{
+			_winCondition.ConditionCompletedEvent -= Win;
+			_loseCondition.ConditionCompletedEvent -= Lose;
 		}
 	}
 }
