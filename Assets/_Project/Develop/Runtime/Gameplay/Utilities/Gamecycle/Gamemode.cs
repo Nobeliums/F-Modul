@@ -1,11 +1,16 @@
-﻿using _Project.Develop.Runtime.Gameplay.Utilities.Gamecycle.Condition;
+﻿using System;
+using _Project.Develop.Runtime.Gameplay.Utilities.Gamecycle.Condition;
+using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.Input;
 using UnityEngine;
 
 namespace _Project.Develop.Runtime.Gamecycle
 {
-	public class Gamemode
+	public class Gamemode : IDisposable
 	{
+		public event Action WinEvent;
+		public event Action LoseEvent;
+		
 		private bool _isStarted;
 		private bool _isWin;
 		private bool _isLose;
@@ -62,6 +67,7 @@ namespace _Project.Develop.Runtime.Gamecycle
 			Debug.Log("Gamemode won! Press space to main menu");
 			_isStarted = false;
 			_isWin = true;
+			WinEvent?.Invoke();
 		}
 
 		private void Lose()
@@ -69,6 +75,13 @@ namespace _Project.Develop.Runtime.Gamecycle
 			Debug.Log("Gamemode lost! Press space to restart");
 			_isStarted = false;
 			_isLose = true;
+			LoseEvent?.Invoke();
+		}
+
+		public void Dispose()
+		{
+			_winCondition.ConditionCompletedEvent -= Win;
+			_loseCondition.ConditionCompletedEvent -= Lose;
 		}
 	}
 }

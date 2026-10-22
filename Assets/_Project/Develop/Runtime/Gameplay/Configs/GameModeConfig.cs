@@ -14,6 +14,12 @@ namespace _Project.Develop.Runtime.Gameplay.Configs
 		[field: SerializeField]
 		public int PhraseLenght { get; private set; }
 
+		[field: SerializeField]
+		public int WinReward { get; private set; }
+
+		[field: SerializeField]
+		public int LosePenalty { get; private set; }
+
 		public string GetGameCharsBy(GameCharsSequenceType gameCharsSequenceType)
 		{
 			return GameModeConfigDatas.Find(x => x.GameCharsSequenceType == gameCharsSequenceType).GameCharsSequence;

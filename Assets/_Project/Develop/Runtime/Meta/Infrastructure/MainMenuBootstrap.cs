@@ -2,12 +2,14 @@
 using System.Collections;
 using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.Infrastructure;
+using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
 using _Project.Develop.Runtime.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Utilities.DataManagment;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
 using _Project.Develop.Runtime.Utilities.Input;
+using _Project.Develop.Runtime.Meta.Utilities.MainMenuCycle;
 using _Project.Develop.Runtime.Utilities.SceneManagment;
 using UnityEngine;
 
@@ -18,6 +20,8 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 		private DIContainer _container;
 		private SceneSwitcherService _sceneSwitcher;
 		private ICoroutinePerformer _performer;
+		
+		private MainMenuCycle _mainMenuCycle;
 
 		public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
 		{
@@ -36,7 +40,11 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 
 			bool isExists = false;
 			
-			playerDataProvider.Exists(result => isExists = result);
+			_performer = _container.Resolve<ICoroutinePerformer>();
+			_sceneSwitcher = _container.Resolve<SceneSwitcherService>();
+			_mainMenuCycle = _container.Resolve<MainMenuCycle>();
+			
+			_performer.StartPerform(playerDataProvider.Exists(result => isExists = result));
 			
 			if (isExists)
 				_container.Resolve<ICoroutinePerformer>().StartPerform(playerDataProvider.Load());
@@ -49,39 +57,15 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 		public override void Run()
 		{
 			Debug.Log("[MainMenuBootstrap] Run");
-			_sceneSwitcher = _container.Resolve<SceneSwitcherService>();
-			_performer = _container.Resolve<ICoroutinePerformer>();
+			_mainMenuCycle.Run();
 		}
 
 		private void Update()
 		{
-			if (_container == null)
+			if (_mainMenuCycle == null)
 				return;
-
-			if (InputService.GetDigitsGameModeButton())
-			{
-				_performer.StartPerform(_sceneSwitcher.ProcessSceneSwitchTo(
-					Scenes.Gameplay,
-					new GameplayInputArgs(GameCharsSequenceType.Digits)));
-			}
-
-			if (InputService.GetLettersGameModeButton())
-			{
-				_performer.StartPerform(_sceneSwitcher.ProcessSceneSwitchTo(
-					Scenes.Gameplay,
-					new GameplayInputArgs(GameCharsSequenceType.Letters)));
-			}
-
-			if (Input.GetKeyDown(KeyCode.S))
-			{
-				PlayerDataProvider playerData = _container.Resolve<PlayerDataProvider>();
-
-				_container.Resolve<ICoroutinePerformer>().StartPerform(playerData.Save());
-				
-				Debug.Log("[MainMenuBootstrap] Saved player data");
-			}
+			
+			_mainMenuCycle.ProcessUpdate();
 		}
-		
-		
 	}
 }

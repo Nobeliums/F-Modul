@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _walletConfigDatas:
   - <CurrencyType>k__BackingField: 0
-    <StartAmount>k__BackingField: 15
+    <StartAmount>k__BackingField: 25

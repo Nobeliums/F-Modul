@@ -3,10 +3,13 @@ using System.Collections;
 using _Project.Develop.Runtime.Gamecycle;
 using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.Utilities.CharsSelector;
+using _Project.Develop.Runtime.Meta.Utilities.GameStatistics;
+using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
 using _Project.Develop.Runtime.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
+using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
 using _Project.Develop.Runtime.Utilities.Input;
 using _Project.Develop.Runtime.Utilities.SceneManagment;
 using UnityEngine;
@@ -40,6 +43,8 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 			string targetPhrase = _container.Resolve<IGameCharsSelector>().GetGameChars(config.PhraseLenght);
 			
 			_gameMode.Initialize(targetPhrase);
+			_gameMode.WinEvent += OnWinGame;
+			_gameMode.LoseEvent += OnLoseGame;
 
 			yield break;
 		}
@@ -62,6 +67,9 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 			{
 				SceneSwitcherService switcherService = _container.Resolve<SceneSwitcherService>();
 				ICoroutinePerformer performer = _container.Resolve<ICoroutinePerformer>();
+				PlayerDataProvider playerDataProvider = _container.Resolve<PlayerDataProvider>();
+
+				performer.StartPerform(playerDataProvider.Save());
 				
 				if (_gameMode.IsWin)
 				{
@@ -75,6 +83,40 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 					performer.StartPerform(switcherService.ProcessSceneSwitchTo(Scenes.Gameplay, gameplayInputArgs));
 				}
 			}
+		}
+
+		private void OnDestroy()
+		{
+			_gameMode.WinEvent -= OnWinGame;
+			_gameMode.LoseEvent -= OnLoseGame;
+			
+			Debug.Log("[Gameplay Bootstrap] Gameplay Bootstrap OnDestroy");
+		}
+
+		private void OnWinGame()
+		{
+			_container.Resolve<GameStatisticsService>().OnWinGame();
+			
+			ConfigService configService = _container.Resolve<ConfigService>();
+			
+			_container.Resolve<WalletService>().Add(
+				configService.GetConfig<GameModeConfig>().WinReward,
+				WalletCurrencyType.Gold);
+		}
+
+		private void OnLoseGame()
+		{
+			_container.Resolve<GameStatisticsService>().OnLoseGame();
+			
+			ConfigService configService = _container.Resolve<ConfigService>();
+			WalletService walletService = _container.Resolve<WalletService>();
+
+			int penalty = configService.GetConfig<GameModeConfig>().LosePenalty;
+			
+			if (walletService.IsEnough(penalty, WalletCurrencyType.Gold))
+				walletService.Debit(penalty, WalletCurrencyType.Gold);
+			else
+				walletService.Debit(walletService.GetCurrency(WalletCurrencyType.Gold).Value, WalletCurrencyType.Gold);
 		}
 	}
 }

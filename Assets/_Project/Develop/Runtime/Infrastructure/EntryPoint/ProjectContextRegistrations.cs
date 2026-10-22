@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
 using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Infrastructure.DI;
+using _Project.Develop.Runtime.Meta.Utilities.GameStatistics;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataRepository;
 using _Project.Develop.Runtime.Utilities.DataManagment.KeysStorage;
@@ -29,12 +30,29 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 			container.RegistryAsSingle(CreateLoadingScreen);
 			container.RegistryAsSingle(CreateSceneSwitcherService);
 			container.RegistryAsSingle(CreatePlayerDataProvider);
-			container.RegistryAsSingle(CreateWalletService);
+			container.RegistryAsSingle(CreateWalletService).NonLazy();
 			container.RegistryAsSingle(CreateSaveLoadService);
+			container.RegistryAsSingle(CreateGameStatisticsService).NonLazy();
+		}
+
+		private static GameStatisticsService CreateGameStatisticsService(DIContainer c)
+		{
+			return new GameStatisticsService(c.Resolve<PlayerDataProvider>());
 		}
 
 		private static WalletService CreateWalletService(DIContainer c)
-			=> new WalletService(new Dictionary<WalletCurrencyType, ReactiveVabiable<int>>());
+		{
+			Dictionary<WalletCurrencyType, ReactiveVabiable<int>> currencies = new();
+
+			foreach (WalletCurrencyType currencyType in Enum.GetValues(typeof(WalletCurrencyType)))
+			{
+				currencies[currencyType] = new ReactiveVabiable<int>();
+			}
+			
+			return new WalletService(
+				currencies,
+				c.Resolve<PlayerDataProvider>());
+		}
 
 		private static PlayerDataProvider CreatePlayerDataProvider(DIContainer c)
 			=> new PlayerDataProvider(

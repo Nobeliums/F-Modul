@@ -18,3 +18,5 @@ MonoBehaviour:
   - <GameCharsSequenceType>k__BackingField: 2
     <GameCharsSequence>k__BackingField: abcdefghijklmnopqrstuvwxyz
   <PhraseLenght>k__BackingField: 5
+  <WinReward>k__BackingField: 10
+  <LosePenalty>k__BackingField: 7
