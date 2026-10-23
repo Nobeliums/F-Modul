@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
 using UnityEngine;
 
-namespace _Project.Develop.Runtime.Gameplay.Configs
+namespace _Project.Develop.Runtime.Meta.Configs
 {
-	[CreateAssetMenu(fileName = "StartWalletConfig", menuName = "Project/StartWalletConfig", order = 0)]
-	public class StartWalletConfig : ScriptableObject
+	[CreateAssetMenu(fileName = "StartWalletViewConfig", menuName = "Project/StartWalletViewConfig", order = 0)]
+	public class StartWalletViewConfig : ScriptableObject
 	{
 		[field: SerializeField]
 		private List<WalletConfigData> _walletConfigDatas;
 
-		public int GetAmountBy(WalletCurrencyType currencyType)
-			=> _walletConfigDatas.Find(x => x.CurrencyType == currencyType).StartAmount;
+		public Sprite GetViewBy(WalletCurrencyType currencyType)
+			=> _walletConfigDatas.Find(x => x.CurrencyType == currencyType).Sprite;
 		
 		[Serializable]
 		private class WalletConfigData
@@ -21,7 +21,7 @@ namespace _Project.Develop.Runtime.Gameplay.Configs
 			public WalletCurrencyType CurrencyType { get; private set; }
 
 			[field: SerializeField]
-			public int StartAmount { get; private set; } 
+			public Sprite Sprite { get; private set; } 
 		}
 	}
 }
