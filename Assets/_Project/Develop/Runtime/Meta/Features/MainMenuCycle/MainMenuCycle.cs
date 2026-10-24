@@ -1,7 +1,6 @@
 ﻿using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.Infrastructure;
 using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
-using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Meta.Utilities.GameStatistics;
 using _Project.Develop.Runtime.Meta.Utilities.ShopManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
@@ -14,21 +13,31 @@ namespace _Project.Develop.Runtime.Meta.Utilities.MainMenuCycle
 {
 	public class MainMenuCycle
 	{
-		private DIContainer _container;
 		private ICoroutinePerformer _coroutinePerformer;
 		private SceneSwitcherService _sceneSwitcherService;
+		private GameStatisticsService _gameStatisticsService;
+		private WalletService _walletService;
+		private ShopService _shopService;
+		private PlayerDataProvider  _playerDataProvider;
 
-		public MainMenuCycle(DIContainer container)
+		public MainMenuCycle(
+			ICoroutinePerformer coroutinePerformer,
+			SceneSwitcherService sceneSwitcherService,
+			GameStatisticsService gameStatisticsService,
+			WalletService walletService,
+			ShopService shopService,
+			PlayerDataProvider playerDataProvider)
 		{
-			_container = container;
+			_coroutinePerformer = coroutinePerformer;
+			_sceneSwitcherService = sceneSwitcherService;
+			_gameStatisticsService = gameStatisticsService;
+			_walletService = walletService;
+			_shopService = shopService;
+			_playerDataProvider =  playerDataProvider;
 		}
 
 		public void Run()
 		{
-			_coroutinePerformer = _container.Resolve<ICoroutinePerformer>();
-			_sceneSwitcherService = _container.Resolve<SceneSwitcherService>();
-			
-			GameStatisticsService stats = _container.Resolve<GameStatisticsService>();
 			
 			Debug.Log("S - Текущая статистика");
 			Debug.Log($"G - Купить сброс статистики");
@@ -36,16 +45,10 @@ namespace _Project.Develop.Runtime.Meta.Utilities.MainMenuCycle
 		
 		public void ProcessUpdate()
 		{
-			if (_container == null)
-				return;
-
 			if (InputService.GetStatisticsButton())
 			{
-				GameStatisticsService stats = _container.Resolve<GameStatisticsService>();
-				WalletService wallet = _container.Resolve<WalletService>();
-
-				Debug.Log($"Ваша статистика: Выигрышей - {stats.WinGameCount.Value} Проигрышей - {stats.LoseGameCount.Value}");
-				Debug.Log($"Ваше золото: {wallet.GetCurrency(WalletCurrencyType.Gold).Value}");
+				Debug.Log($"Ваша статистика: Выигрышей - {_gameStatisticsService.WinGameCount.Value} Проигрышей - {_gameStatisticsService.LoseGameCount.Value}");
+				Debug.Log($"Ваше золото: {_walletService.GetCurrency(WalletCurrencyType.Gold).Value}");
 			}
 
 			if (InputService.GetDigitsGameModeButton())
@@ -64,16 +67,13 @@ namespace _Project.Develop.Runtime.Meta.Utilities.MainMenuCycle
 
 			if (InputService.GetBuyItemButton())
 			{
-				GameStatisticsService statistics = _container.Resolve<GameStatisticsService>();
 	
-				bool isSucess = _container.Resolve<ShopService>()
-					.TryBuyShopItem(ShopItemType.ResetStatistics, statistics.ResetStatistics);
+				bool isSucess = _shopService
+					.TryBuyShopItem(ShopItemType.ResetStatistics, _gameStatisticsService.ResetStatistics);
 
 				if (isSucess)
 				{
-					PlayerDataProvider playerData = _container.Resolve<PlayerDataProvider>();
-
-					_container.Resolve<ICoroutinePerformer>().StartPerform(playerData.Save());
+					_coroutinePerformer.StartPerform(_playerDataProvider.Save());
 				}
 			}
 		}
