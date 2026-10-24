@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
+using _Project.Develop.Runtime.Meta.Features.Wallet;
 using _Project.Develop.Runtime.Meta.Configs;
 using _Project.Develop.Runtime.UI.View;
 using _Project.Develop.Runtime.Utilities.Reactive;
