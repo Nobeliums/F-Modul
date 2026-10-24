@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Text;
-using _Project.Develop.Runtime.Gameplay.Infrastructure;
 using Random = UnityEngine.Random;
 
-namespace _Project.Develop.Runtime.Gameplay.Utilities.CharsSelector
+namespace _Project.Develop.Runtime.Gameplay.Features.CharsSelector
 {
 	public class GameCharsSelector : IGameCharsSelector
 	{
