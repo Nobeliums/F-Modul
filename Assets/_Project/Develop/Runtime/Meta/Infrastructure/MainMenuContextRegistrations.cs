@@ -1,7 +1,13 @@
-﻿using _Project.Develop.Runtime.Gameplay.Infrastructure;
+﻿using _Project.Develop.Runtime.Gameplay.Features.WalletService;
 using _Project.Develop.Runtime.Infrastructure.DI;
+using _Project.Develop.Runtime.Meta.Configs;
+using _Project.Develop.Runtime.Meta.Features.GameStatistics;
 using _Project.Develop.Runtime.Meta.Utilities.MainMenuCycle;
-using _Project.Develop.Runtime.Meta.Utilities.ShopManagement;
+using _Project.Develop.Runtime.Meta.Features.ShopManagement;
+using _Project.Develop.Runtime.Utilities.ConfigManagement;
+using _Project.Develop.Runtime.Utilities.CoroutineManagement;
+using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
+using _Project.Develop.Runtime.Utilities.SceneManagment;
 using UnityEngine;
 
 namespace _Project.Develop.Runtime.Meta.Infrastructure
@@ -17,9 +23,24 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 		}
 		
 		private static ShopService CreateShopService(DIContainer c)
-			=> new ShopService(c);
+			=> new ShopService(c.Resolve<WalletService>(), c.Resolve<ConfigService>().GetConfig<ShopConfig>());
 
 		private static MainMenuCycle CreateMainMenuCycle(DIContainer c)
-			=> new MainMenuCycle(c);
+		{
+			ICoroutinePerformer coroutinePerformer = c.Resolve<ICoroutinePerformer>();
+			SceneSwitcherService sceneSwitcherService = c.Resolve<SceneSwitcherService>();
+			GameStatisticsService gameStatisticsService = c.Resolve<GameStatisticsService>();
+			WalletService walletService = c.Resolve<WalletService>();
+			ShopService shopService = c.Resolve<ShopService>();
+			PlayerDataProvider playerDataProvider = c.Resolve<PlayerDataProvider>();
+
+			return new MainMenuCycle(
+				coroutinePerformer,
+				sceneSwitcherService,
+				gameStatisticsService,
+				walletService,
+				shopService,
+				playerDataProvider);
+		}
 	}
 }

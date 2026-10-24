@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
+using _Project.Develop.Runtime.Gameplay.Features.WalletService;
 using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Infrastructure.DI;
-using _Project.Develop.Runtime.Meta.Utilities.GameStatistics;
+using _Project.Develop.Runtime.Meta.Features.GameStatistics;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataRepository;
 using _Project.Develop.Runtime.Utilities.DataManagment.KeysStorage;

@@ -1,4 +1,4 @@
-﻿namespace _Project.Develop.Runtime.Gameplay.Utilities.CharsSelector
+﻿namespace _Project.Develop.Runtime.Gameplay.Features.CharsSelector
 {
 	public interface IGameCharsSelector
 	{

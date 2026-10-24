@@ -4,7 +4,7 @@ using _Project.Develop.Runtime.Utilities.DataManagment;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
 using _Project.Develop.Runtime.Utilities.Reactive;
 
-namespace _Project.Develop.Runtime.Meta.Utilities.GameStatistics
+namespace _Project.Develop.Runtime.Meta.Features.GameStatistics
 {
 	public class GameStatisticsService : IDataReader<PlayerData>, IDataWriter<PlayerData>
 	{

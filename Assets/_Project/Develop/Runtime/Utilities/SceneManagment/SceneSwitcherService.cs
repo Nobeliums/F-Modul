@@ -12,6 +12,7 @@ namespace _Project.Develop.Runtime.Utilities.SceneManagment
 		private readonly SceneLoaderService _sceneLoaderService;
 		private readonly ILoadingScreen _loadingScreen;
 		private readonly DIContainer _projectContainer;
+		private DIContainer _sceneContainer;
 
 		public SceneSwitcherService(DIContainer projectContainer)
 		{
@@ -22,6 +23,8 @@ namespace _Project.Develop.Runtime.Utilities.SceneManagment
 
 		public IEnumerator ProcessSceneSwitchTo(string sceneName, IInputSceneArgs sceneArgs = null)
 		{
+			_sceneContainer?.Dispose();
+			
 			_loadingScreen.Show();
 			
 			yield return _sceneLoaderService.LoadScene(Scenes.Empty);
@@ -32,9 +35,9 @@ namespace _Project.Develop.Runtime.Utilities.SceneManagment
 			if (bootstrap == null)
 				throw new EntryPointNotFoundException("SceneBootstrap not found");
 			
-			DIContainer sceneContainer = new DIContainer(_projectContainer);
+			_sceneContainer = new DIContainer(_projectContainer);
 			
-			bootstrap.ProcessRegistrations(sceneContainer, sceneArgs);
+			bootstrap.ProcessRegistrations(_sceneContainer, sceneArgs);
 			
 			yield return bootstrap.Initialize();
 			bootstrap.Run();

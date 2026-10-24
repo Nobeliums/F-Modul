@@ -1,23 +1,19 @@
 ﻿using System;
-using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
-using _Project.Develop.Runtime.Infrastructure.DI;
+using _Project.Develop.Runtime.Gameplay.Features.WalletService;
 using _Project.Develop.Runtime.Meta.Configs;
-using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using UnityEngine;
 
-namespace _Project.Develop.Runtime.Meta.Utilities.ShopManagement
+namespace _Project.Develop.Runtime.Meta.Features.ShopManagement
 {
 	public class ShopService
 	{
-		private DIContainer _container;
 		private WalletService _walletService;
 		private ShopConfig _config;
 		
-		public ShopService(DIContainer container)
+		public ShopService(WalletService walletService,  ShopConfig config)
 		{
-			_container = container;
-			_walletService = _container.Resolve<WalletService>();
-			_config = _container.Resolve<ConfigService>().GetConfig<ShopConfig>();
+			_walletService = walletService;
+			_config = config;
 		}
 
 		public bool TryBuyShopItem(ShopItemType shopItemType, Action callback)
