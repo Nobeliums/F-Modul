@@ -1,9 +1,11 @@
-﻿using _Project.Develop.Runtime.Gamecycle;
+﻿using _Project.Develop.Runtime.Features.Gamecycle;
 using _Project.Develop.Runtime.Gameplay.Configs;
-using _Project.Develop.Runtime.Gameplay.Utilities.CharsSelector;
-using _Project.Develop.Runtime.Gameplay.Utilities.Gamecycle.Condition;
+using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
+using _Project.Develop.Runtime.Gameplay.Features.Gamecycle.Condition;
+using _Project.Develop.Runtime.Meta.Features.Wallet;
 using UnityEngine;
 using _Project.Develop.Runtime.Infrastructure.DI;
+using _Project.Develop.Runtime.Meta.Features.GameStatistics;
 using _Project.Develop.Runtime.Utilities.ConfigManagement;
 
 namespace _Project.Develop.Runtime.Gameplay.Infrastructure
@@ -13,9 +15,10 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 		public static void Process(DIContainer container, GameplayInputArgs gameplayAgrs)
 		{
 			Debug.Log("[GameplayContextRegistrations] Process]");
+
 			container.RegistryAsSingle((container) => gameplayAgrs);
 			container.RegistryAsSingle(CreateGameCharsSelector);
-			container.RegistryAsSingle(CreateGamemode);
+			container.RegistryAsSingle(CreateGameplayCycle);
 		}
 
 		private static IGameCharsSelector CreateGameCharsSelector(DIContainer c)
@@ -27,7 +30,17 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 			return new GameCharsSelector(sequence);
 		}
 
-		private static Gamemode CreateGamemode(DIContainer c)
-			=> new Gamemode(new AllCharsEqualsCondition(), new CharNotEqualCondition());
+		private static GameplayCycle CreateGameplayCycle(DIContainer c)
+		{
+			IGameCharsSelector charsSelector = c.Resolve<IGameCharsSelector>();
+			ConfigService configService = c.Resolve<ConfigService>();
+			GameModeConfig config = configService.GetConfig<GameModeConfig>();
+			GameStatisticsService gameStatisticsService = c.Resolve<GameStatisticsService>();
+			WalletService walletService = c.Resolve<WalletService>();
+	
+			Gamemode gamemode = new Gamemode(new AllCharsEqualsCondition(), new CharNotEqualCondition());
+
+			return new GameplayCycle(gamemode, charsSelector, config, gameStatisticsService, walletService);
+		}
 	}
 }

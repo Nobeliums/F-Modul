@@ -7,6 +7,8 @@ namespace _Project.Develop.Runtime.Utilities.Input
 		private const KeyCode EndGameButton = KeyCode.Space;
 		private const KeyCode DigitsGameModeButton = KeyCode.Alpha1;
 		private const KeyCode LettersGameModeButton = KeyCode.Alpha2;
+		private const KeyCode StatisticsButton = KeyCode.S;
+		private const KeyCode BuyItemButton = KeyCode.G;
 		
 		public static bool GetEndGameButton()
 		{
@@ -16,6 +18,16 @@ namespace _Project.Develop.Runtime.Utilities.Input
 		public static string GetPressedKeys()
 		{
 			return UnityEngine.Input.inputString;
+		}
+
+		public static bool GetStatisticsButton()
+		{
+			return UnityEngine.Input.GetKeyDown(StatisticsButton);
+		}
+
+		public static bool GetBuyItemButton()
+		{
+			return UnityEngine.Input.GetKeyDown(BuyItemButton);
 		}
 
 		public static bool GetDigitsGameModeButton()
