@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
-using _Project.Develop.Runtime.Meta.Utilities.ShopManagement;
+using _Project.Develop.Runtime.Gameplay.Features.WalletService;
+using _Project.Develop.Runtime.Meta.Features.ShopManagement;
 using UnityEngine;
 
 namespace _Project.Develop.Runtime.Meta.Configs

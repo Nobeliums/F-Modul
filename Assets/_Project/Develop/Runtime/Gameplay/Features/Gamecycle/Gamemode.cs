@@ -1,5 +1,5 @@
 ﻿using System;
-using _Project.Develop.Runtime.Gameplay.Utilities.Gamecycle.Condition;
+using _Project.Develop.Runtime.Gameplay.Features.Gamecycle.Condition;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.Input;
 using UnityEngine;

@@ -1,8 +1,8 @@
 ﻿using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.Infrastructure;
-using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
-using _Project.Develop.Runtime.Meta.Utilities.GameStatistics;
-using _Project.Develop.Runtime.Meta.Utilities.ShopManagement;
+using _Project.Develop.Runtime.Gameplay.Features.WalletService;
+using _Project.Develop.Runtime.Meta.Features.GameStatistics;
+using _Project.Develop.Runtime.Meta.Features.ShopManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
 using _Project.Develop.Runtime.Utilities.Input;

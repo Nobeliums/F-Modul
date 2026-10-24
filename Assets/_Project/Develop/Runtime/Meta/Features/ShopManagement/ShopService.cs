@@ -1,11 +1,9 @@
 ﻿using System;
-using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
-using _Project.Develop.Runtime.Infrastructure.DI;
+using _Project.Develop.Runtime.Gameplay.Features.WalletService;
 using _Project.Develop.Runtime.Meta.Configs;
-using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using UnityEngine;
 
-namespace _Project.Develop.Runtime.Meta.Utilities.ShopManagement
+namespace _Project.Develop.Runtime.Meta.Features.ShopManagement
 {
 	public class ShopService
 	{

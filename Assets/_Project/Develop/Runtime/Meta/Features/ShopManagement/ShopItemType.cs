@@ -1,4 +1,4 @@
-﻿namespace _Project.Develop.Runtime.Meta.Utilities.ShopManagement
+﻿namespace _Project.Develop.Runtime.Meta.Features.ShopManagement
 {
 	public enum ShopItemType
 	{

@@ -1,4 +1,4 @@
-﻿namespace _Project.Develop.Runtime.Gameplay.Utilities.WalletService
+﻿namespace _Project.Develop.Runtime.Gameplay.Features.WalletService
 {
 	public enum WalletCurrencyType
 	{

@@ -1,6 +1,6 @@
-﻿using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
+﻿using _Project.Develop.Runtime.Gameplay.Features.WalletService;
 
-namespace _Project.Develop.Runtime.Meta.Utilities.ShopManagement
+namespace _Project.Develop.Runtime.Meta.Features.ShopManagement
 {
 	public struct ShopItemPrice
 	{

@@ -2,7 +2,7 @@
 using System.Collections;
 using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.Infrastructure;
-using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
+using _Project.Develop.Runtime.Gameplay.Features.WalletService;
 using _Project.Develop.Runtime.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
