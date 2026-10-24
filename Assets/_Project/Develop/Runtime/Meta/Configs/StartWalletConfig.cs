@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using _Project.Develop.Runtime.Gameplay.Utilities.WalletService;
 using UnityEngine;
 
-namespace _Project.Develop.Runtime.Gameplay.Configs
+namespace _Project.Develop.Runtime.Meta.Configs
 {
 	[CreateAssetMenu(fileName = "StartWalletConfig", menuName = "Project/StartWalletConfig", order = 0)]
 	public class StartWalletConfig : ScriptableObject
