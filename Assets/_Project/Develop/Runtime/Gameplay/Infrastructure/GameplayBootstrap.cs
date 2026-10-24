@@ -82,12 +82,5 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 				}
 			}
 		}
-
-		private void OnDestroy()
-		{
-			_gameMode.Dispose();
-			
-			Debug.Log("[Gameplay Bootstrap] Gameplay Bootstrap OnDestroy");
-		}
 	}
 }
