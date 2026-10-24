@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.Develop.Runtime.Gameplay.Features.WalletService;
+using _Project.Develop.Runtime.Meta.Features.Wallet;
 using UnityEngine;
 
 namespace _Project.Develop.Runtime.Meta.Configs
@@ -9,7 +9,7 @@ namespace _Project.Develop.Runtime.Meta.Configs
 	public class StartWalletConfig : ScriptableObject
 	{
 		[field: SerializeField]
-		private List<WalletConfigData> _walletConfigDatas;
+		private List<WalletConfigData> _walletConfigDatas { get; set; }
 
 		public int GetAmountBy(WalletCurrencyType currencyType)
 			=> _walletConfigDatas.Find(x => x.CurrencyType == currencyType).StartAmount;

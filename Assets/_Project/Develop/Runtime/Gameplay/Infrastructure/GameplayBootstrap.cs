@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using _Project.Develop.Runtime.Gamecycle;
+using _Project.Develop.Runtime.Features.Gamecycle;
 using _Project.Develop.Runtime.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;

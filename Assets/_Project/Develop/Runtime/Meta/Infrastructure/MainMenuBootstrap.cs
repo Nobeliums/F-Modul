@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections;
-using _Project.Develop.Runtime.Gameplay.Configs;
-using _Project.Develop.Runtime.Gameplay.Infrastructure;
-using _Project.Develop.Runtime.Gameplay.Features.WalletService;
+﻿using System.Collections;
 using _Project.Develop.Runtime.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
-using _Project.Develop.Runtime.Utilities.DataManagment;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
-using _Project.Develop.Runtime.Utilities.Input;
-using _Project.Develop.Runtime.Meta.Utilities.MainMenuCycle;
+using _Project.Develop.Runtime.Meta.Features.MainMenuCycle;
 using _Project.Develop.Runtime.Utilities.SceneManagment;
 using UnityEngine;
 
