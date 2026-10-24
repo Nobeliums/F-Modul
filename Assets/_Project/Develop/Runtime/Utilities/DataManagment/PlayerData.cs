@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using _Project.Develop.Runtime.Gameplay.Features.WalletService;
+using _Project.Develop.Runtime.Meta.Features.Wallet;
 
 namespace _Project.Develop.Runtime.Utilities.DataManagment
 {

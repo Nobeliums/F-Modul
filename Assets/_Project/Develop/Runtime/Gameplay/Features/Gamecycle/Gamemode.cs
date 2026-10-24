@@ -1,10 +1,9 @@
 ﻿using System;
 using _Project.Develop.Runtime.Gameplay.Features.Gamecycle.Condition;
-using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.Input;
 using UnityEngine;
 
-namespace _Project.Develop.Runtime.Gamecycle
+namespace _Project.Develop.Runtime.Features.Gamecycle
 {
 	public class Gamemode : IDisposable
 	{

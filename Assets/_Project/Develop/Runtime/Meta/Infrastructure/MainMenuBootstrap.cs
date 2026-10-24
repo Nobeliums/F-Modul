@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections;
-using _Project.Develop.Runtime.Gameplay.Configs;
-using _Project.Develop.Runtime.Gameplay.Infrastructure;
-using _Project.Develop.Runtime.Gameplay.Features.WalletService;
+﻿using System.Collections;
 using _Project.Develop.Runtime.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
-using _Project.Develop.Runtime.Meta.Configs;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
-using _Project.Develop.Runtime.Utilities.DataManagment;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
-using _Project.Develop.Runtime.Utilities.Input;
-using _Project.Develop.Runtime.Meta.Utilities.MainMenuCycle;
-using _Project.Develop.Runtime.UI.Presenters;
-using _Project.Develop.Runtime.UI.View;
-using _Project.Develop.Runtime.Utilities.ConfigManagement;
-using _Project.Develop.Runtime.Utilities.ResourcesManagement;
+using _Project.Develop.Runtime.Meta.Features.MainMenuCycle;
 using _Project.Develop.Runtime.Utilities.SceneManagment;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace _Project.Develop.Runtime.Meta.Infrastructure
 {
@@ -56,7 +44,7 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 				_container.Resolve<ICoroutinePerformer>().StartPerform(playerDataProvider.Load());
 			else
 				_container.Resolve<ICoroutinePerformer>().StartPerform(playerDataProvider.Reset());
-
+			
 			yield break;
 		}
 

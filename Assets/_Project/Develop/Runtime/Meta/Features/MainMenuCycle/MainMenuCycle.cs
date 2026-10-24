@@ -1,6 +1,6 @@
 ﻿using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.Infrastructure;
-using _Project.Develop.Runtime.Gameplay.Features.WalletService;
+using _Project.Develop.Runtime.Meta.Features.Wallet;
 using _Project.Develop.Runtime.Meta.Features.GameStatistics;
 using _Project.Develop.Runtime.Meta.Features.ShopManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
@@ -9,7 +9,7 @@ using _Project.Develop.Runtime.Utilities.Input;
 using _Project.Develop.Runtime.Utilities.SceneManagment;
 using UnityEngine;
 
-namespace _Project.Develop.Runtime.Meta.Utilities.MainMenuCycle
+namespace _Project.Develop.Runtime.Meta.Features.MainMenuCycle
 {
 	public class MainMenuCycle
 	{

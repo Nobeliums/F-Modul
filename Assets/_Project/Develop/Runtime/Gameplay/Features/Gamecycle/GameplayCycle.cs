@@ -1,12 +1,10 @@
 ﻿using System;
 using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
-using _Project.Develop.Runtime.Gameplay.Features.WalletService;
+using _Project.Develop.Runtime.Meta.Features.Wallet;
 using _Project.Develop.Runtime.Meta.Features.GameStatistics;
-using _Project.Develop.Runtime.Utilities.ConfigManagement;
-using UnityEngine;
 
-namespace _Project.Develop.Runtime.Gamecycle
+namespace _Project.Develop.Runtime.Features.Gamecycle
 {
 	public class GameplayCycle : IDisposable
 	{

@@ -1,5 +1,5 @@
 ﻿using System;
-using _Project.Develop.Runtime.Gameplay.Features.WalletService;
+using _Project.Develop.Runtime.Meta.Features.Wallet;
 using _Project.Develop.Runtime.Meta.Configs;
 using UnityEngine;
 

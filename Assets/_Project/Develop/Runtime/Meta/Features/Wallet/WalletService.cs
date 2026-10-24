@@ -5,7 +5,7 @@ using _Project.Develop.Runtime.Utilities.DataManagment;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
 using _Project.Develop.Runtime.Utilities.Reactive;
 
-namespace _Project.Develop.Runtime.Gameplay.Features.WalletService
+namespace _Project.Develop.Runtime.Meta.Features.Wallet
 {
 	public class WalletService : IDataReader<PlayerData>, IDataWriter<PlayerData>
 	{

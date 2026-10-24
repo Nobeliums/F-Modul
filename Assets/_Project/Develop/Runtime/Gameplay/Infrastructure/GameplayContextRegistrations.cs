@@ -1,8 +1,8 @@
-﻿using _Project.Develop.Runtime.Gamecycle;
+﻿using _Project.Develop.Runtime.Features.Gamecycle;
 using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
 using _Project.Develop.Runtime.Gameplay.Features.Gamecycle.Condition;
-using _Project.Develop.Runtime.Gameplay.Features.WalletService;
+using _Project.Develop.Runtime.Meta.Features.Wallet;
 using UnityEngine;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Meta.Features.GameStatistics;
