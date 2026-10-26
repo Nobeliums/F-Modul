@@ -79,7 +79,6 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 			WinGame?.Invoke();
 			GameEnd?.Invoke();
 			_gameStatistics.OnWinGame();
-			_coroutinePerformer.StartPerform(_playerDataProvider.Save());
 			
 			_walletService.Add(
 				_config.WinReward,
