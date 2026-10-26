@@ -20,6 +20,8 @@ namespace _Project.Develop.Runtime.UI.Core
 			{ViewIds.SelectGameCharsPopupView, "Prefabs/UI/SelectCharsTypePopup"},
 			{ViewIds.ShopItemBuyButtonView, "Prefabs/UI/ShopItemBuy"},
 			{ViewIds.ShopPopupView, "Prefabs/UI/ShopPopup"},
+			{ViewIds.GameplayView, "Prefabs/UI/GameplayView"},
+			{ViewIds.GameResultPopupView, "Prefabs/UI/GameResultPopup"}
 		};
 
 		public ViewFactory(ResourceLoadService resourceLoadService)
@@ -32,7 +34,9 @@ namespace _Project.Develop.Runtime.UI.Core
 			if (_viewIdToResourcesPath.TryGetValue(viewId, out var resourcePath))
 			{
 				TView prefab = _resourceLoadService.Load<TView>(resourcePath);
-				TView viewIntance = Object.Instantiate(prefab, parent);;
+				Debug.Log(prefab);
+				
+				TView viewIntance = Object.Instantiate(prefab, parent);
 				
 				return viewIntance;
 			}

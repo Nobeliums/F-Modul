@@ -1,6 +1,7 @@
 ﻿using System;
 using _Project.Develop.Runtime.Gameplay.Features.Gamecycle.Condition;
 using _Project.Develop.Runtime.Utilities.Input;
+using _Project.Develop.Runtime.Utilities.Reactive;
 using UnityEngine;
 
 namespace _Project.Develop.Runtime.Features.Gamecycle
@@ -14,8 +15,8 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 		private bool _isWin;
 		private bool _isLose;
 
-		private string _gamePhrase;
-		private string _playerInputPhrase = "";
+		private ReactiveVabiable<string> _gamePhrase = new();
+		private ReactiveVabiable<string> _playerInputPhrase = new();
 
 		private ICondition _winCondition;
 		private ICondition _loseCondition;
@@ -29,20 +30,22 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 			_winCondition =  winCondition;
 			_loseCondition = loseCondition;
 		}
+		
+		public IReadOnlyReactiveVariable<string> GamePhrase => _gamePhrase;
+		public IReadOnlyReactiveVariable<string> PlayerInputPhrase => _playerInputPhrase;
 
 		public void Run()
 		{
 			_isStarted = true;
 			_winCondition.ConditionCompletedEvent += Win;
 			_loseCondition.ConditionCompletedEvent += Lose;
-			
-			Debug.Log($"{_gamePhrase} - input this phrase");
 		}
 
 		public void Initialize(string gamePhrase)
 		{
 			_isStarted = true;
-			_gamePhrase = gamePhrase;
+			_gamePhrase.Value = gamePhrase;
+			_playerInputPhrase.Value = "";
 		}
 
 		public void ProcessUpdate()
@@ -52,13 +55,11 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 
 			if (Input.anyKeyDown)
 			{
-				_playerInputPhrase += InputService.GetPressedKeys();
-				Debug.Log($"Need input this phrase: " + _gamePhrase);
-				Debug.Log($"Your phrase is: " + _playerInputPhrase);
+				_playerInputPhrase.Value += InputService.GetPressedKeys();
 			}
 
-			_winCondition.CheckCondition(_gamePhrase,  _playerInputPhrase);
-			_loseCondition.CheckCondition(_gamePhrase, _playerInputPhrase);
+			_winCondition.CheckCondition(_gamePhrase.Value,  _playerInputPhrase.Value);
+			_loseCondition.CheckCondition(_gamePhrase.Value, _playerInputPhrase.Value);
 		}
 
 		private void Win()

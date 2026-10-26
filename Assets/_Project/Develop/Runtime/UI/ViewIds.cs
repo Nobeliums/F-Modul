@@ -9,5 +9,7 @@
 		public const string SelectCharsGameButtonView = nameof(SelectCharsGameButtonView);
 		public const string ShopItemBuyButtonView = nameof(ShopItemBuyButtonView);
 		public const string ShopPopupView = nameof(ShopPopupView);
+		public const string GameplayView = nameof(GameplayView);
+		public const string GameResultPopupView = nameof(GameResultPopupView);
 	}
 }
