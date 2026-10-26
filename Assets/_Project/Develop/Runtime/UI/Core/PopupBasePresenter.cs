@@ -11,7 +11,7 @@ namespace _Project.Develop.Runtime.UI.Core
 	{
 		public event Action<PopupBasePresenter> CloseRequest;
 		
-		private ICoroutinePerformer _coroutinePerformer;
+		protected readonly ICoroutinePerformer _coroutinePerformer;
 		private Coroutine _process;
 
 		protected PopupBasePresenter(ICoroutinePerformer coroutinePerformer)

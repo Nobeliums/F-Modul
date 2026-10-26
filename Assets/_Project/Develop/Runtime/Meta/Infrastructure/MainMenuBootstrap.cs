@@ -3,7 +3,6 @@ using _Project.Develop.Runtime.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
-using _Project.Develop.Runtime.Meta.Features.MainMenuCycle;
 using _Project.Develop.Runtime.Utilities.SceneManagment;
 using UnityEngine;
 
@@ -14,8 +13,6 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 		private DIContainer _container;
 		private SceneSwitcherService _sceneSwitcher;
 		private ICoroutinePerformer _performer;
-		
-		private MainMenuCycle _mainMenuCycle;
 
 		public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
 		{
@@ -36,7 +33,6 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 			
 			_performer = _container.Resolve<ICoroutinePerformer>();
 			_sceneSwitcher = _container.Resolve<SceneSwitcherService>();
-			_mainMenuCycle = _container.Resolve<MainMenuCycle>();
 			
 			_performer.StartPerform(playerDataProvider.Exists(result => isExists = result));
 			
@@ -50,16 +46,6 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 
 		public override void Run()
 		{
-			Debug.Log("[MainMenuBootstrap] Run");
-			_mainMenuCycle.Run();
-		}
-
-		private void Update()
-		{
-			if (_mainMenuCycle == null)
-				return;
-			
-			_mainMenuCycle.ProcessUpdate();
 		}
 	}
 }

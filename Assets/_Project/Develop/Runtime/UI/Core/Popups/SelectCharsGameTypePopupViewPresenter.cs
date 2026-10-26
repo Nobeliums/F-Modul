@@ -35,12 +35,10 @@ namespace _Project.Develop.Runtime.UI.Core.Popups
 		public override void Initialize()
 		{
 			base.Initialize();
-
 			
-
 			foreach (GameCharsSequenceType gameCharsSequenceType in Enum.GetValues(typeof(GameCharsSequenceType)))
 			{
-				ButtonView button = _viewFactory.Create<ButtonView>(ViewIds.TileButtonView);
+				ButtonView button = _viewFactory.Create<ButtonView>(ViewIds.SelectCharsGameButtonView);
 				StartGameButtonPresenter presenter =
 					_presenterFactory.CreateStartGameButtonPresenter(
 						gameCharsSequenceType,

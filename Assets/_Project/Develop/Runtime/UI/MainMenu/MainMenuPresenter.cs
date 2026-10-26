@@ -28,6 +28,7 @@ namespace _Project.Develop.Runtime.UI.Core.MainMenu
 			CreateHorizontalGameStatisticsView();
 
 			_mainMenuView.StartGameClick += OpenSelectGameTypePopup;
+			_mainMenuView.ShopOpenButtonClick += OpenShopPopup;
 			
 			foreach(var child in _children)
 				child.Initialize();
@@ -36,6 +37,7 @@ namespace _Project.Develop.Runtime.UI.Core.MainMenu
 		public void Dispose()
 		{
 			_mainMenuView.StartGameClick -= OpenSelectGameTypePopup;
+			_mainMenuView.ShopOpenButtonClick -= OpenShopPopup;
 			
 			foreach(var child in _children)
 				child.Dispose();
@@ -54,6 +56,11 @@ namespace _Project.Develop.Runtime.UI.Core.MainMenu
 		private void OpenSelectGameTypePopup()
 		{
 			_popupService.CreateStartGamePopup();
+		}
+
+		private void OpenShopPopup()
+		{
+			_popupService.CreateShopPopup();
 		}
 	}
 }

@@ -16,8 +16,10 @@ namespace _Project.Develop.Runtime.UI.Core
 			{ViewIds.CurrencyView, "Prefabs/CurrencyView"},
 			{ViewIds.MainMenuView, "Prefabs/UI/MainMenuView"},
 			{ViewIds.GameStatTextView, "Prefabs/UI/TextBoxView"},
-			{ViewIds.TileButtonView, "Prefabs/UI/SelectGameCharsTypeView"},
-			{ViewIds.SelectGameCharsView, "Prefabs/UI/SelectCharsTypePopup"}
+			{ViewIds.SelectCharsGameButtonView, "Prefabs/UI/SelectGameCharsTypeView"},
+			{ViewIds.SelectGameCharsPopupView, "Prefabs/UI/SelectCharsTypePopup"},
+			{ViewIds.ShopItemBuyButtonView, "Prefabs/UI/ShopItemBuy"},
+			{ViewIds.ShopPopupView, "Prefabs/UI/ShopPopup"},
 		};
 
 		public ViewFactory(ResourceLoadService resourceLoadService)

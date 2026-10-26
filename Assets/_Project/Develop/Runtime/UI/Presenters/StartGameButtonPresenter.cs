@@ -34,6 +34,7 @@ namespace _Project.Develop.Runtime.UI.Presenters
 		public void Initialize()
 		{
 			_buttonView.SetText(_gameCharsType);
+			_buttonView.SetAvailable(true);
 
 			_buttonView.ClickEvent += StartGame;
 		}

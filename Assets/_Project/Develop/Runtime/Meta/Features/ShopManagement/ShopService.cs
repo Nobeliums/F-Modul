@@ -33,5 +33,8 @@ namespace _Project.Develop.Runtime.Meta.Features.ShopManagement
 
 			return false;
 		}
+		
+		public ShopItemPrice GetPriceFor(ShopItemType shopItemType)
+			=> _config.GetItemPrice(shopItemType);
 	}
 }

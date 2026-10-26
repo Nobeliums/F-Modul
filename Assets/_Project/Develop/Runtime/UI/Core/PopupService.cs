@@ -11,7 +11,7 @@ namespace _Project.Develop.Runtime.UI.Core
 	{
 		protected readonly ProjectPresenterFactory _projectPresenterFactory;
 
-		private readonly ViewFactory _viewFactory;
+		protected readonly ViewFactory _viewFactory;
 		private readonly Dictionary<PopupBasePresenter, PopupInfo> _presentersToViews = new();
 		
 		public PopupService(ProjectPresenterFactory projectPresenterFactory, ViewFactory viewFactory)
@@ -25,7 +25,7 @@ namespace _Project.Develop.Runtime.UI.Core
 		public SelectCharsGameTypePopupViewPresenter CreateStartGamePopup(Action closeCallback = null)
 		{
 			SelectCharsGameTypePopupView view = _viewFactory
-				.Create<SelectCharsGameTypePopupView>(ViewIds.SelectGameCharsView, PopupLayer);
+				.Create<SelectCharsGameTypePopupView>(ViewIds.SelectGameCharsPopupView, PopupLayer);
 
 			SelectCharsGameTypePopupViewPresenter presenter =
 				_projectPresenterFactory.CreateSelectCharsGameTypePopupViewPresenter(view);
