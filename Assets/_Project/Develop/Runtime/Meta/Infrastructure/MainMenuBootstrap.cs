@@ -30,20 +30,9 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 		{
 			Debug.Log("[MainMenuBootstrap] initialized]");
 			
-			PlayerDataProvider playerDataProvider = _container.Resolve<PlayerDataProvider>();
-
-			bool isExists = false;
-			
 			_performer = _container.Resolve<ICoroutinePerformer>();
 			_sceneSwitcher = _container.Resolve<SceneSwitcherService>();
 			_mainMenuCycle = _container.Resolve<MainMenuCycle>();
-			
-			_performer.StartPerform(playerDataProvider.Exists(result => isExists = result));
-			
-			if (isExists)
-				_container.Resolve<ICoroutinePerformer>().StartPerform(playerDataProvider.Load());
-			else
-				_container.Resolve<ICoroutinePerformer>().StartPerform(playerDataProvider.Reset());
 			
 			yield break;
 		}
