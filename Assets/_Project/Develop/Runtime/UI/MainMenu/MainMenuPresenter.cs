@@ -9,18 +9,25 @@ namespace _Project.Develop.Runtime.UI.Core.MainMenu
 		private MainMenuView _mainMenuView;
 
 		private ProjectPresenterFactory _factory;
+		private MainMenuPopupService _popupService;
 		
 		private List<IPresenter> _children = new();
 
-		public MainMenuPresenter(MainMenuView mainMenuView,  ProjectPresenterFactory factory)
+		public MainMenuPresenter(
+			MainMenuView mainMenuView, 
+			ProjectPresenterFactory factory,
+			MainMenuPopupService popupService)
 		{
 			_mainMenuView = mainMenuView;
 			_factory = factory;
+			_popupService = popupService;
 		}
 		
 		public void Initialize()
 		{
 			CreateHorizontalGameStatisticsView();
+
+			_mainMenuView.StartGameClick += OpenSelectGameTypePopup;
 			
 			foreach(var child in _children)
 				child.Initialize();
@@ -28,6 +35,8 @@ namespace _Project.Develop.Runtime.UI.Core.MainMenu
 		
 		public void Dispose()
 		{
+			_mainMenuView.StartGameClick -= OpenSelectGameTypePopup;
+			
 			foreach(var child in _children)
 				child.Dispose();
 			
@@ -40,6 +49,11 @@ namespace _Project.Develop.Runtime.UI.Core.MainMenu
 				.CreateHorizontalGameStatisticsViewPresenter(_mainMenuView.WalletView, _mainMenuView.GameStatisticsView);
 
 			_children.Add(gameStatisticsPresenter);
+		}
+
+		private void OpenSelectGameTypePopup()
+		{
+			_popupService.CreateStartGamePopup();
 		}
 	}
 }

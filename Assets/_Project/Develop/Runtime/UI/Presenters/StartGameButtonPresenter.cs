@@ -25,8 +25,11 @@ namespace _Project.Develop.Runtime.UI.Presenters
 			_sceneSwitcherService = sceneSwitcherService;
 			_coroutinePerformer = coroutinePerformer;
 			_gameCharsType = gameCharsSequenceType.ToString();
+			_gameCharsSequenceType =  gameCharsSequenceType;
 			_buttonView = buttonView;
 		}
+		
+		public ButtonView ButtonView => _buttonView;
 
 		public void Initialize()
 		{

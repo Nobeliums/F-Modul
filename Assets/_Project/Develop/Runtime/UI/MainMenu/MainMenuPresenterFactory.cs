@@ -14,7 +14,10 @@ namespace _Project.Develop.Runtime.UI.Core.MainMenu
 		
 		public MainMenuPresenter CreateMainMenuPresenter(MainMenuView mainMenuView)
 		{
-			return new MainMenuPresenter(mainMenuView,  _container.Resolve<ProjectPresenterFactory>());
+			return new MainMenuPresenter(
+				mainMenuView,  
+				_container.Resolve<ProjectPresenterFactory>(),
+				_container.Resolve<MainMenuPopupService>());
 		}
 	}
 }

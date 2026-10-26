@@ -64,7 +64,11 @@ namespace _Project.Develop.Runtime.UI.Presenters
 
 		public SelectCharsGameTypePopupViewPresenter CreateSelectCharsGameTypePopupViewPresenter(SelectCharsGameTypePopupView view)
 		{
-			return new SelectCharsGameTypePopupViewPresenter(view);
+			return new SelectCharsGameTypePopupViewPresenter(
+				view, 
+				_container.Resolve<ICoroutinePerformer>(),
+				_container.Resolve<ViewFactory>(),
+				_container.Resolve<ProjectPresenterFactory>());
 		}
 
 		public StartGameButtonPresenter CreateStartGameButtonPresenter(

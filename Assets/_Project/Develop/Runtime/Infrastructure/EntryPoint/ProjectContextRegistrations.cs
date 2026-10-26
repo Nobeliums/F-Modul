@@ -38,6 +38,7 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 			container.RegistryAsSingle(CreateViewFactory);
 			container.RegistryAsSingle(CreateProjectPresenterFactory);
 		}
+
 		private static ViewFactory CreateViewFactory(DIContainer c)
 			=> new ViewFactory(c.Resolve<ResourceLoadService>());
 

@@ -6,6 +6,7 @@ using _Project.Develop.Runtime.Meta.Features.MainMenuCycle;
 using _Project.Develop.Runtime.Meta.Features.ShopManagement;
 using _Project.Develop.Runtime.UI.Core;
 using _Project.Develop.Runtime.UI.Core.MainMenu;
+using _Project.Develop.Runtime.UI.Presenters;
 using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
@@ -26,6 +27,15 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 			container.RegistryAsSingle(CreateMainMenuCanvasRoot).NonLazy();
 			container.RegistryAsSingle(CreateMainMenuPresenterFactory);
 			container.RegistryAsSingle(CreateMainMenuPresenter).NonLazy();
+			container.RegistryAsSingle(CreateMainMenuPopupService);
+		}
+
+		private static MainMenuPopupService CreateMainMenuPopupService(DIContainer c)
+		{
+			return new MainMenuPopupService(
+				c.Resolve<ProjectPresenterFactory>(),
+				c.Resolve<ViewFactory>(),
+				c.Resolve<MainMenuCanvasRoot>());
 		}
 
 		private static MainMenuPresenter CreateMainMenuPresenter(DIContainer c)

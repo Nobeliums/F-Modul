@@ -12,7 +12,7 @@ namespace _Project.Develop.Runtime.UI.Core
 		protected readonly ProjectPresenterFactory _projectPresenterFactory;
 
 		private readonly ViewFactory _viewFactory;
-		private readonly Dictionary<PopupBasePresenter, PopupBaseView> _presentersToViews = new();
+		private readonly Dictionary<PopupBasePresenter, PopupInfo> _presentersToViews = new();
 		
 		public PopupService(ProjectPresenterFactory projectPresenterFactory, ViewFactory viewFactory)
 		{
@@ -22,7 +22,7 @@ namespace _Project.Develop.Runtime.UI.Core
 		
 		protected abstract Transform PopupLayer { get; }
 
-		public SelectCharsGameTypePopupViewPresenter CreateStartGamePopup()
+		public SelectCharsGameTypePopupViewPresenter CreateStartGamePopup(Action closeCallback = null)
 		{
 			SelectCharsGameTypePopupView view = _viewFactory
 				.Create<SelectCharsGameTypePopupView>(ViewIds.SelectGameCharsView, PopupLayer);
@@ -41,6 +41,8 @@ namespace _Project.Develop.Runtime.UI.Core
 			
 			presenter.Hide(() =>
 			{
+				_presentersToViews[presenter].ClosedCallback?.Invoke();
+				
 				DisposeFor(presenter);
 				_presentersToViews.Remove(presenter);
 			});
@@ -57,9 +59,13 @@ namespace _Project.Develop.Runtime.UI.Core
 			_presentersToViews.Clear();
 		}
 
-		protected void OnPopupCreated(PopupBasePresenter presenter, PopupBaseView view)
+		protected void OnPopupCreated(
+			PopupBasePresenter presenter,
+			PopupBaseView view,
+			Action closeCallback = null)
 		{
-			_presentersToViews.Add(presenter, view);;
+			PopupInfo info = new PopupInfo(view, closeCallback);
+			_presentersToViews.Add(presenter, info);;
 			presenter.Initialize();
 			presenter.Show();
 
@@ -69,9 +75,20 @@ namespace _Project.Develop.Runtime.UI.Core
 		private void DisposeFor(PopupBasePresenter presenter)
 		{
 			presenter.Dispose();
-			_viewFactory.Release(_presentersToViews[presenter]);
+			_viewFactory.Release(_presentersToViews[presenter].View);
 		}
 
+		private class PopupInfo
+		{
+			public PopupInfo(PopupBaseView view, Action closedCallback)
+			{
+				View = view;
+				ClosedCallback = closedCallback;
+			}
+
+			public PopupBaseView View { get; }
+			public Action ClosedCallback { get; }
+		}
 
 	}
 }

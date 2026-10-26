@@ -1,5 +1,6 @@
 ﻿using System;
 using _Project.Develop.Runtime.UI.View;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,28 +12,38 @@ namespace _Project.Develop.Runtime.UI.Core
 		
 		[SerializeField] private CanvasGroup _group;
 		[SerializeField] private Button _closeButton;
+		
+		private Sequence _animationSequence;
 
 		private void Awake()
 		{
 			_group.alpha = 0.0f;
 		}
 
-		public void Show()
+		public Tween Show()
 		{
 			OnPreShow();
 
 			_group.alpha = 1.0f;
+			
+			_animationSequence =  DOTween.Sequence();
 
 			OnPostShow();
+
+			return _animationSequence;
 		}
 		
-		public void Hide()
+		public Tween Hide()
 		{
 			OnPreHide();
 	
 			_group.alpha = 0.0f;
+			
+			_animationSequence =  DOTween.Sequence();
 	
 			OnPostHide();
+			
+			return _animationSequence;
 		}
 
 		public void OnCloseButtonClick() => CloseRequest?.Invoke();
