@@ -20,8 +20,6 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 	{
 		public static void Process(DIContainer container, GameplayInputArgs gameplayAgrs)
 		{
-			Debug.Log("[GameplayContextRegistrations] Process]");
-
 			container.RegistryAsSingle((container) => gameplayAgrs);
 			container.RegistryAsSingle(CreateGameCharsSelector);
 			container.RegistryAsSingle(CreateGameplayCycle);

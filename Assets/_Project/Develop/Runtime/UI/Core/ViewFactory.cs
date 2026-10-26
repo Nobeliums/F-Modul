@@ -34,8 +34,7 @@ namespace _Project.Develop.Runtime.UI.Core
 			if (_viewIdToResourcesPath.TryGetValue(viewId, out var resourcePath))
 			{
 				TView prefab = _resourceLoadService.Load<TView>(resourcePath);
-				Debug.Log(prefab);
-				
+	
 				TView viewIntance = Object.Instantiate(prefab, parent);
 				
 				return viewIntance;

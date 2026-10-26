@@ -25,8 +25,6 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 
 		public override IEnumerator Initialize()
 		{
-			Debug.Log("[MainMenuBootstrap] initialized]");
-			
 			_performer = _container.Resolve<ICoroutinePerformer>();
 			_sceneSwitcher = _container.Resolve<SceneSwitcherService>();
 			

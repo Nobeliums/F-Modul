@@ -25,11 +25,8 @@ namespace _Project.Develop.Runtime.Meta.Features.ShopManagement
 				_walletService.Debit(itemPrice.Price, itemPrice.Currency);
 
 				callback?.Invoke();
-				Debug.Log($"Успешно куплен {shopItemType} за {itemPrice.Price} {itemPrice.Currency}");
 				return true;
 			}
-			
-			Debug.Log($"У вас не хватает {itemPrice.Currency}, нужно: {itemPrice.Price}, у вас {_walletService.GetCurrency(itemPrice.Currency).Value}");
 
 			return false;
 		}

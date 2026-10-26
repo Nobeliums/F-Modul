@@ -39,8 +39,6 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 		public override void Run()
 		{
 			_gameCycle.Run();
-
-			Debug.Log("[Gameplay Bootstrap] Gameplay Bootstrap Run");
 		}
 
 		private void Update()

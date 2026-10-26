@@ -64,7 +64,6 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 
 		private void Win()
 		{
-			Debug.Log("Gamemode won! Press space to main menu");
 			_isStarted = false;
 			_isWin = true;
 			WinEvent?.Invoke();
@@ -72,7 +71,6 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 
 		private void Lose()
 		{
-			Debug.Log("Gamemode lost! Press space to restart");
 			_isStarted = false;
 			_isLose = true;
 			LoseEvent?.Invoke();

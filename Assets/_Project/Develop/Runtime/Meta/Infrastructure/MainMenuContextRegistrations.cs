@@ -15,8 +15,6 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 	{
 		public static void Process(DIContainer container)
 		{
-			Debug.Log("[MainMenuContextRegistrations] Process");
-
 			container.RegistryAsSingle(CreateShopService);
 			container.RegistryAsSingle(CreateMainMenuCanvasRoot).NonLazy();
 			container.RegistryAsSingle(CreateMainMenuPresenterFactory);
