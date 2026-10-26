@@ -6,7 +6,7 @@ using _Project.Develop.Runtime.Utilities.Reactive;
 
 namespace _Project.Develop.Runtime.UI.Presenters
 {
-	public class CurrencyPresenter
+	public class CurrencyPresenter : IPresenter
 	{
 		private IconTextView _iconTextView;
 		
@@ -15,6 +15,8 @@ namespace _Project.Develop.Runtime.UI.Presenters
 		private StartWalletViewConfig _viewConfig;
 		
 		private IDisposable _subscription;
+		
+		public IconTextView View => _iconTextView;
 
 		public CurrencyPresenter(IconTextView iconTextView,
 			WalletCurrencyType currencyType,

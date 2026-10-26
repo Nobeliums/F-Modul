@@ -4,9 +4,12 @@ using _Project.Develop.Runtime.Meta.Configs;
 using _Project.Develop.Runtime.Meta.Features.GameStatistics;
 using _Project.Develop.Runtime.Meta.Features.MainMenuCycle;
 using _Project.Develop.Runtime.Meta.Features.ShopManagement;
+using _Project.Develop.Runtime.UI.Core;
+using _Project.Develop.Runtime.UI.Core.MainMenu;
 using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
+using _Project.Develop.Runtime.Utilities.ResourcesManagement;
 using _Project.Develop.Runtime.Utilities.SceneManagment;
 using UnityEngine;
 
@@ -20,6 +23,31 @@ namespace _Project.Develop.Runtime.Meta.Infrastructure
 
 			container.RegistryAsSingle(CreateMainMenuCycle);
 			container.RegistryAsSingle(CreateShopService);
+			container.RegistryAsSingle(CreateMainMenuCanvasRoot).NonLazy();
+			container.RegistryAsSingle(CreateMainMenuPresenterFactory);
+			container.RegistryAsSingle(CreateMainMenuPresenter).NonLazy();
+		}
+
+		private static MainMenuPresenter CreateMainMenuPresenter(DIContainer c)
+		{
+			MainMenuView mainMenuView = c.Resolve<ViewFactory>()
+				.Create<MainMenuView>(
+					ViewIds.MainMenuView,
+					c.Resolve<MainMenuCanvasRoot>().HUD);
+			
+			return c.Resolve<MainMenuPresenterFactory>().CreateMainMenuPresenter(mainMenuView);
+		}
+
+		private static MainMenuPresenterFactory CreateMainMenuPresenterFactory(DIContainer c)
+			=> new MainMenuPresenterFactory(c);
+
+		private static MainMenuCanvasRoot CreateMainMenuCanvasRoot(DIContainer container)
+		{
+			ResourceLoadService resourceLoadService = container.Resolve<ResourceLoadService>();
+			
+			MainMenuCanvasRoot canvasRoot = resourceLoadService.Load<MainMenuCanvasRoot>("Prefabs/UI/MainMenuCanvasRoot");
+			
+			return Object.Instantiate(canvasRoot);
 		}
 		
 		private static ShopService CreateShopService(DIContainer c)

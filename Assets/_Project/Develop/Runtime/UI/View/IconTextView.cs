@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace _Project.Develop.Runtime.UI.View
 {
-	public class IconTextView : MonoBehaviour
+	public class IconTextView : MonoBehaviour, IView
 	{
 		[SerializeField] private TMP_Text _text;
 		[SerializeField] private Image _sprite;
