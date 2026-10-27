@@ -5,6 +5,8 @@ using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Meta.Features.GameStatistics;
+using _Project.Develop.Runtime.UI.Core;
+using _Project.Develop.Runtime.UI.Presenters;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataRepository;
 using _Project.Develop.Runtime.Utilities.DataManagment.KeysStorage;
@@ -33,6 +35,16 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 			container.RegistryAsSingle(CreateWalletService).NonLazy();
 			container.RegistryAsSingle(CreateSaveLoadService);
 			container.RegistryAsSingle(CreateGameStatisticsService).NonLazy();
+			container.RegistryAsSingle(CreateViewFactory);
+			container.RegistryAsSingle(CreateProjectPresenterFactory);
+		}
+
+		private static ViewFactory CreateViewFactory(DIContainer c)
+			=> new ViewFactory(c.Resolve<ResourceLoadService>());
+
+		private static ProjectPresenterFactory CreateProjectPresenterFactory(DIContainer c)
+		{
+			return new ProjectPresenterFactory(c);
 		}
 
 		private static GameStatisticsService CreateGameStatisticsService(DIContainer c)

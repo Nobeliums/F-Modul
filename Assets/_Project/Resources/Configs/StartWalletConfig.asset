@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b6bf668e004792ba49737ed042f5c8, type: 3}
   m_Name: StartWalletConfig
   m_EditorClassIdentifier: 
-  _walletConfigDatas:
+  <_walletConfigDatas>k__BackingField:
   - <CurrencyType>k__BackingField: 0
-    <StartAmount>k__BackingField: 25
+    <StartAmount>k__BackingField: 10

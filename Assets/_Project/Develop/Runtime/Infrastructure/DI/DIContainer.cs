@@ -24,9 +24,7 @@ namespace _Project.Develop.Runtime.Infrastructure.DI
             Registration registration = new Registration(container => factory.Invoke(container));
             
             _container.Add(typeof(T), registration);
-            
-            Debug.Log($"Registering {typeof(T)}");
-            
+
             return registration;
         }
 

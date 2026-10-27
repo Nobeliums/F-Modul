@@ -14,7 +14,7 @@ namespace _Project.Develop.Runtime.Utilities.CoroutineManagement
         public Coroutine StartPerform(IEnumerator routine)
             => StartCoroutine(routine);
 
-        public void StopPerforrm(Coroutine routine)
+        public void StopPerform(Coroutine routine)
             => StopCoroutine(routine);
     }
 }

@@ -17,6 +17,7 @@ namespace _Project.Develop.Runtime.Utilities.ConfigManagement
             {typeof(GameModeConfig), "Configs/GameModeConfig"},
             {typeof(StartWalletConfig), "Configs/StartWalletConfig"},
             {typeof(ShopConfig), "Configs/ShopConfig"},
+            {typeof(StartWalletViewConfig), "Configs/StartWalletViewConfig"},
         };
         
         public ResourcesConfigLoader(ResourceLoadService resources)

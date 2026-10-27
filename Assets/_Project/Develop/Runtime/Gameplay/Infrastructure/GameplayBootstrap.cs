@@ -39,8 +39,6 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 		public override void Run()
 		{
 			_gameCycle.Run();
-
-			Debug.Log("[Gameplay Bootstrap] Gameplay Bootstrap Run");
 		}
 
 		private void Update()
@@ -61,26 +59,6 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 
 		private void ProcessSceneSwitch()
 		{
-			if (_gameCycle.IsStarted == false && InputService.GetEndGameButton())
-			{
-				SceneSwitcherService switcherService = _container.Resolve<SceneSwitcherService>();
-				ICoroutinePerformer performer = _container.Resolve<ICoroutinePerformer>();
-				PlayerDataProvider playerDataProvider = _container.Resolve<PlayerDataProvider>();
-
-				performer.StartPerform(playerDataProvider.Save());
-
-				if (_gameCycle.IsWin)
-				{
-					performer.StartPerform(switcherService.ProcessSceneSwitchTo(Scenes.MainMenu));
-				}
-
-				else if (_gameCycle.IsLose)
-				{
-					GameplayInputArgs gameplayInputArgs = _container.Resolve<GameplayInputArgs>();
-
-					performer.StartPerform(switcherService.ProcessSceneSwitchTo(Scenes.Gameplay, gameplayInputArgs));
-				}
-			}
 		}
 	}
 }
