@@ -39,5 +39,10 @@ namespace _Project.Develop.Runtime.Utilities.Input
 		{
 			return UnityEngine.Input.GetKeyDown(LettersGameModeButton);
 		}
+
+		public static Vector3 GetMovementDirection()
+		{
+			return new Vector3(UnityEngine.Input.GetAxis("Horizontal"), 0.0f, UnityEngine.Input.GetAxis("Vertical"));
+		}
 	}
 }

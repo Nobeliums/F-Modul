@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using _Project.Develop.Runtime.Gameplay.Configs;
+using _Project.Develop.Runtime.Gameplay.Infrastructure;
 using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
@@ -49,7 +51,7 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 
 			yield return container.Resolve<ConfigService>().LoadAsync();
 
-			yield return container.Resolve<SceneSwitcherService>().ProcessSceneSwitchTo(Scenes.MainMenu);
+			yield return container.Resolve<SceneSwitcherService>().ProcessSceneSwitchTo(Scenes.Gameplay, new GameplayInputArgs(GameCharsSequenceType.Digits));
 
 			yield return new WaitForSeconds(1f);
 			

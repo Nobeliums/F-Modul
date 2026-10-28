@@ -1,5 +1,7 @@
 ﻿using _Project.Develop.Runtime.Features.Gamecycle;
 using _Project.Develop.Runtime.Gameplay.Configs;
+using _Project.Develop.Runtime.Gameplay.EntitiesCore;
+using _Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
 using _Project.Develop.Runtime.Gameplay.Features.Gamecycle.Condition;
 using _Project.Develop.Runtime.Meta.Features.Wallet;
@@ -27,6 +29,27 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 			container.RegistryAsSingle(CreateGameplayCanvasRoot).NonLazy();
 			container.RegistryAsSingle(CreateGameplayPresenter).NonLazy();
 			container.RegistryAsSingle(CreateGameplayPopupService);
+			container.RegistryAsSingle(CreateEntitiesFactory);
+			container.RegistryAsSingle(CreateEntitiesLifeContext);
+			container.RegistryAsSingle(CreateMonoEntitiesFactory).NonLazy();
+		}
+
+		private static MonoEntitiesFactory CreateMonoEntitiesFactory(DIContainer c)
+		{
+			return new MonoEntitiesFactory(
+				c.Resolve<ResourceLoadService>(),
+				c.Resolve<EntitiesLifeContext>());
+		}
+
+		private static EntitiesLifeContext CreateEntitiesLifeContext(DIContainer c)
+		{
+			return new EntitiesLifeContext();
+		}
+
+
+	private static EntitiesFactory CreateEntitiesFactory(DIContainer c)
+		{
+			return new EntitiesFactory(c);
 		}
 
 		private static GameplayPopupService CreateGameplayPopupService(DIContainer c)
