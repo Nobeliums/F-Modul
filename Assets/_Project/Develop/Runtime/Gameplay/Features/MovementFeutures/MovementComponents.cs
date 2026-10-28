@@ -10,8 +10,18 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 		public ReactiveVabiable<float> Value;
 	}
 
+	public class RotateSpeedComponent : IEntityComponent
+	{
+		public ReactiveVabiable<float> Value;
+	}
+
 	public class MoveDirection : IEntityComponent
 	{
 		public ReactiveVabiable<Vector3> Value;
+	}
+
+	public class RotateDirection : IEntityComponent
+	{
+		public ReactiveVabiable<Quaternion> Value;
 	}
 }

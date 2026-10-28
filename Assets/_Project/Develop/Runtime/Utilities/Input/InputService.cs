@@ -42,7 +42,7 @@ namespace _Project.Develop.Runtime.Utilities.Input
 
 		public static Vector3 GetMovementDirection()
 		{
-			return new Vector3(UnityEngine.Input.GetAxis("Horizontal"), 0.0f, UnityEngine.Input.GetAxis("Vertical"));
+			return new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical")).normalized;
 		}
 	}
 }
