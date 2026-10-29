@@ -181,6 +181,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TargetPhrase
       objectReference: {fileID: 0}
+    - target: {fileID: 7451290502645258793, guid: 23b5b7f1fe1478145bc96dca088101ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7598093296091822124, guid: 23b5b7f1fe1478145bc96dca088101ac, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -369,6 +373,10 @@ PrefabInstance:
     - target: {fileID: 7451290502645258793, guid: 23b5b7f1fe1478145bc96dca088101ac, type: 3}
       propertyPath: m_Name
       value: PlayerPhrase
+      objectReference: {fileID: 0}
+    - target: {fileID: 7451290502645258793, guid: 23b5b7f1fe1478145bc96dca088101ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7598093296091822124, guid: 23b5b7f1fe1478145bc96dca088101ac, type: 3}
       propertyPath: m_AnchorMax.x

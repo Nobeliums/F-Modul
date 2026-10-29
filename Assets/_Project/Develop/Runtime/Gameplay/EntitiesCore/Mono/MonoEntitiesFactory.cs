@@ -28,6 +28,8 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
 			MonoEntity instance = Object.Instantiate(prefab, position, Quaternion.identity, null);
 			
 			instance.Setup(entity);
+			
+			_entityToMono.Add(entity, instance);
 
 			return instance;
 		}

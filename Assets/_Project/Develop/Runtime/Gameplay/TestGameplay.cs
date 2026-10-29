@@ -11,7 +11,8 @@ namespace _Project.Develop.Runtime.Gameplay
 		private bool _isRunning;
 		private DIContainer _container;
 
-		private Entity _entity;
+		private Entity _rigidbodyEntity;
+		private Entity _characterControllerEntity;
 		
 		public void Initialize(DIContainer container)
 		{
@@ -22,7 +23,8 @@ namespace _Project.Develop.Runtime.Gameplay
 		{
 			_isRunning = true;
 
-			_entity = _container.Resolve<EntitiesFactory>().CreateTestEntity(Vector3.zero);
+			_rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateRigidbodyTestEntity(Vector3.left);
+			_characterControllerEntity =  _container.Resolve<EntitiesFactory>().CreateCharacterControllerTestEntity(Vector3.right);
 		}
 
 		private void Update()
@@ -30,7 +32,8 @@ namespace _Project.Develop.Runtime.Gameplay
 			if (_isRunning == false)
 				return;
 
-			_entity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
+			_rigidbodyEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
+			_characterControllerEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
 		}
 	}
 }

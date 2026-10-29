@@ -4,7 +4,7 @@ using _Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 
 namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 {
-	public class Entity
+	public partial class Entity
 	{
 		private readonly Dictionary<Type, IEntityComponent> _components = new();
 

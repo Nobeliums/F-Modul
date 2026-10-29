@@ -34,8 +34,8 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 
 		public override IEnumerator Initialize()
 		{
-			_gameCycle = _container.Resolve<GameplayCycle>();
-			_gameCycle.Initialize();
+			// _gameCycle = _container.Resolve<GameplayCycle>();
+			// _gameCycle.Initialize();
 			_entitiesContext =  _container.Resolve<EntitiesLifeContext>();
 
 			yield break;
@@ -43,7 +43,7 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 
 		public override void Run()
 		{
-			_gameCycle.Run();
+			// _gameCycle.Run();
 			_testGameplay.Run();
 		}
 
@@ -51,22 +51,15 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 		{
 			_entitiesContext?.Update(Time.deltaTime);
 			
-			if (_gameCycle == null)
-				return;
+			// if (_gameCycle == null)
+				// return;
 
-			_gameCycle.ProcessUpdate();
-
-			ProcessSceneSwitch();
-
+			// _gameCycle.ProcessUpdate();
 		}
 
 		private void OnDestroy()
 		{
-			_gameCycle.Dispose();
-		}
-
-		private void ProcessSceneSwitch()
-		{
+			// _gameCycle.Dispose();
 		}
 	}
 }

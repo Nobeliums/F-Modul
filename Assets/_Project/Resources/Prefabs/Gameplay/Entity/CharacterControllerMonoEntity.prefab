@@ -221,10 +221,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7312358574329511636}
   - component: {fileID: 8487850993926398799}
-  - component: {fileID: 8464132252034000096}
-  - component: {fileID: 6827617421597375116}
+  - component: {fileID: -1264765058843485909}
+  - component: {fileID: 7266595602835893923}
   m_Layer: 0
-  m_Name: MonoEntity
+  m_Name: CharacterControllerMonoEntity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817b963255e04a6793b1686fe7114a02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8464132252034000096
+--- !u!114 &-1264765058843485909
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,33 +267,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 5361470850588266283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dfa1c6f443b47a589a29a83f00ebbe4, type: 3}
+  m_Script: {fileID: 11500000, guid: d8ca9867cb5d4bbdb02037b88350425d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &6827617421597375116
-Rigidbody:
+--- !u!143 &7266595602835893923
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5361470850588266283}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.58
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.74, z: 0}

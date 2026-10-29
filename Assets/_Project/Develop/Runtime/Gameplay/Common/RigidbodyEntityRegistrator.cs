@@ -1,6 +1,5 @@
 ﻿using _Project.Develop.Runtime.Gameplay.EntitiesCore;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
-using _Project.Develop.Runtime.Gameplay.Features.MovementFeuture;
 using UnityEngine;
 
 namespace _Project.Develop.Runtime.Gameplay.Common
