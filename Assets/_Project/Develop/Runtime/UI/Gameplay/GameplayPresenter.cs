@@ -26,8 +26,8 @@ namespace _Project.Develop.Runtime.UI.Core.Gameplay
 
 		public void Initialize()
 		{
-			_disposables.Add(_gameplayCycle.GamePhrase.Subscribe(OnGamePhraseChanged));
-			_disposables.Add(_gameplayCycle.PlayerInputPhrase.Subscribe(OnPlayerPhraseChanged));
+			// _disposables.Add(_gameplayCycle.GamePhrase.Subscribe(OnGamePhraseChanged));
+			// _disposables.Add(_gameplayCycle.PlayerInputPhrase.Subscribe(OnPlayerPhraseChanged));
 
 			_gameplayCycle.GameEnd += OnGameEnd;
 		}

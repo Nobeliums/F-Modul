@@ -101,13 +101,7 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 	
 			Gamemode gamemode = new Gamemode(new AllCharsEqualsCondition(), new CharNotEqualCondition());
 
-			return new GameplayCycle(gamemode,
-				charsSelector,
-				config,
-				gameStatisticsService,
-				walletService,
-				playerDataProvider,
-				coroutinePerformer);
+			return new GameplayCycle(gameStatisticsService, playerDataProvider, coroutinePerformer, c);
 		}
 	}
 }

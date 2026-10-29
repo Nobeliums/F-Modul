@@ -1,12 +1,17 @@
 ﻿using System;
 using _Project.Develop.Runtime.Gameplay.Configs;
+using _Project.Develop.Runtime.Gameplay.EntitiesCore;
 using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
+using _Project.Develop.Runtime.Gameplay.Features.MovementFeuture;
+using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Meta.Features.Wallet;
 using _Project.Develop.Runtime.Meta.Features.GameStatistics;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Utilities.DataManagment;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
+using _Project.Develop.Runtime.Utilities.Input;
 using _Project.Develop.Runtime.Utilities.Reactive;
+using UnityEngine;
 
 namespace _Project.Develop.Runtime.Features.Gamecycle
 {
@@ -16,62 +21,56 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 		public event Action LoseGame;
 		public event Action GameEnd;
 		
-		private Gamemode _gameMode;
-		private IGameCharsSelector _charsSelector;
-
-		private GameModeConfig _config;
 		private GameStatisticsService _gameStatistics;
-		private WalletService _walletService;
 		private PlayerDataProvider _playerDataProvider;
 		private ICoroutinePerformer _coroutinePerformer;
+		
+		private bool _isRunning;
+		private DIContainer _container;
 
-		public GameplayCycle(Gamemode gamemode,
-			IGameCharsSelector charsSelector,
-			GameModeConfig config,
+		private Entity _rigidbodyEntity;
+		private Entity _characterControllerEntity;
+
+		public GameplayCycle(
 			GameStatisticsService gameStatistics,
-			WalletService walletService,
 			PlayerDataProvider playerDataProvider,
-			ICoroutinePerformer coroutinePerformer)
+			ICoroutinePerformer coroutinePerformer,
+			DIContainer container)
 		{
-			_gameMode = gamemode;
-			_charsSelector = charsSelector;
-			_config = config;
 			_gameStatistics = gameStatistics;
-			_walletService = walletService;
 			_playerDataProvider = playerDataProvider;
 			_coroutinePerformer = coroutinePerformer;
+			_container = container;
 		}
 		
-		public IReadOnlyReactiveVariable<string> GamePhrase => _gameMode.GamePhrase;
-		public IReadOnlyReactiveVariable<string> PlayerInputPhrase => _gameMode.PlayerInputPhrase;
-		
-		public bool IsWin => _gameMode.IsWin;
-		public bool IsLose => _gameMode.IsLose;
+		public bool IsWin { get; private set; }
+		public bool IsLose { get; private set; }
 
 		public void Initialize()
 		{
-			string targetPhrase = _charsSelector.GetGameChars(_config.PhraseLenght);
-			
-			_gameMode.Initialize(targetPhrase);
-			_gameMode.WinEvent += OnWinGame;
-			_gameMode.LoseEvent += OnLoseGame;
+
 		}
-		
+
 		public void Dispose()
 		{
-			_gameMode.WinEvent -= OnWinGame;
-			_gameMode.LoseEvent -= OnLoseGame;
-			_gameMode.Dispose();
+
 		}
 
 		public void Run()
 		{
-			_gameMode.Run();
+			_isRunning = true;
+
+			_rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateRigidbodyTestEntity(Vector3.left);
+			_characterControllerEntity =  _container.Resolve<EntitiesFactory>().CreateCharacterControllerTestEntity(Vector3.right);
 		}
 		
 		public void ProcessUpdate()
 		{
-			_gameMode.ProcessUpdate();
+			if (_isRunning == false)
+				return;
+
+			_rigidbodyEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
+			_characterControllerEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
 		}
 		
 		private void OnWinGame()
@@ -79,10 +78,6 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 			WinGame?.Invoke();
 			GameEnd?.Invoke();
 			_gameStatistics.OnWinGame();
-			
-			_walletService.Add(
-				_config.WinReward,
-				WalletCurrencyType.Gold);
 			
 			_coroutinePerformer.StartPerform(_playerDataProvider.Save());
 		}
@@ -92,13 +87,6 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 			LoseGame?.Invoke();
 			GameEnd?.Invoke();
 			_gameStatistics.OnLoseGame();
-
-			int penalty = _config.LosePenalty;
-			
-			if (_walletService.IsEnough(penalty, WalletCurrencyType.Gold))
-				_walletService.Debit(penalty, WalletCurrencyType.Gold);
-			else
-				_walletService.Debit(_walletService.GetCurrency(WalletCurrencyType.Gold).Value, WalletCurrencyType.Gold);
 
 			_coroutinePerformer.StartPerform(_playerDataProvider.Save());
 		}

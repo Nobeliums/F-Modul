@@ -16,7 +16,6 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 	{
 		private DIContainer _container;
 		private GameplayCycle _gameCycle;
-		[SerializeField] private TestGameplay _testGameplay;
 		private EntitiesLifeContext _entitiesContext;
 
 		public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
@@ -29,13 +28,12 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 			GameplayContextRegistrations.Process(_container, gameplayInputArgs);
 
 			_container.Initialize();
-			_testGameplay.Initialize(_container);
 		}
 
 		public override IEnumerator Initialize()
 		{
-			// _gameCycle = _container.Resolve<GameplayCycle>();
-			// _gameCycle.Initialize();
+			_gameCycle = _container.Resolve<GameplayCycle>();
+			_gameCycle.Initialize();
 			_entitiesContext =  _container.Resolve<EntitiesLifeContext>();
 
 			yield break;
@@ -43,23 +41,22 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 
 		public override void Run()
 		{
-			// _gameCycle.Run();
-			_testGameplay.Run();
+			_gameCycle.Run();
 		}
 
 		private void Update()
 		{
 			_entitiesContext?.Update(Time.deltaTime);
 			
-			// if (_gameCycle == null)
-				// return;
+			if (_gameCycle == null)
+				return;
 
-			// _gameCycle.ProcessUpdate();
+			_gameCycle.ProcessUpdate();
 		}
 
 		private void OnDestroy()
 		{
-			// _gameCycle.Dispose();
+			_gameCycle.Dispose();
 		}
 	}
 }
