@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using _Project.Develop.Runtime.Features.Gamecycle;
+using _Project.Develop.Runtime.Gameplay.EntitiesCore;
 using _Project.Develop.Runtime.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
@@ -15,6 +16,7 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 	{
 		private DIContainer _container;
 		private GameplayCycle _gameCycle;
+		private EntitiesLifeContext _entitiesContext;
 
 		public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
 		{
@@ -32,6 +34,7 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 		{
 			_gameCycle = _container.Resolve<GameplayCycle>();
 			_gameCycle.Initialize();
+			_entitiesContext =  _container.Resolve<EntitiesLifeContext>();
 
 			yield break;
 		}
@@ -43,22 +46,17 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 
 		private void Update()
 		{
+			_entitiesContext?.Update(Time.deltaTime);
+			
 			if (_gameCycle == null)
 				return;
 
 			_gameCycle.ProcessUpdate();
-
-			ProcessSceneSwitch();
-
 		}
 
 		private void OnDestroy()
 		{
 			_gameCycle.Dispose();
-		}
-
-		private void ProcessSceneSwitch()
-		{
 		}
 	}
 }
