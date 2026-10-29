@@ -11,23 +11,23 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 	{
 		private Rigidbody _rigidbody;
 		private ReactiveVabiable<float> _rotateSpeed;
-		
+		private ReactiveVabiable<Vector3> _rotateDirection;
+
 		public void OnInit(Entity entity)
 		{
 			_rigidbody = entity.GetComponent<RigidbodyComponent>().Value;
 			_rotateSpeed = entity.GetComponent<RotateSpeed>().Value;
+			_rotateDirection = entity.GetComponent<RotateDirection>().Value;
 		}
 
 		public void OnUpdate(float dt)
 		{
-			Vector3 input = InputService.GetMovementDirection();
-
-			if (input == Vector3.zero)
+			if (_rotateDirection.Value == Vector3.zero)
 				return;
 			
 			Quaternion rotation = Quaternion.RotateTowards(
 				_rigidbody.rotation,
-				Quaternion.LookRotation(input), 
+				Quaternion.LookRotation(_rotateDirection.Value), 
 				dt * _rotateSpeed.Value);
 			
 			_rigidbody.MoveRotation(rotation);

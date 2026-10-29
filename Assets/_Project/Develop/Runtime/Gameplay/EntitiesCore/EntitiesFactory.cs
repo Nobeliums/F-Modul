@@ -35,7 +35,7 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			entity
 				.AddComponent(new MoveDirection() { Value = new ReactiveVabiable<Vector3>(Vector3.forward) })
 				.AddComponent(new MoveSpeed() { Value = new ReactiveVabiable<float>(config.MoveSpeed) })
-				.AddComponent(new RotateDirection() { Value = new ReactiveVabiable<Quaternion>(Quaternion.identity) })
+				.AddComponent(new RotateDirection() { Value = new ReactiveVabiable<Vector3>(Vector3.zero) })
 				.AddComponent(new RotateSpeed() { Value = new ReactiveVabiable<float>(config.RotationSpeed) });
 
 			entity
@@ -57,9 +57,9 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			MonoEntity monoEntity = _monoEntitiesFactory.Create(entity, position, "Prefabs/Gameplay/Entity/RigidbodyMonoEntity");
 
 			entity
-				.AddComponent(new MoveDirection() { Value = new ReactiveVabiable<Vector3>(Vector3.forward) })
+				.AddComponent(new MoveDirection() { Value = new ReactiveVabiable<Vector3>(Vector3.zero) })
 				.AddComponent(new MoveSpeed() { Value = new ReactiveVabiable<float>(config.MoveSpeed) })
-				.AddComponent(new RotateDirection() { Value = new ReactiveVabiable<Quaternion>(Quaternion.identity) })
+				.AddComponent(new RotateDirection() { Value = new ReactiveVabiable<Vector3>(Vector3.zero) })
 				.AddComponent(new RotateSpeed() { Value = new ReactiveVabiable<float>(config.RotationSpeed) });
 
 			entity

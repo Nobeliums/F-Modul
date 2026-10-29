@@ -26,7 +26,7 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 		private ICoroutinePerformer _coroutinePerformer;
 		
 		private bool _isRunning;
-		private DIContainer _container;
+		private DIContainer _container; // контейнер тут для теста чтобы проще и быстрее было
 
 		private Entity _rigidbodyEntity;
 		private Entity _characterControllerEntity;

@@ -22,6 +22,6 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 
 	public class RotateDirection : IEntityComponent
 	{
-		public ReactiveVabiable<Quaternion> Value;
+		public ReactiveVabiable<Vector3> Value;
 	}
 }
