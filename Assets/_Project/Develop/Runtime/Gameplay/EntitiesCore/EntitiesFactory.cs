@@ -34,9 +34,9 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 
 			entity
 				.AddComponent(new MoveDirection() { Value = new ReactiveVabiable<Vector3>(Vector3.forward) })
-				.AddComponent(new SpeedComponent() { Value = new ReactiveVabiable<float>(config.MoveSpeed) })
+				.AddComponent(new MoveSpeed() { Value = new ReactiveVabiable<float>(config.MoveSpeed) })
 				.AddComponent(new RotateDirection() { Value = new ReactiveVabiable<Quaternion>(Quaternion.identity) })
-				.AddComponent(new RotateSpeedComponent() { Value = new ReactiveVabiable<float>(config.RotationSpeed) });
+				.AddComponent(new RotateSpeed() { Value = new ReactiveVabiable<float>(config.RotationSpeed) });
 
 			entity
 				.AddSystem(new CharacterControllerMovementSystem())
@@ -58,9 +58,9 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 
 			entity
 				.AddComponent(new MoveDirection() { Value = new ReactiveVabiable<Vector3>(Vector3.forward) })
-				.AddComponent(new SpeedComponent() { Value = new ReactiveVabiable<float>(config.MoveSpeed) })
+				.AddComponent(new MoveSpeed() { Value = new ReactiveVabiable<float>(config.MoveSpeed) })
 				.AddComponent(new RotateDirection() { Value = new ReactiveVabiable<Quaternion>(Quaternion.identity) })
-				.AddComponent(new RotateSpeedComponent() { Value = new ReactiveVabiable<float>(config.RotationSpeed) });
+				.AddComponent(new RotateSpeed() { Value = new ReactiveVabiable<float>(config.RotationSpeed) });
 
 			entity
 				.AddSystem(new RigidbodyMovementSystem())

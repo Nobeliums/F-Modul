@@ -15,7 +15,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 		public void OnInit(Entity entity)
 		{
 			_moveDirection = entity.GetComponent<MoveDirection>().Value;;
-			_speed = entity.GetComponent<SpeedComponent>().Value;
+			_speed = entity.GetComponent<MoveSpeed>().Value;
 			_rigidbody = entity.GetComponent<RigidbodyComponent>().Value;
 		}
 

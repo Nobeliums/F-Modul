@@ -15,7 +15,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 		public void OnInit(Entity entity)
 		{
 			_rigidbody = entity.GetComponent<RigidbodyComponent>().Value;
-			_rotateSpeed = entity.GetComponent<RotateSpeedComponent>().Value;
+			_rotateSpeed = entity.GetComponent<RotateSpeed>().Value;
 		}
 
 		public void OnUpdate(float dt)

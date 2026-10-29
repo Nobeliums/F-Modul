@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 {
-	public class SpeedComponent : IEntityComponent
+	public class MoveSpeed : IEntityComponent
 	{
 		public ReactiveVabiable<float> Value;
 	}
 
-	public class RotateSpeedComponent : IEntityComponent
+	public class RotateSpeed : IEntityComponent
 	{
 		public ReactiveVabiable<float> Value;
 	}
