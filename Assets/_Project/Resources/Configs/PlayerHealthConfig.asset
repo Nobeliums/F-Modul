@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 100
   <StartHealth>k__BackingField: 50
+  <DeathProcessInitialTime>k__BackingField: 2

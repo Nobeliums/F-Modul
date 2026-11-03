@@ -62,7 +62,6 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 			_isRunning = true;
 
 			_rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateRigidbodyTestEntity(Vector3.left);
-			_characterControllerEntity =  _container.Resolve<EntitiesFactory>().CreateCharacterControllerTestEntity(Vector3.right);
 		}
 		
 		public void ProcessUpdate()
@@ -71,6 +70,7 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 				return;
 
 			_rigidbodyEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
+			_rigidbodyEntity.GetComponent<RotateDirection>().Value.Value = InputService.GetMovementDirection();
 			// _characterControllerEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
 
 			if (Input.GetKeyDown(KeyCode.R))

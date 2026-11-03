@@ -10,5 +10,8 @@ namespace _Project.Develop.Runtime.Gameplay.Configs
 		
 		[field: SerializeField]
 		public float StartHealth { get; private set; }
+		
+		[field: SerializeField]
+		public float DeathProcessInitialTime { get; private set; }
 	}
 }

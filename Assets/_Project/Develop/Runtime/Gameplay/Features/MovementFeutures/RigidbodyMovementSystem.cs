@@ -1,6 +1,7 @@
 ﻿using _Project.Develop.Runtime.Gameplay.Common;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
+using _Project.Develop.Runtime.Utilities.Conditions;
 using _Project.Develop.Runtime.Utilities.Reactive;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 	{
 		private ReactiveVabiable<Vector3> _moveDirection; 
 		private ReactiveVabiable<float> _speed;
+		private ICompositeCondition _canMove;
+		
 		private Rigidbody _rigidbody;
 
 		public void OnInit(Entity entity)
@@ -17,10 +20,17 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 			_moveDirection = entity.GetComponent<MoveDirection>().Value;;
 			_speed = entity.GetComponent<MoveSpeed>().Value;
 			_rigidbody = entity.GetComponent<RigidbodyComponent>().Value;
+			_canMove = entity.GetComponent<CanMove>().Value;
 		}
 
 		public void OnUpdate(float dt)
 		{
+			if (_canMove.Evaluate() == false)
+			{
+				_rigidbody.velocity = Vector3.zero;
+				return;
+			}
+			
 			Vector3 moveDirectionVector = _moveDirection.Value * _speed.Value;
 			
 			_rigidbody.velocity = moveDirectionVector;
