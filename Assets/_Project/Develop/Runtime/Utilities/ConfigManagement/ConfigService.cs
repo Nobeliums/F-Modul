@@ -26,7 +26,7 @@ namespace _Project.Develop.Runtime.Utilities.ConfigManagement
         public T GetConfig<T>() where T : class
         {
             if (_configs.ContainsKey(typeof(T)) == false)
-                throw new InvalidOperationException($"Config {nameof(T)} is not in service");
+                throw new InvalidOperationException($"Config {typeof(T)} is not in service");
             
             return (T)_configs[typeof(T)];
         }

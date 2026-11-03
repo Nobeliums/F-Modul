@@ -1,5 +1,6 @@
 ﻿using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
+using _Project.Develop.Runtime.Gameplay.Features.LIfeCycle;
 using _Project.Develop.Runtime.Gameplay.Features.MovementFeuture;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.ConfigManagement;
@@ -26,7 +27,7 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 
 		public Entity CreateCharacterControllerTestEntity(Vector3 position)
 		{
-			PlayerMovementConfig config = _configService.GetConfig<PlayerMovementConfig>();
+			PlayerConfig config = _configService.GetConfig<PlayerConfig>();
 			
 			Entity entity = CreateEmpty();
 
@@ -34,9 +35,12 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 
 			entity
 				.AddComponent(new MoveDirection() { Value = new ReactiveVabiable<Vector3>(Vector3.forward) })
-				.AddComponent(new MoveSpeed() { Value = new ReactiveVabiable<float>(config.MoveSpeed) })
+				.AddComponent(new MoveSpeed() { Value = new ReactiveVabiable<float>(config.PlayerMovementConfig.MoveSpeed) })
 				.AddComponent(new RotateDirection() { Value = new ReactiveVabiable<Vector3>(Vector3.zero) })
-				.AddComponent(new RotateSpeed() { Value = new ReactiveVabiable<float>(config.RotationSpeed) });
+				.AddComponent(new RotateSpeed() { Value = new ReactiveVabiable<float>(config.PlayerMovementConfig.RotationSpeed) })
+				.AddComponent(new MaxHealth() { Value = new ReactiveVabiable<float>(config.PlayerHealthConfig.MaxHealth) })
+				.AddComponent(new CurrentHealth() { Value = new ReactiveVabiable<float>(config.PlayerHealthConfig.StartHealth) })
+				.AddComponent(new IsDead() { Value = new ReactiveVabiable<bool>(false) });
 
 			entity
 				.AddSystem(new CharacterControllerMovementSystem())
@@ -50,21 +54,26 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 
 		public Entity CreateRigidbodyTestEntity(Vector3 position)
 		{
-			PlayerMovementConfig config = _configService.GetConfig<PlayerMovementConfig>();
+			PlayerConfig config = _configService.GetConfig<PlayerConfig>();
 			
 			Entity entity = CreateEmpty();
 
 			MonoEntity monoEntity = _monoEntitiesFactory.Create(entity, position, "Prefabs/Gameplay/Entity/RigidbodyMonoEntity");
 
 			entity
-				.AddComponent(new MoveDirection() { Value = new ReactiveVabiable<Vector3>(Vector3.zero) })
-				.AddComponent(new MoveSpeed() { Value = new ReactiveVabiable<float>(config.MoveSpeed) })
+				.AddComponent(new MoveDirection() { Value = new ReactiveVabiable<Vector3>(Vector3.forward) })
+				.AddComponent(new MoveSpeed() { Value = new ReactiveVabiable<float>(config.PlayerMovementConfig.MoveSpeed) })
 				.AddComponent(new RotateDirection() { Value = new ReactiveVabiable<Vector3>(Vector3.zero) })
-				.AddComponent(new RotateSpeed() { Value = new ReactiveVabiable<float>(config.RotationSpeed) });
+				.AddComponent(new RotateSpeed() { Value = new ReactiveVabiable<float>(config.PlayerMovementConfig.RotationSpeed) })
+				.AddComponent(new MaxHealth() { Value = new ReactiveVabiable<float>(config.PlayerHealthConfig.MaxHealth) })
+				.AddComponent(new CurrentHealth() { Value = new ReactiveVabiable<float>(config.PlayerHealthConfig.StartHealth) })
+				.AddComponent(new IsDead() { Value = new ReactiveVabiable<bool>(false) });
 
 			entity
 				.AddSystem(new RigidbodyMovementSystem())
-				.AddSystem(new RigidbodyRotationSystem());
+				.AddSystem(new RigidbodyRotationSystem())
+				.AddSystem(new DeathSystem())
+				.AddSystem(new SelfReleaseSystem(_entitiesContext));
 			
 			_entitiesContext.Add(entity);
 

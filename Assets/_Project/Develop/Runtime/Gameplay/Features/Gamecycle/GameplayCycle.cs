@@ -2,6 +2,7 @@
 using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore;
 using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
+using _Project.Develop.Runtime.Gameplay.Features.LIfeCycle;
 using _Project.Develop.Runtime.Gameplay.Features.MovementFeuture;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Meta.Features.Wallet;
@@ -70,7 +71,13 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 				return;
 
 			_rigidbodyEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
-			_characterControllerEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
+			// _characterControllerEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
+
+			if (Input.GetKeyDown(KeyCode.R))
+			{
+				_rigidbodyEntity.GetComponent<CurrentHealth>().Value.Value -= 25;
+				Debug.Log(_rigidbodyEntity.GetComponent<CurrentHealth>().Value.Value);
+			}
 		}
 		
 		private void OnWinGame()

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities.ResourcesManagement;
-using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -41,8 +41,8 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore.Mono
 
 		private void OnEntityRealesed(Entity entity)
 		{
+			CleanUpFor(entity);
 
-			
 			_entityToMono.Remove(entity);
 		}
 
