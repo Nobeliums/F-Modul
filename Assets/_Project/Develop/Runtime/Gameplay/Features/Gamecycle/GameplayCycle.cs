@@ -1,6 +1,7 @@
 ﻿using System;
 using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore;
+using _Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
 using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
 using _Project.Develop.Runtime.Gameplay.Features.LIfeCycle;
 using _Project.Develop.Runtime.Gameplay.Features.MovementFeuture;
@@ -61,7 +62,8 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 		{
 			_isRunning = true;
 
-			_rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateRigidbodyTestEntity(Vector3.left);
+			_rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateGhostEntity(Vector3.left);
+			_container.Resolve<EntitiesFactory>().CreateGhostEntity(Vector3.right);
 		}
 		
 		public void ProcessUpdate()
@@ -75,7 +77,8 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 
 			if (Input.GetKeyDown(KeyCode.R))
 			{
-				_rigidbodyEntity.GetComponent<CurrentHealth>().Value.Value -= 25;
+				_rigidbodyEntity.GetComponent<TakeDamageRequest>().Value.Invoke(25);
+				
 				Debug.Log(_rigidbodyEntity.GetComponent<CurrentHealth>().Value.Value);
 			}
 		}

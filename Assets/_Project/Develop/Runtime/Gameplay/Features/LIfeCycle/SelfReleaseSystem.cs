@@ -8,8 +8,6 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 {
 	public class SelfReleaseSystem : IInitializableSystem, IUpdatableSystem
 	{
-		private ReactiveVabiable<bool> _isDead;
-		private ReactiveVabiable<bool> _inDeathProcess;
 		
 		private Entity _entity;
 		
@@ -23,8 +21,8 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 		
 		public void OnInit(Entity entity)
 		{
-			_isDead = entity.GetComponent<IsDead>().Value;
-			_inDeathProcess = entity.GetComponent<InDeathProcess>().Value;
+			_releaseCondition = entity.GetComponent<MustSelfRelease>().Value;
+
 			_entity = entity;
 		}
 

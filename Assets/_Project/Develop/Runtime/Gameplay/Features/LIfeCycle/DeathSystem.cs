@@ -10,15 +10,12 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 	{
 		private ReactiveVabiable<bool> _isDead;
 		
-		private ReactiveVabiable<float> _currentHealth;
-		
 		private ICompositeCondition _deathCondition;
 
 
 		public void OnInit(Entity entity)
 		{
 			_isDead = entity.GetComponent<IsDead>().Value;
-			_currentHealth = entity.GetComponent<CurrentHealth>().Value;
 			_deathCondition = entity.GetComponent<MustDie>().Value;
 		}
 
