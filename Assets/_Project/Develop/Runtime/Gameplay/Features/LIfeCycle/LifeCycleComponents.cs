@@ -1,6 +1,8 @@
-﻿using _Project.Develop.Runtime.Gameplay.EntitiesCore;
+﻿using System.Collections.Generic;
+using _Project.Develop.Runtime.Gameplay.EntitiesCore;
 using _Project.Develop.Runtime.Utilities.Conditions;
 using _Project.Develop.Runtime.Utilities.Reactive;
+using UnityEngine;
 
 namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 {
@@ -42,5 +44,10 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 	public class MustSelfRelease : IEntityComponent
 	{
 		public ICompositeCondition Value;
+	}
+
+	public class DisableCollidersOnDeath : IEntityComponent
+	{
+		public List<Collider> Value;
 	}
 }

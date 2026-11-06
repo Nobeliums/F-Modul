@@ -11,6 +11,11 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 		public ReactiveVabiable<float> Value;
 	}
 
+	public class IsMoving : IEntityComponent
+	{
+		public ReactiveVabiable<bool> Value;
+	}
+
 	public class RotateSpeed : IEntityComponent
 	{
 		public ReactiveVabiable<float> Value;

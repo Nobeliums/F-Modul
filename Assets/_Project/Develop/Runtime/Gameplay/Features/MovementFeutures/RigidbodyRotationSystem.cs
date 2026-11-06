@@ -21,6 +21,9 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 			_rotateSpeed = entity.GetComponent<RotateSpeed>().Value;
 			_rotateDirection = entity.GetComponent<RotateDirection>().Value;
 			_canRotate = entity.GetComponent<CanRotate>().Value;
+
+			if (_rotateDirection.Value != Vector3.zero)
+				_rigidbody.transform.rotation = Quaternion.LookRotation(_rotateDirection.Value.normalized);
 		}
 
 		public void OnUpdate(float dt)

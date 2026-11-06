@@ -18,7 +18,8 @@ namespace _Project.Develop.Runtime.Utilities.ConfigManagement
             {typeof(StartWalletConfig), "Configs/StartWalletConfig"},
             {typeof(ShopConfig), "Configs/ShopConfig"},
             {typeof(StartWalletViewConfig), "Configs/StartWalletViewConfig"},
-            {typeof(PlayerConfig), "Configs/PlayerConfig"},
+            {typeof(PlayerConfig), "Configs/Player/PlayerConfig"},
+            {typeof(GhostConfig), "Configs/Ghost/GhostConfig"},
         };
         
         public ResourcesConfigLoader(ResourceLoadService resources)

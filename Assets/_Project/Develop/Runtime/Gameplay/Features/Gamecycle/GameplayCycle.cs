@@ -2,6 +2,7 @@
 using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore;
 using _Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
+using _Project.Develop.Runtime.Gameplay.Features.Attack;
 using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
 using _Project.Develop.Runtime.Gameplay.Features.LIfeCycle;
 using _Project.Develop.Runtime.Gameplay.Features.MovementFeuture;
@@ -32,6 +33,7 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 
 		private Entity _rigidbodyEntity;
 		private Entity _characterControllerEntity;
+		private Entity _playerEntity;
 
 		public GameplayCycle(
 			GameStatisticsService gameStatistics,
@@ -64,6 +66,7 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 
 			_rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateGhostEntity(Vector3.left);
 			_container.Resolve<EntitiesFactory>().CreateGhostEntity(Vector3.right);
+			_playerEntity =  _container.Resolve<EntitiesFactory>().CreateMainCharacterEntity(Vector3.forward * 3);
 		}
 		
 		public void ProcessUpdate()
@@ -71,15 +74,13 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 			if (_isRunning == false)
 				return;
 
-			_rigidbodyEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
-			_rigidbodyEntity.GetComponent<RotateDirection>().Value.Value = InputService.GetMovementDirection();
+			_playerEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
+			_playerEntity.GetComponent<RotateDirection>().Value.Value = InputService.GetMovementDirection();
 			// _characterControllerEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
 
 			if (Input.GetKeyDown(KeyCode.R))
 			{
-				_rigidbodyEntity.GetComponent<TakeDamageRequest>().Value.Invoke(25);
-				
-				Debug.Log(_rigidbodyEntity.GetComponent<CurrentHealth>().Value.Value);
+				_playerEntity.GetComponent<StartAttackRequest>().Value.Invoke();
 			}
 		}
 		

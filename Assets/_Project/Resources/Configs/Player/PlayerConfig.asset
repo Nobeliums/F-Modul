@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b5d7afde7043d9bba9d7c86fdf4e23, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  <PlayerMovementConfig>k__BackingField: {fileID: 11400000, guid: d4b7b6eb9923e5943b37d65ef4ddb374, type: 2}
-  <PlayerHealthConfig>k__BackingField: {fileID: 11400000, guid: 0e3ef0f021d311148a7b9f736b81eb62, type: 2}
+  <MovementConfig>k__BackingField: {fileID: 11400000, guid: d4b7b6eb9923e5943b37d65ef4ddb374, type: 2}
+  <HealthConfig>k__BackingField: {fileID: 11400000, guid: 0e3ef0f021d311148a7b9f736b81eb62, type: 2}
+  <AttackConfig>k__BackingField: {fileID: 11400000, guid: 7fc7d4e64f92c394f83aaabceb38be6e, type: 2}

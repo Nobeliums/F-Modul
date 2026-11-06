@@ -12,6 +12,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 		private ReactiveVabiable<Vector3> _moveDirection; 
 		private ReactiveVabiable<float> _speed;
 		private ICompositeCondition _canMove;
+		private ReactiveVabiable<bool> _isMoving;
 		
 		private Rigidbody _rigidbody;
 
@@ -21,6 +22,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 			_speed = entity.GetComponent<MoveSpeed>().Value;
 			_rigidbody = entity.GetComponent<RigidbodyComponent>().Value;
 			_canMove = entity.GetComponent<CanMove>().Value;
+			_isMoving = entity.GetComponent<IsMoving>().Value;
 		}
 
 		public void OnUpdate(float dt)
@@ -32,6 +34,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 			}
 			
 			Vector3 moveDirectionVector = _moveDirection.Value * _speed.Value;
+			_isMoving.Value = _rigidbody.velocity.magnitude > 0f;
 			
 			_rigidbody.velocity = moveDirectionVector;
 		}
