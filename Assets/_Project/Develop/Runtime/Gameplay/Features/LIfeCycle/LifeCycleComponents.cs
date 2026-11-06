@@ -8,32 +8,32 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 {
 	public class CurrentHealth : IEntityComponent
 	{
-		public ReactiveVabiable<float> Value;
+		public ReactiveVariable<float> Value;
 	}
 
 	public class MaxHealth : IEntityComponent
 	{
-		public ReactiveVabiable<float> Value;
+		public ReactiveVariable<float> Value;
 	}
 
 	public class IsDead : IEntityComponent
 	{
-		public ReactiveVabiable<bool> Value;
+		public ReactiveVariable<bool> Value;
 	}
 
 	public class DeathProcessInitialTime : IEntityComponent
 	{
-		public ReactiveVabiable<float> Value;
+		public ReactiveVariable<float> Value;
 	}
 
 	public class DeathProcessCurrentTime : IEntityComponent
 	{
-		public ReactiveVabiable<float> Value;
+		public ReactiveVariable<float> Value;
 	}
 
 	public class InDeathProcess : IEntityComponent
 	{
-		public ReactiveVabiable<bool> Value;
+		public ReactiveVariable<bool> Value;
 	}
 
 	public class MustDie : IEntityComponent

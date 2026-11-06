@@ -15,8 +15,8 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 		private bool _isWin;
 		private bool _isLose;
 
-		private ReactiveVabiable<string> _gamePhrase = new();
-		private ReactiveVabiable<string> _playerInputPhrase = new();
+		private ReactiveVariable<string> _gamePhrase = new();
+		private ReactiveVariable<string> _playerInputPhrase = new();
 
 		private ICondition _winCondition;
 		private ICondition _loseCondition;

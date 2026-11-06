@@ -11,8 +11,8 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 	public class RigidbodyRotationSystem : IInitializableSystem, IUpdatableSystem
 	{
 		private Rigidbody _rigidbody;
-		private ReactiveVabiable<float> _rotateSpeed;
-		private ReactiveVabiable<Vector3> _rotateDirection;
+		private ReactiveVariable<float> _rotateSpeed;
+		private ReactiveVariable<Vector3> _rotateDirection;
 		private ICompositeCondition _canRotate;
 
 		public void OnInit(Entity entity)

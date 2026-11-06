@@ -13,7 +13,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage
 	public class DealDamageOnContactSystem : IInitializableSystem, IUpdatableSystem
 	{
 		private Buffer<Entity> _contacts;
-		private ReactiveVabiable<float> _damage;
+		private ReactiveVariable<float> _damage;
 
 		private List<Entity> _processedEntities;
 		

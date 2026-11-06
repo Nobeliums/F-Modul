@@ -22,22 +22,22 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 
 	public class AttackProcessInitialTime : IEntityComponent
 	{
-		public ReactiveVabiable<float> Value;
+		public ReactiveVariable<float> Value;
 	}
 
 	public class AttackProcessCurrentTime : IEntityComponent
 	{
-		public ReactiveVabiable<float> Value;
+		public ReactiveVariable<float> Value;
 	}
 
 	public class InAttackProcess : IEntityComponent
 	{
-		public ReactiveVabiable<bool> Value;
+		public ReactiveVariable<bool> Value;
 	}
 
 	public class AttackDelayTime : IEntityComponent
 	{
-		public ReactiveVabiable<float> Value;
+		public ReactiveVariable<float> Value;
 	}
 	
 	public class AttackDelayEndEvent : IEntityComponent
@@ -52,7 +52,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 
 	public class InstantAttackDamage : IEntityComponent
 	{
-		public ReactiveVabiable<float> Value;
+		public ReactiveVariable<float> Value;
 	}
 
 	public class ShootPoint : IEntityComponent
@@ -72,16 +72,16 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 
 	public class AttackCooldownInitialTime : IEntityComponent
 	{
-		public ReactiveVabiable<float> Value;
+		public ReactiveVariable<float> Value;
 	}
 
 	public class AttackCooldownCurrentTime : IEntityComponent
 	{
-		public ReactiveVabiable<float> Value;
+		public ReactiveVariable<float> Value;
 	}
 
 	public class InAttackCooldown : IEntityComponent
 	{
-		public ReactiveVabiable<bool> Value;
+		public ReactiveVariable<bool> Value;
 	}
 }

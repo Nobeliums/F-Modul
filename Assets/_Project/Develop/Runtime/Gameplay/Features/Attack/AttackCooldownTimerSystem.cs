@@ -7,9 +7,9 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 {
 	public class AttackCooldownTimerSystem : IInitializableSystem, IUpdatableSystem, IDisposableSystem
 	{
-		private ReactiveVabiable<float> _cooldownInitialTime;
-		private ReactiveVabiable<float> _cooldownCurrentTime;
-		private ReactiveVabiable<bool> _inAttackCooldown;
+		private ReactiveVariable<float> _cooldownInitialTime;
+		private ReactiveVariable<float> _cooldownCurrentTime;
+		private ReactiveVariable<bool> _inAttackCooldown;
 
 		private ReactiveEvent _endAttack;
 

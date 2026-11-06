@@ -7,11 +7,11 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 {
 	public class DeathProcessTimerSystem : IInitializableSystem, IUpdatableSystem, IDisposableSystem
 	{
-		private ReactiveVabiable<bool> _isDead;
-		private ReactiveVabiable<bool> _inDeathProcess;
+		private ReactiveVariable<bool> _isDead;
+		private ReactiveVariable<bool> _inDeathProcess;
 
-		private ReactiveVabiable<float> _initialTime;
-		private ReactiveVabiable<float> _currentTime;
+		private ReactiveVariable<float> _initialTime;
+		private ReactiveVariable<float> _currentTime;
 
 		private IDisposable _isDeadDisposable;
 

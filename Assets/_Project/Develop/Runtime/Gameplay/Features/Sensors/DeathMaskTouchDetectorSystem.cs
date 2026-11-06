@@ -9,7 +9,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Sensors
 	public class DeathMaskTouchDetectorSystem : IInitializableSystem, IUpdatableSystem
 	{
 		private Buffer<Collider> _colliderBuffer;
-		private ReactiveVabiable<bool> _isTouchDeathMask;
+		private ReactiveVariable<bool> _isTouchDeathMask;
 
 		private LayerMask _deathMask;
 

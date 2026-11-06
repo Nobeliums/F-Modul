@@ -5,6 +5,7 @@ using _Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
 using _Project.Develop.Runtime.Gameplay.Features.Attack;
 using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
 using _Project.Develop.Runtime.Gameplay.Features.LIfeCycle;
+using _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy;
 using _Project.Develop.Runtime.Gameplay.Features.MovementFeuture;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Meta.Features.Wallet;
@@ -64,8 +65,9 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 		{
 			_isRunning = true;
 
-			_rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateGhostEntity(Vector3.left);
+			_container.Resolve<EntitiesFactory>().CreateGhostEntity(Vector3.left);
 			_container.Resolve<EntitiesFactory>().CreateGhostEntity(Vector3.right);
+			_rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateTeleportGhost(Vector3.back * 3);
 			_playerEntity =  _container.Resolve<EntitiesFactory>().CreateMainCharacterEntity(Vector3.forward * 3);
 		}
 		
@@ -83,7 +85,7 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 				_playerEntity.GetComponent<StartAttackRequest>().Value.Invoke();
 			}
 		}
-		
+
 		private void OnWinGame()
 		{
 			WinGame?.Invoke();

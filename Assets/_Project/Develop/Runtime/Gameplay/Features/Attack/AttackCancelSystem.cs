@@ -8,7 +8,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 {
 	public class AttackCancelSystem : IInitializableSystem, IUpdatableSystem
 	{
-		private ReactiveVabiable<bool> _inAttackProcess;
+		private ReactiveVariable<bool> _inAttackProcess;
 		private ReactiveEvent _attackCanceledEvent;
 
 		private ICompositeCondition _mustCancelAttack;

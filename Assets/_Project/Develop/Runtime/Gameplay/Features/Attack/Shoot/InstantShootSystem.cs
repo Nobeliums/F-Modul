@@ -11,7 +11,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 		private readonly EntitiesFactory _entitiesFactory;
 		
 		private ReactiveEvent _attackDelayEndEvent;
-		private ReactiveVabiable<float> _damage;
+		private ReactiveVariable<float> _damage;
 		private Transform _shootPoint;
 
 		private IDisposable _attackDelayEndDisposable;

@@ -9,10 +9,10 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 {
 	public class RigidbodyMovementSystem : IInitializableSystem, IUpdatableSystem
 	{
-		private ReactiveVabiable<Vector3> _moveDirection; 
-		private ReactiveVabiable<float> _speed;
+		private ReactiveVariable<Vector3> _moveDirection; 
+		private ReactiveVariable<float> _speed;
 		private ICompositeCondition _canMove;
-		private ReactiveVabiable<bool> _isMoving;
+		private ReactiveVariable<bool> _isMoving;
 		
 		private Rigidbody _rigidbody;
 

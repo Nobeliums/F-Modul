@@ -9,8 +9,8 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 	public class CharacterControllerMovementSystem : IInitializableSystem, IUpdatableSystem
 	{
 		private CharacterController _characterController;
-		private ReactiveVabiable<float> _moveSpeed;
-		private ReactiveVabiable<Vector3> _moveDirection;
+		private ReactiveVariable<float> _moveSpeed;
+		private ReactiveVariable<Vector3> _moveDirection;
 		
 		public void OnInit(Entity entity)
 		{

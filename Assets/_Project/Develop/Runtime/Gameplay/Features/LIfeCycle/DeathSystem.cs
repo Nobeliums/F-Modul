@@ -8,7 +8,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 {
 	public class DeathSystem : IInitializableSystem, IUpdatableSystem
 	{
-		private ReactiveVabiable<bool> _isDead;
+		private ReactiveVariable<bool> _isDead;
 		
 		private ICompositeCondition _deathCondition;
 

@@ -20,6 +20,7 @@ namespace _Project.Develop.Runtime.Utilities.ConfigManagement
             {typeof(StartWalletViewConfig), "Configs/StartWalletViewConfig"},
             {typeof(PlayerConfig), "Configs/Player/PlayerConfig"},
             {typeof(GhostConfig), "Configs/Ghost/GhostConfig"},
+            {typeof(GhostTeleportConfig), "Configs/TeleportGhost/TeleportGhostConfig"}
         };
         
         public ResourcesConfigLoader(ResourceLoadService resources)

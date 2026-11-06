@@ -10,8 +10,8 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 	{
 		private ReactiveEvent _attackDelayEndEvent;
 		private ReactiveEvent _startAttackEvent;
-		private ReactiveVabiable<float> _delay;
-		private ReactiveVabiable<float> _attackProcessCurrentTime;
+		private ReactiveVariable<float> _delay;
+		private ReactiveVariable<float> _attackProcessCurrentTime;
 
 		private bool _alreadyAttacked;
 

@@ -6,16 +6,16 @@ namespace _Project.Develop.Runtime.Meta.Features.GameStatistics
 {
 	public class GameStatisticsService : IDataReader<PlayerData>, IDataWriter<PlayerData>
 	{
-		private ReactiveVabiable<int> _loseGameCount;
-		private ReactiveVabiable<int> _winGameCount;
+		private ReactiveVariable<int> _loseGameCount;
+		private ReactiveVariable<int> _winGameCount;
 		
 		public IReadOnlyReactiveVariable<int> LoseGameCount => _loseGameCount;
 		public IReadOnlyReactiveVariable<int> WinGameCount => _winGameCount;
 
 		public GameStatisticsService(PlayerDataProvider playerDataProvider)
 		{
-			_loseGameCount = new ReactiveVabiable<int>();
-			_winGameCount = new ReactiveVabiable<int>();
+			_loseGameCount = new ReactiveVariable<int>();
+			_winGameCount = new ReactiveVariable<int>();
 			
 			playerDataProvider.RegisterDataReader(this);
 			playerDataProvider.RegisterDataWriter(this);

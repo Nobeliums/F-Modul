@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace _Project.Develop.Runtime.Utilities.Reactive
 {
-	public class ReactiveVabiable<T> : IReadOnlyReactiveVariable<T>
+	public class ReactiveVariable<T> : IReadOnlyReactiveVariable<T>
 	{
 		private readonly List<Subscriber<T, T>> _subscribers = new();
 		private readonly List<Subscriber<T, T>> _toAdd = new();
@@ -29,12 +29,12 @@ namespace _Project.Develop.Runtime.Utilities.Reactive
 			}
 		}
 
-		public ReactiveVabiable(T value)
+		public ReactiveVariable(T value)
 		{
 			_value = value;
 		}
 
-		public ReactiveVabiable() => _value = default;
+		public ReactiveVariable() => _value = default;
 
 		public IDisposable Subscribe(Action<T, T> action)
 		{

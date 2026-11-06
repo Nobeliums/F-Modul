@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb88e2456b14de9a19f33f1f51f9754, type: 3}
+  m_Name: TeleportConfig
+  m_EditorClassIdentifier: 
+  <TeleportRadius>k__BackingField: 4
+  <TeleportCooldown>k__BackingField: 2
+  <TeleportEnergyCost>k__BackingField: 25

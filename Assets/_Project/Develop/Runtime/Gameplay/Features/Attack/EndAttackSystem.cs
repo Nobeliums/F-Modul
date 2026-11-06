@@ -9,9 +9,9 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 	public class EndAttackSystem : IInitializableSystem, IDisposableSystem
 	{
 		private ReactiveEvent _endAttackEvent;
-		private ReactiveVabiable<bool> _inAttackProcess;
-		private ReactiveVabiable<float> _attackProcessInitialTime;
-		private ReactiveVabiable<float> _attackProcessCurrentTime;
+		private ReactiveVariable<bool> _inAttackProcess;
+		private ReactiveVariable<float> _attackProcessInitialTime;
+		private ReactiveVariable<float> _attackProcessCurrentTime;
 
 		private IDisposable _timerDisposable;
 

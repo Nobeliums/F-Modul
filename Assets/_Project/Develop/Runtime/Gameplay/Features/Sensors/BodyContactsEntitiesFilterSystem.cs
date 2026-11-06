@@ -41,8 +41,6 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Sensors
 					_entities.Count++;
 				}
 			}
-			
-			Debug.Log(_entities.Count);
 		}
 	}
 }

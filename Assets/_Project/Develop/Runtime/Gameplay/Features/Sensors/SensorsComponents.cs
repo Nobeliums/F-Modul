@@ -32,6 +32,6 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Sensors
 	
 	public class IsTouchDeathMask : IEntityComponent
 	{
-		public ReactiveVabiable<bool> Value;
+		public ReactiveVariable<bool> Value;
 	}
 }

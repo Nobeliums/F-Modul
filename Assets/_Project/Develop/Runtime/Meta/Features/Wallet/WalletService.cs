@@ -9,10 +9,10 @@ namespace _Project.Develop.Runtime.Meta.Features.Wallet
 {
 	public class WalletService : IDataReader<PlayerData>, IDataWriter<PlayerData>
 	{
-		private Dictionary<WalletCurrencyType, ReactiveVabiable<int>> _walletCurrencies;
+		private Dictionary<WalletCurrencyType, ReactiveVariable<int>> _walletCurrencies;
 
 		public WalletService(Dictionary<WalletCurrencyType,
-			ReactiveVabiable<int>> walletCurrencies,
+			ReactiveVariable<int>> walletCurrencies,
 			PlayerDataProvider playerDataProvider)
 		{
 			_walletCurrencies = new(walletCurrencies);
@@ -56,7 +56,7 @@ namespace _Project.Develop.Runtime.Meta.Features.Wallet
 
 		public void WriteTo(PlayerData data)
 		{
-			foreach (KeyValuePair<WalletCurrencyType, ReactiveVabiable<int>> wallet in _walletCurrencies)
+			foreach (KeyValuePair<WalletCurrencyType, ReactiveVariable<int>> wallet in _walletCurrencies)
 			{
 				data.WalletData[wallet.Key] = wallet.Value.Value;
 			}

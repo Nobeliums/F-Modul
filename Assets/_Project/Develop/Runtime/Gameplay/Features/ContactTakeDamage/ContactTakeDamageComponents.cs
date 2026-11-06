@@ -5,6 +5,6 @@ namespace _Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage
 {
 	public class BodyContactDamage : IEntityComponent
 	{
-		public ReactiveVabiable<float> Value;
+		public ReactiveVariable<float> Value;
 	}
 }

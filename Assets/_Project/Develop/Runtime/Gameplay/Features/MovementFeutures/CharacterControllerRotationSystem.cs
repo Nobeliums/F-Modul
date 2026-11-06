@@ -8,8 +8,8 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 {
 	public class CharacterControllerRotationSystem : IInitializableSystem, IUpdatableSystem
 	{
-		private ReactiveVabiable<Vector3> _moveDirection; 
-		private ReactiveVabiable<float> _rotationSpeed;
+		private ReactiveVariable<Vector3> _moveDirection; 
+		private ReactiveVariable<float> _rotationSpeed;
 		private CharacterController _characterController;
 
 		public void OnInit(Entity entity)

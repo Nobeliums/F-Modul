@@ -13,7 +13,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.ApplyDamage
 		private ReactiveEvent<float> _damageRequest;
 		private ReactiveEvent<float> _damageEvent;
 
-		private ReactiveVabiable<float> _health;
+		private ReactiveVariable<float> _health;
 		
 		private ICompositeCondition _canApplyDamage;
 		

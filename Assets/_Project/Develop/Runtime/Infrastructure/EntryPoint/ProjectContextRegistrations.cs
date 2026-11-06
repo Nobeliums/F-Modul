@@ -54,11 +54,11 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 
 		private static WalletService CreateWalletService(DIContainer c)
 		{
-			Dictionary<WalletCurrencyType, ReactiveVabiable<int>> currencies = new();
+			Dictionary<WalletCurrencyType, ReactiveVariable<int>> currencies = new();
 
 			foreach (WalletCurrencyType currencyType in Enum.GetValues(typeof(WalletCurrencyType)))
 			{
-				currencies[currencyType] = new ReactiveVabiable<int>();
+				currencies[currencyType] = new ReactiveVariable<int>();
 			}
 			
 			return new WalletService(

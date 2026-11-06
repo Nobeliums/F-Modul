@@ -7,8 +7,8 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 {
 	public class AttackProcessTimerSystem : IInitializableSystem, IDisposableSystem, IUpdatableSystem
 	{
-		private ReactiveVabiable<float> _currentTime;
-		private ReactiveVabiable<bool> _inAttackProcess;
+		private ReactiveVariable<float> _currentTime;
+		private ReactiveVariable<bool> _inAttackProcess;
 		private ReactiveEvent _startAttackEvent;
 
 		private IDisposable _startAttackDisposable;

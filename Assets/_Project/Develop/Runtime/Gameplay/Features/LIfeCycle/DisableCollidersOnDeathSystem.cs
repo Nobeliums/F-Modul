@@ -10,7 +10,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 	public class DisableCollidersOnDeathSystem : IInitializableSystem, IDisposableSystem
 	{
 		private List<Collider> _colliders;
-		private ReactiveVabiable<bool> _isDead;
+		private ReactiveVariable<bool> _isDead;
 
 		private IDisposable _isDeadDisposable;
 
