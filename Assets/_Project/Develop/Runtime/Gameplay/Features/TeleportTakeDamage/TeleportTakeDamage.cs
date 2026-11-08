@@ -13,8 +13,6 @@ namespace _Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage
 {
 	public class TeleportTakeDamageSystem : IInitializableSystem, IDisposableSystem
 	{
-		private const int BufferSize = 64;
-
 		private Entity _selfEntity;
 		
 		private ReactiveVariable<float> _damage;

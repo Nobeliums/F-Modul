@@ -27,7 +27,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 			if (_deathCondition.Evaluate())
 			{
 				_isDead.Value = true;
-				Debug.Log("Я мертв");
+				Debug.Log("I Die");
 			}
 		}
 	}
