@@ -19,11 +19,11 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 		
 		public void OnInit(Entity entity)
 		{
-			_startAttackRequest = entity.GetComponent<StartAttackRequest>().Value;
-			_startAttackEvent = entity.GetComponent<StartAttackEvent>().Value;
-			
-			_inAttackProcess = entity.GetComponent<InAttackProcess>().Value;
-			_canStartAttack = entity.GetComponent<CanStartAttack>().Value;
+			_startAttackRequest = entity.StartAttackRequest;
+			_startAttackEvent = entity.StartAttackEvent;
+
+			_inAttackProcess = entity.InAttackProcess;
+			_canStartAttack = entity.CanStartAttack;
 
 			_startAttackRequestDisposable = _startAttackRequest.Subscribe(OnStartAttackRequest);
 		}

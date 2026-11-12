@@ -76,13 +76,13 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 			if (_isRunning == false)
 				return;
 
-			_playerEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
-			_playerEntity.GetComponent<RotateDirection>().Value.Value = InputService.GetMovementDirection();
-			// _characterControllerEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
+			_playerEntity.MoveDirection.Value = InputService.GetMovementDirection();
+			_playerEntity.RotateDirection.Value = InputService.GetMovementDirection();
+			// _characterControllerEntity.MoveDirection.Value = InputService.GetMovementDirection();
 
 			if (Input.GetKeyDown(KeyCode.R))
 			{
-				_playerEntity.GetComponent<StartAttackRequest>().Value.Invoke();
+				_playerEntity.StartAttackRequest.Invoke();
 			}
 		}
 

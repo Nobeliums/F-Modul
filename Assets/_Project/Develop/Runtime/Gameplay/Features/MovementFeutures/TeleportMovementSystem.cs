@@ -23,13 +23,13 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 		
 		public void OnInit(Entity entity)
 		{
-			_teleportRadius = entity.GetComponent<TeleportRadius>().Value;
-			_energyCost = entity.GetComponent<TeleportEnergyCost>().Value;
-			_canTeleport = entity.GetComponent<CanTeleport>().Value;
-			_rigidbody = entity.GetComponent<RigidbodyComponent>().Value;
-			_spendEnergyRequest = entity.GetComponent<SpendEnergyRequest>().Value;
-			
-			_teleportEvent = entity.GetComponent<TeleportEvent>().Value;
+			_teleportRadius = entity.TeleportRadius;
+			_energyCost = entity.TeleportEnergyCost;
+			_canTeleport = entity.CanTeleport;
+			_rigidbody = entity.RigidbodyComponent;
+			_spendEnergyRequest = entity.SpendEnergyRequest;
+
+			_teleportEvent = entity.TeleportEvent;
 		}
 
 		public void OnUpdate(float dt)

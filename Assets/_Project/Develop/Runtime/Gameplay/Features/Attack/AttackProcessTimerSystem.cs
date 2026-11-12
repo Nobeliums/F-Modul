@@ -15,9 +15,9 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 
 		public void OnInit(Entity entity)
 		{
-			_currentTime = entity.GetComponent<AttackProcessCurrentTime>().Value;
-			_inAttackProcess = entity.GetComponent<InAttackProcess>().Value;
-			_startAttackEvent = entity.GetComponent<StartAttackEvent>().Value;
+			_currentTime = entity.AttackProcessCurrentTime;
+			_inAttackProcess = entity.InAttackProcess;
+			_startAttackEvent = entity.StartAttackEvent;
 
 			_startAttackDisposable = _startAttackEvent.Subscribe(OnStartAttack);
 		}

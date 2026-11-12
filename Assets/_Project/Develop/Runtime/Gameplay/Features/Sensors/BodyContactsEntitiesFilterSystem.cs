@@ -20,9 +20,9 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Sensors
 
 		public void OnInit(Entity entity)
 		{
-			_contacts = entity.GetComponent<ContactColliderBuffer>().Value;
-			
-			_entities = entity.GetComponent<ContactEntitiesBuffer>().Value;
+			_contacts = entity.ContactColliderBuffer;
+
+			_entities = entity.ContactEntitiesBuffer;
 		}
 
 		public void OnUpdate(float dt)

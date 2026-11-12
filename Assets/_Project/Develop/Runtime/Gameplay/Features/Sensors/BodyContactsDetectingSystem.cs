@@ -14,10 +14,10 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Sensors
 		
 		public void OnInit(Entity entity)
 		{
-			_contacts = entity.GetComponent<ContactColliderBuffer>().Value;
-			_layerMask = entity.GetComponent<ContactsDetectingMask>().Value;
+			_contacts = entity.ContactColliderBuffer;
+			_layerMask = entity.ContactsDetectingMask;
 
-			_body = entity.GetComponent<BodyCollider>().Value;
+			_body = entity.BodyCollider;
 		}
 
 		public void OnUpdate(float dt)

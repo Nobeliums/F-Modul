@@ -15,10 +15,10 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 		
 		public void OnInit(Entity entity)
 		{
-			_inAttackProcess = entity.GetComponent<InAttackProcess>().Value;
-			_attackCanceledEvent = entity.GetComponent<AttackCanceledEvent>().Value;
-			
-			_mustCancelAttack = entity.GetComponent<MustCancelAttack>().Value;
+			_inAttackProcess = entity.InAttackProcess;
+			_attackCanceledEvent = entity.AttackCanceledEvent;
+
+			_mustCancelAttack = entity.MustCancelAttack;
 		}
 
 

@@ -19,14 +19,14 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy
 		
 		public void OnInit(Entity entity)
 		{
-			_percentByMaxRegeneration = entity.GetComponent<PercentByMaxRegenerationEnergy>().Value;
-			_regenerationInitialTime = entity.GetComponent<RegenerationEnergyInitialTime>().Value;
-			_regenerationCurrentTime = entity.GetComponent<RegenerationEnergyCurrentTime>().Value;
+			_percentByMaxRegeneration = entity.PercentByMaxRegenerationEnergy;
+			_regenerationInitialTime = entity.RegenerationEnergyInitialTime;
+			_regenerationCurrentTime = entity.RegenerationEnergyCurrentTime;
 
-			_maxEnergy = entity.GetComponent<MaxEnergy>().Value;
-			_currentEnergy = entity.GetComponent<CurrentEnergy>().Value;
-			
-			_regenerationRequest = entity.GetComponent<RegenerationEnergyRequest>().Value;
+			_maxEnergy = entity.MaxEnergy;
+			_currentEnergy = entity.CurrentEnergy;
+
+			_regenerationRequest = entity.RegenerationEnergyRequest;
 		}
 
 		public void OnUpdate(float dt)

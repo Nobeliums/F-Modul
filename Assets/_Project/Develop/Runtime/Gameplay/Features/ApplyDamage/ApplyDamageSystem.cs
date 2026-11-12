@@ -22,12 +22,12 @@ namespace _Project.Develop.Runtime.Gameplay.Features.ApplyDamage
 
 		public void OnInit(Entity entity)
 		{
-			_damageRequest = entity.GetComponent<TakeDamageRequest>().Value;
-			_damageEvent = entity.GetComponent<TakeDamageEvent>().Value;
-			
-			_health = entity.GetComponent<CurrentHealth>().Value;
-			
-			_canApplyDamage = entity.GetComponent<CanApplyDamage>().Value;
+			_damageRequest = entity.TakeDamageRequest;
+			_damageEvent = entity.TakeDamageEvent;
+
+			_health = entity.CurrentHealth;
+
+			_canApplyDamage = entity.CanApplyDamage;
 
 			_requestDisposable = _damageRequest.Subscribe(OnDamageRequest);
 		}

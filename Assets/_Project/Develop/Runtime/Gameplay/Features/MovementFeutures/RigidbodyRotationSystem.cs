@@ -17,10 +17,10 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 
 		public void OnInit(Entity entity)
 		{
-			_rigidbody = entity.GetComponent<RigidbodyComponent>().Value;
-			_rotateSpeed = entity.GetComponent<RotateSpeed>().Value;
-			_rotateDirection = entity.GetComponent<RotateDirection>().Value;
-			_canRotate = entity.GetComponent<CanRotate>().Value;
+			_rigidbody = entity.RigidbodyComponent;
+			_rotateSpeed = entity.RotateSpeed;
+			_rotateDirection = entity.RotateDirection;
+			_canRotate = entity.CanRotate;
 
 			if (_rotateDirection.Value != Vector3.zero)
 				_rigidbody.transform.rotation = Quaternion.LookRotation(_rotateDirection.Value.normalized);

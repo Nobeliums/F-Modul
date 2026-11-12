@@ -18,11 +18,11 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 
 		public void OnInit(Entity entity)
 		{
-			_moveDirection = entity.GetComponent<MoveDirection>().Value;;
-			_speed = entity.GetComponent<MoveSpeed>().Value;
-			_rigidbody = entity.GetComponent<RigidbodyComponent>().Value;
-			_canMove = entity.GetComponent<CanMove>().Value;
-			_isMoving = entity.GetComponent<IsMoving>().Value;
+			_moveDirection = entity.MoveDirection;
+			_speed = entity.MoveSpeed;
+			_rigidbody = entity.RigidbodyComponent;
+			_canMove = entity.CanMove;
+			_isMoving = entity.IsMoving;
 		}
 
 		public void OnUpdate(float dt)

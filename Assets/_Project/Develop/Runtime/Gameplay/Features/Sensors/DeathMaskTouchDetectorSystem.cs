@@ -15,10 +15,10 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Sensors
 
 		public void OnInit(Entity entity)
 		{
-			_colliderBuffer = entity.GetComponent<ContactColliderBuffer>().Value;
-			_isTouchDeathMask = entity.GetComponent<IsTouchDeathMask>().Value;
-			
-			_deathMask = entity.GetComponent<DeathMask>().Value;
+			_colliderBuffer = entity.ContactColliderBuffer;
+			_isTouchDeathMask = entity.IsTouchDeathMask;
+
+			_deathMask = entity.DeathMask;
 		}
 
 		public void OnUpdate(float dt)

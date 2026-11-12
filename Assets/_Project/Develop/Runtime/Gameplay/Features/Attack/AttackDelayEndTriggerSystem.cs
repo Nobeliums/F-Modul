@@ -20,10 +20,10 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 
 		public void OnInit(Entity entity)
 		{
-			_attackDelayEndEvent = entity.GetComponent<AttackDelayEndEvent>().Value;
-			_delay = entity.GetComponent<AttackDelayTime>().Value;
-			_attackProcessCurrentTime = entity.GetComponent<AttackProcessCurrentTime>().Value;
-			_startAttackEvent = entity.GetComponent<StartAttackEvent>().Value;
+			_attackDelayEndEvent = entity.AttackDelayEndEvent;
+			_delay = entity.AttackDelayTime;
+			_attackProcessCurrentTime = entity.AttackProcessCurrentTime;
+			_startAttackEvent = entity.StartAttackEvent;
 
 			
 			_disposable = _attackProcessCurrentTime.Subscribe(OnTimerChanged);

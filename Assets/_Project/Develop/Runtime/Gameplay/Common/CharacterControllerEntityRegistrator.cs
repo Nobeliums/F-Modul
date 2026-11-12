@@ -8,7 +8,7 @@ namespace _Project.Develop.Runtime.Gameplay.Common
 	{
 		public override void Register(Entity entity)
 		{
-			entity.AddComponent(new CharacterControllerComponent() { Value = GetComponent<CharacterController>() });
+			entity.AddCharacterControllerComponent(GetComponent<CharacterController>());
 		}
 	}
 }

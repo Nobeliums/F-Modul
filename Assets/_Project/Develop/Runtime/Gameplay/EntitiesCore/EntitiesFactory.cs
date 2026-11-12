@@ -50,62 +50,57 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			Debug.Log(entity.ToString());
 
 			entity
-				.AddComponent(new MoveDirection() { Value = new ReactiveVariable<Vector3>() })
-				.AddComponent(new MoveSpeed()
-					{ Value = new ReactiveVariable<float>(config.MovementConfig.MoveSpeed) })
-				.AddComponent(new RotateDirection() { Value = new ReactiveVariable<Vector3>() })
-				.AddComponent(new IsMoving() { Value = new ReactiveVariable<bool>() } )
-				.AddComponent(new RotateSpeed()
-					{ Value = new ReactiveVariable<float>(config.MovementConfig.RotationSpeed) })
-				.AddComponent(new MaxHealth()
-					{ Value = new ReactiveVariable<float>(config.HealthConfig.MaxHealth) })
-				.AddComponent(new CurrentHealth()
-					{ Value = new ReactiveVariable<float>(config.HealthConfig.StartHealth) })
-				.AddComponent(new IsDead() { Value = new ReactiveVariable<bool>(false) })
-				.AddComponent(new InDeathProcess() { Value = new ReactiveVariable<bool>(false) })
-				.AddComponent(new DeathProcessInitialTime()
-					{ Value = new ReactiveVariable<float>(config.HealthConfig.DeathProcessInitialTime) })
-				.AddComponent(new DeathProcessCurrentTime() { Value = new ReactiveVariable<float>() })
-				.AddComponent(new TakeDamageRequest() { Value = new ReactiveEvent<float>() })
-				.AddComponent(new TakeDamageEvent() { Value = new ReactiveEvent<float>() })
-				.AddComponent(new ContactsDetectingMask() { Value = 1 << LayerMask.NameToLayer("Characters") })
-				.AddComponent(new ContactColliderBuffer() { Value = new Buffer<Collider>(BufferSize) })
-				.AddComponent(new ContactEntitiesBuffer() { Value = new Buffer<Entity>(BufferSize) })
-				.AddComponent(new BodyContactDamage() { Value = new ReactiveVariable<float>(config.AttackConfig.Damage) });
+				.AddMoveDirection()
+				.AddMoveSpeed(new ReactiveVariable<float>(config.MovementConfig.MoveSpeed))
+				.AddRotateDirection()
+				.AddIsMoving()
+				.AddRotateSpeed(new ReactiveVariable<float>(config.MovementConfig.RotationSpeed))
+				.AddMaxHealth(new ReactiveVariable<float>(config.HealthConfig.MaxHealth))
+				.AddCurrentHealth(new ReactiveVariable<float>(config.HealthConfig.StartHealth))
+				.AddIsDead(new ReactiveVariable<bool>(false))
+				.AddInDeathProcess(new ReactiveVariable<bool>(false))
+				.AddDeathProcessInitialTime(new ReactiveVariable<float>(config.HealthConfig.DeathProcessInitialTime))
+				.AddDeathProcessCurrentTime()
+				.AddTakeDamageRequest()
+				.AddTakeDamageEvent()
+				.AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
+				.AddContactColliderBuffer(new Buffer<Collider>(BufferSize))
+				.AddContactEntitiesBuffer(new Buffer<Entity>(BufferSize))
+				.AddBodyContactDamage(new ReactiveVariable<float>(config.AttackConfig.Damage));
 
 			ICompositeCondition canMove = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
 
 			ICompositeCondition canRotate = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
 
 			ICompositeCondition mustDie = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<CurrentHealth>().Value.Value <= 0f));
+				.AddCondition(new FuncCondition(() => entity.CurrentHealth.Value <= 0f));
 
 			ICompositeCondition mustRelease = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value))
-				.AddCondition(new FuncCondition(() => entity.GetComponent<InDeathProcess>().Value.Value == false));
-			
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value))
+				.AddCondition(new FuncCondition(() => entity.InDeathProcess.Value == false));
+
 			ICompositeCondition canApplyDamage = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
 
 			entity
-				.AddComponent(new CanMove() { Value = canMove })
-				.AddComponent(new CanRotate() { Value = canRotate })
-				.AddComponent(new MustDie() { Value = mustDie })
-				.AddComponent(new MustSelfRelease() { Value = mustRelease })
-				.AddComponent(new CanApplyDamage() {Value = canApplyDamage});
+				.AddCanMove(canMove)
+				.AddCanRotate(canRotate)
+				.AddMustDie(mustDie)
+				.AddMustSelfRelease(mustRelease)
+				.AddCanApplyDamage(canApplyDamage);
 
 			entity
-				.AddSystem(new RigidbodyMovementSystem())
-				.AddSystem(new RigidbodyRotationSystem())
-				.AddSystem(new BodyContactsDetectingSystem())
-				.AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
-				.AddSystem(new DealDamageOnContactSystem())
-				.AddSystem(new ApplyDamageSystem())
-				.AddSystem(new DeathSystem())
-				.AddSystem(new DeathProcessTimerSystem())
-				.AddSystem(new SelfReleaseSystem(_entitiesContext));
+				.AddRigidbodyMovementSystem()
+				.AddRigidbodyRotationSystem()
+				.AddBodyContactsDetectingSystem()
+				.AddBodyContactsEntitiesFilterSystem(_collidersRegistryService)
+				.AddDealDamageOnContactSystem()
+				.AddApplyDamageSystem()
+				.AddDeathSystem()
+				.AddDeathProcessTimerSystem()
+				.AddSelfReleaseSystem(_entitiesContext);
 			
 			_entitiesContext.Add(entity);
 			
@@ -123,88 +118,82 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 				_monoEntitiesFactory.Create(entity, position, "Prefabs/Gameplay/Entity/MainCharacterMonoEntity");
 
 			entity
-				.AddComponent(new MoveDirection() { Value = new ReactiveVariable<Vector3>() })
-				.AddComponent(new MoveSpeed()
-					{ Value = new ReactiveVariable<float>(config.MovementConfig.MoveSpeed) })
-				.AddComponent(new IsMoving() { Value = new ReactiveVariable<bool>() } )
-				.AddComponent(new RotateDirection() { Value = new ReactiveVariable<Vector3>() })
-				.AddComponent(new RotateSpeed()
-					{ Value = new ReactiveVariable<float>(config.MovementConfig.RotationSpeed) })
-				.AddComponent(new MaxHealth()
-					{ Value = new ReactiveVariable<float>(config.HealthConfig.MaxHealth) })
-				.AddComponent(new CurrentHealth()
-					{ Value = new ReactiveVariable<float>(config.HealthConfig.StartHealth) })
-				.AddComponent(new IsDead() { Value = new ReactiveVariable<bool>(false) })
-				.AddComponent(new InDeathProcess() { Value = new ReactiveVariable<bool>(false) })
-				.AddComponent(new DeathProcessInitialTime()
-					{ Value = new ReactiveVariable<float>(config.HealthConfig.DeathProcessInitialTime) })
-				.AddComponent(new DeathProcessCurrentTime() { Value = new ReactiveVariable<float>() })
-				.AddComponent(new TakeDamageRequest() { Value = new ReactiveEvent<float>() })
-				.AddComponent(new TakeDamageEvent() { Value = new ReactiveEvent<float>() })
-				.AddComponent(new AttackProcessInitialTime()
-					{ Value = new ReactiveVariable<float>(config.AttackConfig.InitialAttackTime) })
-				.AddComponent(new AttackProcessCurrentTime() { Value = new ReactiveVariable<float>() })
-				.AddComponent(new StartAttackRequest() { Value = new ReactiveEvent() })
-				.AddComponent(new StartAttackEvent() { Value = new ReactiveEvent() })
-				.AddComponent(new InAttackProcess() { Value = new ReactiveVariable<bool>() })
-				.AddComponent(new AttackDelayTime() { Value = new ReactiveVariable<float>(config.AttackConfig.AttackDelayTime) } )
-				.AddComponent(new AttackDelayEndEvent() { Value = new ReactiveEvent() })
-				.AddComponent(new EndAttackEvent() { Value = new ReactiveEvent() })
-				.AddComponent(new InstantAttackDamage() { Value = new ReactiveVariable<float>(config.AttackConfig.Damage) })
-				.AddComponent(new AttackCanceledEvent() { Value = new ReactiveEvent() })
-				.AddComponent(new AttackCooldownInitialTime() { Value = new ReactiveVariable<float>(config.AttackConfig.AttackCooldownInitialTime) } )
-				.AddComponent(new AttackCooldownCurrentTime() { Value =  new ReactiveVariable<float>() } )
-				.AddComponent(new InAttackCooldown() { Value = new ReactiveVariable<bool>(false) } );
+				.AddMoveDirection()
+				.AddMoveSpeed(new ReactiveVariable<float>(config.MovementConfig.MoveSpeed))
+				.AddIsMoving()
+				.AddRotateDirection()
+				.AddRotateSpeed(new ReactiveVariable<float>(config.MovementConfig.RotationSpeed))
+				.AddMaxHealth(new ReactiveVariable<float>(config.HealthConfig.MaxHealth))
+				.AddCurrentHealth(new ReactiveVariable<float>(config.HealthConfig.StartHealth))
+				.AddIsDead(new ReactiveVariable<bool>(false))
+				.AddInDeathProcess(new ReactiveVariable<bool>(false))
+				.AddDeathProcessInitialTime(new ReactiveVariable<float>(config.HealthConfig.DeathProcessInitialTime))
+				.AddDeathProcessCurrentTime()
+				.AddTakeDamageRequest()
+				.AddTakeDamageEvent()
+				.AddAttackProcessInitialTime(new ReactiveVariable<float>(config.AttackConfig.InitialAttackTime))
+				.AddAttackProcessCurrentTime()
+				.AddStartAttackRequest()
+				.AddStartAttackEvent()
+				.AddInAttackProcess()
+				.AddAttackDelayTime(new ReactiveVariable<float>(config.AttackConfig.AttackDelayTime))
+				.AddAttackDelayEndEvent()
+				.AddEndAttackEvent()
+				.AddInstantAttackDamage(new ReactiveVariable<float>(config.AttackConfig.Damage))
+				.AddAttackCanceledEvent()
+				.AddAttackCooldownInitialTime(new ReactiveVariable<float>(config.AttackConfig.AttackCooldownInitialTime))
+				.AddAttackCooldownCurrentTime()
+				.AddInAttackCooldown(new ReactiveVariable<bool>(false));
 
 			ICompositeCondition canMove = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
 
 			ICompositeCondition canRotate = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
 
 			ICompositeCondition mustDie = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<CurrentHealth>().Value.Value <= 0f));
+				.AddCondition(new FuncCondition(() => entity.CurrentHealth.Value <= 0f));
 
 			ICompositeCondition mustRelease = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value))
-				.AddCondition(new FuncCondition(() => entity.GetComponent<InDeathProcess>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value))
+				.AddCondition(new FuncCondition(() => entity.InDeathProcess.Value == false));
 			
 			ICompositeCondition canApplyDamage = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
 			
 			ICompositeCondition canStartAttack = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false))
-				.AddCondition(new FuncCondition(() => entity.GetComponent<InAttackProcess>().Value.Value == false))
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsMoving>().Value.Value == false))
-				.AddCondition(new FuncCondition(() => entity.GetComponent<InAttackCooldown>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false))
+				.AddCondition(new FuncCondition(() => entity.InAttackProcess.Value == false))
+				.AddCondition(new FuncCondition(() => entity.IsMoving.Value == false))
+				.AddCondition(new FuncCondition(() => entity.InAttackCooldown.Value == false));
 
 			ICompositeCondition mustCancelAttack = new CompositeCondition(LogicOperations.Or)
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsMoving>().Value.Value))
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value));
+				.AddCondition(new FuncCondition(() => entity.IsMoving.Value))
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value));
 
 			entity
-				.AddComponent(new CanMove() { Value = canMove })
-				.AddComponent(new CanRotate() { Value = canRotate })
-				.AddComponent(new MustDie() { Value = mustDie })
-				.AddComponent(new MustSelfRelease() { Value = mustRelease })
-				.AddComponent(new CanApplyDamage() { Value = canApplyDamage })
-				.AddComponent(new CanStartAttack() { Value = canStartAttack })
-				.AddComponent(new MustCancelAttack() { Value = mustCancelAttack });
+				.AddCanMove(canMove)
+				.AddCanRotate(canRotate)
+				.AddMustDie(mustDie)
+				.AddMustSelfRelease(mustRelease)
+				.AddCanApplyDamage(canApplyDamage)
+				.AddCanStartAttack(canStartAttack)
+				.AddMustCancelAttack(mustCancelAttack);
 
 			entity
-				.AddSystem(new RigidbodyMovementSystem())
-				.AddSystem(new RigidbodyRotationSystem())
-				.AddSystem(new StartAttackSystem())
-				.AddSystem(new AttackCancelSystem())
-				.AddSystem(new AttackProcessTimerSystem())
-				.AddSystem(new AttackDelayEndTriggerSystem())
-				.AddSystem(new InstantShootSystem(this))
-				.AddSystem(new EndAttackSystem())
-				.AddSystem(new AttackCooldownTimerSystem())
-				.AddSystem(new ApplyDamageSystem())
-				.AddSystem(new DeathSystem())
-				.AddSystem(new DeathProcessTimerSystem())
-				.AddSystem(new SelfReleaseSystem(_entitiesContext));
+				.AddRigidbodyMovementSystem()
+				.AddRigidbodyRotationSystem()
+				.AddStartAttackSystem()
+				.AddAttackCancelSystem()
+				.AddAttackProcessTimerSystem()
+				.AddAttackDelayEndTriggerSystem()
+				.AddInstantShootSystem(this)
+				.AddEndAttackSystem()
+				.AddAttackCooldownTimerSystem()
+				.AddApplyDamageSystem()
+				.AddDeathSystem()
+				.AddDeathProcessTimerSystem()
+				.AddSelfReleaseSystem(_entitiesContext);
 			
 			_entitiesContext.Add(entity);
 			
@@ -223,48 +212,46 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			Debug.Log(entity.ToString());
 
 			entity
-				.AddComponent(new MoveDirection() { Value = new ReactiveVariable<Vector3>(direction) })
-				.AddComponent(new MoveSpeed()
-					{ Value = new ReactiveVariable<float>(config.MovementConfig.MoveSpeed) })
-				.AddComponent(new RotateDirection() { Value = new ReactiveVariable<Vector3>(direction) })
-				.AddComponent(new IsMoving() { Value = new ReactiveVariable<bool>() } )
-				.AddComponent(new RotateSpeed()
-					{ Value = new ReactiveVariable<float>(99999) })
-				.AddComponent(new IsDead() { Value = new ReactiveVariable<bool>(false) })
-				.AddComponent(new ContactsDetectingMask() { Value = 1 << LayerMask.NameToLayer("Characters") })
-				.AddComponent(new ContactColliderBuffer() { Value = new Buffer<Collider>(BufferSize) })
-				.AddComponent(new ContactEntitiesBuffer() { Value = new Buffer<Entity>(BufferSize) })
-				.AddComponent(new BodyContactDamage() { Value = new ReactiveVariable<float>(damage) })
-				.AddComponent(new DeathMask() { Value = 1 << LayerMask.NameToLayer("Characters") })
-				.AddComponent(new IsTouchDeathMask() { Value = new ReactiveVariable<bool>() });
+				.AddMoveDirection(new ReactiveVariable<Vector3>(direction))
+				.AddMoveSpeed(new ReactiveVariable<float>(config.MovementConfig.MoveSpeed))
+				.AddRotateDirection(new ReactiveVariable<Vector3>(direction))
+				.AddIsMoving()
+				.AddRotateSpeed(new ReactiveVariable<float>(99999))
+				.AddIsDead(new ReactiveVariable<bool>(false))
+				.AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
+				.AddContactColliderBuffer(new Buffer<Collider>(BufferSize))
+				.AddContactEntitiesBuffer(new Buffer<Entity>(BufferSize))
+				.AddBodyContactDamage(new ReactiveVariable<float>(damage))
+				.AddDeathMask(1 << LayerMask.NameToLayer("Characters"))
+				.AddIsTouchDeathMask();
 
 			ICompositeCondition canMove = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
 
 			ICompositeCondition canRotate = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
 
 			ICompositeCondition mustDie = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsTouchDeathMask>().Value.Value));
+				.AddCondition(new FuncCondition(() => entity.IsTouchDeathMask.Value));
 
 			ICompositeCondition mustRelease = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value));
 
 			entity
-				.AddComponent(new CanMove() { Value = canMove })
-				.AddComponent(new CanRotate() { Value = canRotate })
-				.AddComponent(new MustDie() { Value = mustDie })
-				.AddComponent(new MustSelfRelease() { Value = mustRelease });
+				.AddCanMove(canMove)
+				.AddCanRotate(canRotate)
+				.AddMustDie(mustDie)
+				.AddMustSelfRelease(mustRelease);
 
 			entity
-				.AddSystem(new RigidbodyMovementSystem())
-				.AddSystem(new RigidbodyRotationSystem())
-				.AddSystem(new BodyContactsDetectingSystem())
-				.AddSystem(new BodyContactsEntitiesFilterSystem(_collidersRegistryService))
-				.AddSystem(new DealDamageOnContactSystem())
-				.AddSystem(new DeathMaskTouchDetectorSystem())
-				.AddSystem(new DeathSystem())
-				.AddSystem(new SelfReleaseSystem(_entitiesContext));
+				.AddRigidbodyMovementSystem()
+				.AddRigidbodyRotationSystem()
+				.AddBodyContactsDetectingSystem()
+				.AddBodyContactsEntitiesFilterSystem(_collidersRegistryService)
+				.AddDealDamageOnContactSystem()
+				.AddDeathMaskTouchDetectorSystem()
+				.AddDeathSystem()
+				.AddSelfReleaseSystem(_entitiesContext);
 			
 			_entitiesContext.Add(entity);
 			
@@ -282,89 +269,79 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 				_monoEntitiesFactory.Create(entity, position, "Prefabs/Gameplay/Entity/TeleportGhostMonoEntity");
 
 			entity
-				.AddComponent(new MaxHealth()
-					{ Value = new ReactiveVariable<float>(config.HealthConfig.MaxHealth) })
-				.AddComponent(new CurrentHealth()
-					{ Value = new ReactiveVariable<float>(config.HealthConfig.StartHealth) })
-				.AddComponent(new IsDead() { Value = new ReactiveVariable<bool>(false) })
-				.AddComponent(new InDeathProcess() { Value = new ReactiveVariable<bool>(false) })
-				.AddComponent(new DeathProcessInitialTime()
-					{ Value = new ReactiveVariable<float>(config.HealthConfig.DeathProcessInitialTime) })
-				.AddComponent(new DeathProcessCurrentTime() { Value = new ReactiveVariable<float>() })
-				.AddComponent(new TakeDamageRequest() { Value = new ReactiveEvent<float>() })
-				.AddComponent(new TakeDamageEvent() { Value = new ReactiveEvent<float>() })
-				.AddComponent(new CurrentEnergy()
-					{ Value = new ReactiveVariable<float>(config.EnergyConfig.StartEnergy) })
-				.AddComponent(new MaxEnergy() { Value = new ReactiveVariable<float>(config.EnergyConfig.MaxEnergy) })
-				.AddComponent(new PercentByMaxRegenerationEnergy()
-					{ Value = new ReactiveVariable<float>(config.EnergyConfig.EnergyRegenerationPercentByMax) })
-				.AddComponent(new RegenerationEnergyInitialTime()
-					{ Value = new ReactiveVariable<float>(config.EnergyConfig.EnergyRegeneretionPeriodInitialTime) })
-				.AddComponent(new RegenerationEnergyCurrentTime() { Value = new ReactiveVariable<float>() })
-				.AddComponent(new SpendEnergyRequest() { Value = new ReactiveEvent<float>() })
-				.AddComponent(new SpendEnergyEvent() { Value = new ReactiveEvent<float>() })
-				.AddComponent(new RegenerationEnergyRequest() { Value = new ReactiveEvent<float>() })
-				.AddComponent(new RegenerationEnergyEvent() { Value = new ReactiveEvent<float>() })
-				.AddComponent(new TeleportRadius()
-					{ Value = new ReactiveVariable<float>(config.TeleportConfig.TeleportRadius) })
-				.AddComponent(new TeleportEnergyCost()
-					{ Value = new ReactiveVariable<float>(config.TeleportConfig.TeleportEnergyCost) })
-				.AddComponent(new TeleportEvent() { Value = new ReactiveEvent() })
-				.AddComponent(new TeleportCooldownInitialTime
-					{ Value = new ReactiveVariable<float>(config.TeleportConfig.TeleportCooldown) })
-				.AddComponent(new TeleportCooldownCurrentTime() { Value = new ReactiveVariable<float>() })
-				.AddComponent(new InTeleportCooldown() { Value = new ReactiveVariable<bool>() })
-				.AddComponent(new TeleportDamage() { Value = new ReactiveVariable<float>(config.AttackConfig.Damage) })
-				.AddComponent(new TeleportTakeDamageRadius()
-					{ Value = new ReactiveVariable<float>(config.AttackConfig.TeleportTakeDamageRadius) })
-				.AddComponent(new ContactsDetectingMask() { Value = 1 << LayerMask.NameToLayer("Characters") })
-				.AddComponent(new TeleportTakeDamageColliderBuffer() { Value = new Buffer<Collider>(BufferSize)});
+				.AddMaxHealth(new ReactiveVariable<float>(config.HealthConfig.MaxHealth))
+				.AddCurrentHealth(new ReactiveVariable<float>(config.HealthConfig.StartHealth))
+				.AddIsDead(new ReactiveVariable<bool>(false))
+				.AddInDeathProcess(new ReactiveVariable<bool>(false))
+				.AddDeathProcessInitialTime(new ReactiveVariable<float>(config.HealthConfig.DeathProcessInitialTime))
+				.AddDeathProcessCurrentTime()
+				.AddTakeDamageRequest()
+				.AddTakeDamageEvent()
+				.AddCurrentEnergy(new ReactiveVariable<float>(config.EnergyConfig.StartEnergy))
+				.AddMaxEnergy(new ReactiveVariable<float>(config.EnergyConfig.MaxEnergy))
+				.AddPercentByMaxRegenerationEnergy(new ReactiveVariable<float>(config.EnergyConfig.EnergyRegenerationPercentByMax))
+				.AddRegenerationEnergyInitialTime(new ReactiveVariable<float>(config.EnergyConfig.EnergyRegeneretionPeriodInitialTime))
+				.AddRegenerationEnergyCurrentTime()
+				.AddSpendEnergyRequest()
+				.AddSpendEnergyEvent()
+				.AddRegenerationEnergyRequest()
+				.AddRegenerationEnergyEvent()
+				.AddTeleportRadius(new ReactiveVariable<float>(config.TeleportConfig.TeleportRadius))
+				.AddTeleportEnergyCost(new ReactiveVariable<float>(config.TeleportConfig.TeleportEnergyCost))
+				.AddTeleportEvent()
+				.AddTeleportCooldownInitialTime(new ReactiveVariable<float>(config.TeleportConfig.TeleportCooldown))
+				.AddTeleportCooldownCurrentTime()
+				.AddInTeleportCooldown()
+				.AddTeleportDamage(new ReactiveVariable<float>(config.AttackConfig.Damage))
+				.AddTeleportTakeDamageRadius(new ReactiveVariable<float>(config.AttackConfig.TeleportTakeDamageRadius))
+				.AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
+				.AddTeleportTakeDamageColliderBuffer(new Buffer<Collider>(BufferSize));
 
 			ICompositeCondition mustDie = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<CurrentHealth>().Value.Value <= 0f));
+				.AddCondition(new FuncCondition(() => entity.CurrentHealth.Value <= 0f));
 
 			ICompositeCondition mustRelease = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value))
-				.AddCondition(new FuncCondition(() => entity.GetComponent<InDeathProcess>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value))
+				.AddCondition(new FuncCondition(() => entity.InDeathProcess.Value == false));
 			
 			ICompositeCondition canApplyDamage = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
 			
 			ICompositeCondition canSpendEnergy = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false))
-				.AddCondition(new FuncCondition(() => entity.GetComponent<InDeathProcess>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false))
+				.AddCondition(new FuncCondition(() => entity.InDeathProcess.Value == false));
 			
 			ICompositeCondition canRegenerateEnergy = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false))
-				.AddCondition(new FuncCondition(() => entity.GetComponent<InDeathProcess>().Value.Value == false));
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false))
+				.AddCondition(new FuncCondition(() => entity.InDeathProcess.Value == false));
 			
 			ICompositeCondition canTeleport = new  CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.GetComponent<IsDead>().Value.Value == false))
-				.AddCondition(new FuncCondition(() => entity.GetComponent<InDeathProcess>().Value.Value == false))
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false))
+				.AddCondition(new FuncCondition(() => entity.InDeathProcess.Value == false))
 				.AddCondition(new FuncCondition(
-					() => entity.GetComponent<CurrentEnergy>().Value.Value
-					      >= entity.GetComponent<TeleportEnergyCost>().Value.Value))
-				.AddCondition(new FuncCondition(() => entity.GetComponent<InTeleportCooldown>().Value.Value == false));
+					() => entity.CurrentEnergy.Value
+					      >= entity.TeleportEnergyCost.Value))
+				.AddCondition(new FuncCondition(() => entity.InTeleportCooldown.Value == false));
 
 			entity
-				.AddComponent(new MustDie() { Value = mustDie })
-				.AddComponent(new MustSelfRelease() { Value = mustRelease })
-				.AddComponent(new CanApplyDamage() { Value = canApplyDamage })
-				.AddComponent(new CanSpendEnergy() { Value = canSpendEnergy } )
-				.AddComponent(new CanRegenerateEnergy() { Value = canRegenerateEnergy } )
-				.AddComponent(new CanTeleport() { Value = canTeleport } );
+				.AddMustDie(mustDie)
+				.AddMustSelfRelease(mustRelease)
+				.AddCanApplyDamage(canApplyDamage)
+				.AddCanSpendEnergy(canSpendEnergy)
+				.AddCanRegenerateEnergy(canRegenerateEnergy)
+				.AddCanTeleport(canTeleport);
 
 			entity
-				.AddSystem(new SpendEnergySystem())
-				.AddSystem(new TeleportMovementSystem())
-				.AddSystem(new TeleportCooldownSystem())
-				.AddSystem(new EnergyRegenerationSystem())
-				.AddSystem(new EnergyRegenerationTimerSystem())
-				.AddSystem(new ApplyDamageSystem())
-				.AddSystem(new DeathSystem())
-				.AddSystem(new DeathProcessTimerSystem())
-				.AddSystem(new SelfReleaseSystem(_entitiesContext))
-				.AddSystem(new TeleportTakeDamageSystem(_collidersRegistryService));
+				.AddSpendEnergySystem()
+				.AddTeleportMovementSystem()
+				.AddTeleportCooldownSystem()
+				.AddEnergyRegenerationSystem()
+				.AddEnergyRegenerationTimerSystem()
+				.AddApplyDamageSystem()
+				.AddDeathSystem()
+				.AddDeathProcessTimerSystem()
+				.AddSelfReleaseSystem(_entitiesContext)
+				.AddTeleportTakeDamageSystem(_collidersRegistryService);
 			
 			_entitiesContext.Add(entity);
 			

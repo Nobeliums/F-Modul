@@ -14,9 +14,9 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 
 		public void OnInit(Entity entity)
 		{
-			_characterController = entity.GetComponent<CharacterControllerComponent>().Value;
-			_rotationSpeed = entity.GetComponent<RotateSpeed>().Value;
-			_moveDirection = entity.GetComponent<RotateDirection>().Value;
+			_characterController = entity.CharacterControllerComponent;
+			_rotationSpeed = entity.RotateSpeed;
+			_moveDirection = entity.RotateDirection;
 		}
 
 		public void OnUpdate(float dt)

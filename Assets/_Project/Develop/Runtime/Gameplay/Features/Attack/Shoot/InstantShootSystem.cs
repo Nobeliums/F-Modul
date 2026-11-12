@@ -23,9 +23,9 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 
 		public void OnInit(Entity entity)
 		{
-			_attackDelayEndEvent = entity.GetComponent<AttackDelayEndEvent>().Value;
-			_damage = entity.GetComponent<InstantAttackDamage>().Value;
-			_shootPoint = entity.GetComponent<ShootPoint>().Value;
+			_attackDelayEndEvent = entity.AttackDelayEndEvent;
+			_damage = entity.InstantAttackDamage;
+			_shootPoint = entity.ShootPoint;
 
 			_attackDelayEndDisposable = _attackDelayEndEvent.Subscribe(OnAttackDelayEnd);
 		}

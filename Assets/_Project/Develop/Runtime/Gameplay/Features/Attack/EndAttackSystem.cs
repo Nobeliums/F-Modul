@@ -18,10 +18,10 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 
 		public void OnInit(Entity entity)
 		{
-			_endAttackEvent = entity.GetComponent<EndAttackEvent>().Value;
-			_inAttackProcess = entity.GetComponent<InAttackProcess>().Value;
-			_attackProcessCurrentTime = entity.GetComponent<AttackProcessCurrentTime>().Value;
-			_attackProcessInitialTime = entity.GetComponent<AttackProcessInitialTime>().Value;
+			_endAttackEvent = entity.EndAttackEvent;
+			_inAttackProcess = entity.InAttackProcess;
+			_attackProcessCurrentTime = entity.AttackProcessCurrentTime;
+			_attackProcessInitialTime = entity.AttackProcessInitialTime;
 
 			_timerDisposable = _attackProcessCurrentTime.Subscribe(OnTimerChanged);
 		}

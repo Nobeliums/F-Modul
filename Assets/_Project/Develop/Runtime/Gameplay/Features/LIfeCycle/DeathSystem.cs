@@ -15,8 +15,8 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 
 		public void OnInit(Entity entity)
 		{
-			_isDead = entity.GetComponent<IsDead>().Value;
-			_deathCondition = entity.GetComponent<MustDie>().Value;
+			_isDead = entity.IsDead;
+			_deathCondition = entity.MustDie;
 		}
 
 		public void OnUpdate(float dt)

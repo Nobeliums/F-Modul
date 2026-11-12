@@ -19,8 +19,8 @@ namespace _Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage
 		
 		public void OnInit(Entity entity)
 		{
-			_contacts = entity.GetComponent<ContactEntitiesBuffer>().Value;
-			_damage = entity.GetComponent<BodyContactDamage>().Value;
+			_contacts = entity.ContactEntitiesBuffer;
+			_damage = entity.BodyContactDamage;
 			
 			_processedEntities = new List<Entity>(_contacts.Items.Length);
 		}
@@ -37,7 +37,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage
 
 					if (contactEntity.HasComponent<TakeDamageRequest>())
 					{
-						contactEntity.GetComponent<TakeDamageRequest>().Value.Invoke(_damage.Value);
+						contactEntity.TakeDamageRequest.Invoke(_damage.Value);
 						Debug.Log($"Damaged {_damage.Value}");
 					}
 				}

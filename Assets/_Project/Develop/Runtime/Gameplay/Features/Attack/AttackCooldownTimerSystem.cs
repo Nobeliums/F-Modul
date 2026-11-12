@@ -17,10 +17,10 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 		
 		public void OnInit(Entity entity)
 		{
-			_cooldownInitialTime = entity.GetComponent<AttackCooldownInitialTime>().Value;
-			_cooldownCurrentTime = entity.GetComponent<AttackCooldownCurrentTime>().Value;
-			_inAttackCooldown = entity.GetComponent<InAttackCooldown>().Value;
-			_endAttack = entity.GetComponent<EndAttackEvent>().Value;
+			_cooldownInitialTime = entity.AttackCooldownInitialTime;
+			_cooldownCurrentTime = entity.AttackCooldownCurrentTime;
+			_inAttackCooldown = entity.InAttackCooldown;
+			_endAttack = entity.EndAttackEvent;
 
 			_endAttackDisposable = _endAttack.Subscribe(OnEndAttack);
 		}

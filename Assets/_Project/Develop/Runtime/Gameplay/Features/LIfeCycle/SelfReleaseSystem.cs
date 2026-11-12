@@ -21,7 +21,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 		
 		public void OnInit(Entity entity)
 		{
-			_releaseCondition = entity.GetComponent<MustSelfRelease>().Value;
+			_releaseCondition = entity.MustSelfRelease;
 
 			_entity = entity;
 		}

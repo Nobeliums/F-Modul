@@ -16,8 +16,8 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 
 		public void OnInit(Entity entity)
 		{
-			_colliders = entity.GetComponent<DisableCollidersOnDeath>().Value;
-			_isDead = entity.GetComponent<IsDead>().Value;
+			_colliders = entity.DisableCollidersOnDeath;
+			_isDead = entity.IsDead;
 
 			_isDeadDisposable = _isDead.Subscribe(OnDead);
 		}

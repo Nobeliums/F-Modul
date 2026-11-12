@@ -21,11 +21,11 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy
 
 		public void OnInit(Entity entity)
 		{
-			_regenerationRequest = entity.GetComponent<RegenerationEnergyRequest>().Value;
-			_regenerationEvent = entity.GetComponent<RegenerationEnergyEvent>().Value;
-			_currentEnergy = entity.GetComponent<CurrentEnergy>().Value;
-			_maxEnergy = entity.GetComponent<MaxEnergy>().Value;
-			_canRegenerateEnergy = entity.GetComponent<CanRegenerateEnergy>().Value;
+			_regenerationRequest = entity.RegenerationEnergyRequest;
+			_regenerationEvent = entity.RegenerationEnergyEvent;
+			_currentEnergy = entity.CurrentEnergy;
+			_maxEnergy = entity.MaxEnergy;
+			_canRegenerateEnergy = entity.CanRegenerateEnergy;
 
 			_requestDisposable = _regenerationRequest.Subscribe(OnRegenerationRequest);
 		}

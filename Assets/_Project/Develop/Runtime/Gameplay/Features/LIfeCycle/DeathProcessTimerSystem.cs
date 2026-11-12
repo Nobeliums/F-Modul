@@ -17,10 +17,10 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 
 		public void OnInit(Entity entity)
 		{
-			_isDead = entity.GetComponent<IsDead>().Value;
-			_inDeathProcess = entity.GetComponent<InDeathProcess>().Value;
-			_initialTime = entity.GetComponent<DeathProcessInitialTime>().Value;
-			_currentTime = entity.GetComponent<DeathProcessCurrentTime>().Value;
+			_isDead = entity.IsDead;
+			_inDeathProcess = entity.InDeathProcess;
+			_initialTime = entity.DeathProcessInitialTime;
+			_currentTime = entity.DeathProcessCurrentTime;
 
 			_isDeadDisposable = _isDead.Subscribe(OnIsDeadChanged);
 		}

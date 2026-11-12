@@ -35,14 +35,14 @@ namespace _Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage
 
 		public void OnInit(Entity entity)
 		{
-			_damage = entity.GetComponent<TeleportDamage>().Value;
-			_takeDamageRadius = entity.GetComponent<TeleportTakeDamageRadius>().Value;
-			
-			_teleportEvent = entity.GetComponent<TeleportEvent>().Value;
+			_damage = entity.TeleportDamage;
+			_takeDamageRadius = entity.TeleportTakeDamageRadius;
 
-			_rigidbody = entity.GetComponent<RigidbodyComponent>().Value;
-			_damageLayerMask = entity.GetComponent<ContactsDetectingMask>().Value;
-			_colliderBuffer = entity.GetComponent<TeleportTakeDamageColliderBuffer>().Value;
+			_teleportEvent = entity.TeleportEvent;
+
+			_rigidbody = entity.RigidbodyComponent;
+			_damageLayerMask = entity.ContactsDetectingMask;
+			_colliderBuffer = entity.TeleportTakeDamageColliderBuffer;
 
 			_teleportDisposable = _teleportEvent.Subscribe(OnTeleport);
 			_selfEntity = entity;
@@ -73,7 +73,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage
 				Entity entity = _collidersRegistry.GetBy(_colliderBuffer.Items[i]);
 
 				if (entity != null && entity != _selfEntity && entity.HasComponent<TakeDamageRequest>())
-					entity.GetComponent<TakeDamageRequest>().Value.Invoke(_damage.Value);
+					entity.TakeDamageRequest.Invoke(_damage.Value);
 			}
 		}
 

@@ -19,10 +19,10 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy
 
 		public void OnInit(Entity entity)
 		{
-			_currentEnergy = entity.GetComponent<CurrentEnergy>().Value;
-			_spendEnergyRequest = entity.GetComponent<SpendEnergyRequest>().Value;
-			_spendEnergyEvent = entity.GetComponent<SpendEnergyEvent>().Value;
-			_canSpendCondition = entity.GetComponent<CanSpendEnergy>().Value;
+			_currentEnergy = entity.CurrentEnergy;
+			_spendEnergyRequest = entity.SpendEnergyRequest;
+			_spendEnergyEvent = entity.SpendEnergyEvent;
+			_canSpendCondition = entity.CanSpendEnergy;
 
 			_requestDisposable = _spendEnergyRequest.Subscribe(OnSpendEnergyRequest);
 		}

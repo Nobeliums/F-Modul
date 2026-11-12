@@ -18,11 +18,11 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 		
 		public void OnInit(Entity entity)
 		{
-			_cooldownCurrentTime = entity.GetComponent<TeleportCooldownCurrentTime>().Value;
-			_coodownInitialTime = entity.GetComponent<TeleportCooldownInitialTime>().Value;
-			_inTeleportCooldown = entity.GetComponent<InTeleportCooldown>().Value;
-			
-			_teleportEvent = entity.GetComponent<TeleportEvent>().Value;
+			_cooldownCurrentTime = entity.TeleportCooldownCurrentTime;
+			_coodownInitialTime = entity.TeleportCooldownInitialTime;
+			_inTeleportCooldown = entity.InTeleportCooldown;
+
+			_teleportEvent = entity.TeleportEvent;
 
 			_teleportEventDisposable = _teleportEvent.Subscribe(OnTeleport);
 		}
