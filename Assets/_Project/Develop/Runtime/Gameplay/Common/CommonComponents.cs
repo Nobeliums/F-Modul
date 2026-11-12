@@ -12,4 +12,9 @@ namespace _Project.Develop.Runtime.Gameplay.Common
 	{
 		public CharacterController Value;
 	}
+
+	public class TransformComponent : IEntityComponent
+	{
+		public Transform Value;
+	}
 }

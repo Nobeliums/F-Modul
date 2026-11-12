@@ -2,6 +2,7 @@
 using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
+using _Project.Develop.Runtime.Gameplay.Features.AI;
 using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
 using _Project.Develop.Runtime.Gameplay.Features.Gamecycle.Condition;
 using _Project.Develop.Runtime.Meta.Features.Wallet;
@@ -14,6 +15,7 @@ using _Project.Develop.Runtime.UI.Presenters;
 using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
+using _Project.Develop.Runtime.Utilities.Input;
 using _Project.Develop.Runtime.Utilities.ResourcesManagement;
 
 namespace _Project.Develop.Runtime.Gameplay.Infrastructure
@@ -32,8 +34,29 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 			container.RegistryAsSingle(CreateEntitiesFactory);
 			container.RegistryAsSingle(CreateEntitiesLifeContext);
 			container.RegistryAsSingle(CreateMonoEntitiesFactory).NonLazy();
+<<<<<<< Updated upstream
 		}
 
+=======
+			container.RegistryAsSingle(CreateCollidersRegistryService);
+			container.RegistryAsSingle(CreateBrainsFactory);
+			container.RegistryAsSingle(CreateAIBrainsContext);
+			container.RegistryAsSingle<IInputService>(CreateDesktopInputService);
+		}
+
+		private static DesktopInputService CreateDesktopInputService(DIContainer c)
+			=> new DesktopInputService();
+
+		private static AIBrainsContext CreateAIBrainsContext(DIContainer c)
+			=> new AIBrainsContext();
+		
+		private static BrainsFactory CreateBrainsFactory(DIContainer c)
+			=> new BrainsFactory(c);
+
+		private static CollidersRegistryService CreateCollidersRegistryService(DIContainer c)
+			=> new CollidersRegistryService();
+
+>>>>>>> Stashed changes
 		private static MonoEntitiesFactory CreateMonoEntitiesFactory(DIContainer c)
 		{
 			return new MonoEntitiesFactory(

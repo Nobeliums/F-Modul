@@ -4,7 +4,7 @@ using _Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 
 namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 {
-	public partial class Entity
+	public partial class Entity : IEquatable<Entity>
 	{
 		private readonly Dictionary<Type, IEntityComponent> _components = new();
 
@@ -15,6 +15,8 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 		private readonly List<IDisposableSystem> _disposables = new();
 
 		private bool _isInit;
+
+		public bool IsInit => _isInit;
 
 		public void Initialize()
 		{
@@ -106,5 +108,7 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 		{
 			
 		}
+
+		public bool Equals(Entity other) => other == this;
 	}
 }

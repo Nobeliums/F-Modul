@@ -1,6 +1,12 @@
 ﻿using System;
 using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore;
+<<<<<<< Updated upstream
+=======
+using _Project.Develop.Runtime.Gameplay.Features.AI;
+using _Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
+using _Project.Develop.Runtime.Gameplay.Features.Attack;
+>>>>>>> Stashed changes
 using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
 using _Project.Develop.Runtime.Gameplay.Features.MovementFeuture;
 using _Project.Develop.Runtime.Infrastructure.DI;
@@ -31,6 +37,8 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 		private Entity _rigidbodyEntity;
 		private Entity _characterControllerEntity;
 
+		private BrainsFactory _brainsFactory;
+
 		public GameplayCycle(
 			GameStatisticsService gameStatistics,
 			PlayerDataProvider playerDataProvider,
@@ -41,6 +49,7 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 			_playerDataProvider = playerDataProvider;
 			_coroutinePerformer = coroutinePerformer;
 			_container = container;
+			_brainsFactory = _container.Resolve<BrainsFactory>();
 		}
 		
 		public bool IsWin { get; private set; }
@@ -60,8 +69,16 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 		{
 			_isRunning = true;
 
+<<<<<<< Updated upstream
 			_rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateRigidbodyTestEntity(Vector3.left);
 			_characterControllerEntity =  _container.Resolve<EntitiesFactory>().CreateCharacterControllerTestEntity(Vector3.right);
+=======
+			_rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateGhostEntity(Vector3.left);
+			_container.Resolve<EntitiesFactory>().CreateTeleportGhost(Vector3.back * 3);
+			_playerEntity =  _container.Resolve<EntitiesFactory>().CreateMainHeroEntity(Vector3.forward * 3);
+			_playerEntity.AddComponent(new CurrentTarget() { Value = new ReactiveVariable<Entity>() });
+			_brainsFactory.CreateMainHeroBrain(_playerEntity);
+>>>>>>> Stashed changes
 		}
 		
 		public void ProcessUpdate()
@@ -69,8 +86,20 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 			if (_isRunning == false)
 				return;
 
+<<<<<<< Updated upstream
 			_rigidbodyEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
 			_characterControllerEntity.GetComponent<MoveDirection>().Value.Value = InputService.GetMovementDirection();
+=======
+			if (Input.GetKeyDown(KeyCode.R))
+			{
+				_playerEntity.GetComponent<StartAttackRequest>().Value.Invoke();
+			}
+
+			if (Input.GetKeyDown(KeyCode.T))
+			{
+				_brainsFactory.CreateGhostBrain(_rigidbodyEntity);
+			}
+>>>>>>> Stashed changes
 		}
 		
 		private void OnWinGame()

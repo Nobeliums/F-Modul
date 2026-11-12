@@ -16,6 +16,7 @@ using _Project.Develop.Runtime.Utilities.LoadingScreen;
 using _Project.Develop.Runtime.Utilities.Reactive;
 using _Project.Develop.Runtime.Utilities.ResourcesManagement;
 using _Project.Develop.Runtime.Utilities.SceneManagment;
+using _Project.Develop.Runtime.Utilities.TimerService;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -37,20 +38,20 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 			container.RegistryAsSingle(CreateGameStatisticsService).NonLazy();
 			container.RegistryAsSingle(CreateViewFactory);
 			container.RegistryAsSingle(CreateProjectPresenterFactory);
+			container.RegistryAsSingle(CreateTimerServiceFactory);
 		}
+		
+		private static TimerServiceFactory  CreateTimerServiceFactory(DIContainer c)
+			=> new TimerServiceFactory(c);
 
 		private static ViewFactory CreateViewFactory(DIContainer c)
 			=> new ViewFactory(c.Resolve<ResourceLoadService>());
 
 		private static ProjectPresenterFactory CreateProjectPresenterFactory(DIContainer c)
-		{
-			return new ProjectPresenterFactory(c);
-		}
+			=> new ProjectPresenterFactory(c);
 
 		private static GameStatisticsService CreateGameStatisticsService(DIContainer c)
-		{
-			return new GameStatisticsService(c.Resolve<PlayerDataProvider>());
-		}
+			=> new GameStatisticsService(c.Resolve<PlayerDataProvider>());
 
 		private static WalletService CreateWalletService(DIContainer c)
 		{
@@ -87,9 +88,7 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 			=> new SceneSwitcherService(c);
 		
 		private static ResourceLoadService CreateLoadService(DIContainer c)
-		{
-			return new ResourceLoadService();
-		}
+			=> new ResourceLoadService();
 
 		private static CoroutinePerformer CreateCoroutinePerformer(DIContainer c)
 		{

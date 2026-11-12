@@ -2,11 +2,12 @@
 using System.Collections;
 using _Project.Develop.Runtime.Features.Gamecycle;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore;
+<<<<<<< Updated upstream
+=======
+using _Project.Develop.Runtime.Gameplay.Features.AI;
+>>>>>>> Stashed changes
 using _Project.Develop.Runtime.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
-using _Project.Develop.Runtime.Utilities.CoroutineManagement;
-using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
-using _Project.Develop.Runtime.Utilities.Input;
 using _Project.Develop.Runtime.Utilities.SceneManagment;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 		private DIContainer _container;
 		private GameplayCycle _gameCycle;
 		private EntitiesLifeContext _entitiesContext;
+		private AIBrainsContext _aiBrainsContext;
 
 		public override void ProcessRegistrations(DIContainer container, IInputSceneArgs sceneArgs = null)
 		{
@@ -35,6 +37,7 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 			_gameCycle = _container.Resolve<GameplayCycle>();
 			_gameCycle.Initialize();
 			_entitiesContext =  _container.Resolve<EntitiesLifeContext>();
+			_aiBrainsContext = _container.Resolve<AIBrainsContext>();
 
 			yield break;
 		}
@@ -46,6 +49,7 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 
 		private void Update()
 		{
+			_aiBrainsContext?.Update(Time.deltaTime);
 			_entitiesContext?.Update(Time.deltaTime);
 			
 			if (_gameCycle == null)

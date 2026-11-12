@@ -222,6 +222,12 @@ GameObject:
   - component: {fileID: 7312358574329511636}
   - component: {fileID: 8487850993926398799}
   - component: {fileID: 4503655892535790181}
+<<<<<<< Updated upstream:Assets/_Project/Resources/Prefabs/Gameplay/Entity/RigidbodyMonoEntity.prefab
+=======
+  - component: {fileID: 1933524479317040920}
+  - component: {fileID: 6792325289567282924}
+  - component: {fileID: 276242746614420523}
+>>>>>>> Stashed changes:Assets/_Project/Resources/Prefabs/Gameplay/Entity/GhostMonoEntity.prefab
   - component: {fileID: -2255567437359745090}
   m_Layer: 0
   m_Name: RigidbodyMonoEntity
@@ -270,6 +276,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dfa1c6f443b47a589a29a83f00ebbe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream:Assets/_Project/Resources/Prefabs/Gameplay/Entity/RigidbodyMonoEntity.prefab
+=======
+--- !u!114 &1933524479317040920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5361470850588266283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc66a5779bd94f7abdeb5ff0219aae74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collider: {fileID: 4741896865855118820}
+--- !u!114 &6792325289567282924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5361470850588266283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32da9872f6134179808791a1628828ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colliders:
+  - {fileID: 4741896865855118820}
+--- !u!114 &276242746614420523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5361470850588266283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 451cc0efd4874c06a1e9b747b954d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+>>>>>>> Stashed changes:Assets/_Project/Resources/Prefabs/Gameplay/Entity/GhostMonoEntity.prefab
 --- !u!54 &-2255567437359745090
 Rigidbody:
   m_ObjectHideFlags: 0

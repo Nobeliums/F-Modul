@@ -43,6 +43,17 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 				.AddSystem(new CharacterControllerRotationSystem());
 			
 			_entitiesContext.Add(entity);
+<<<<<<< Updated upstream
+=======
+			
+			return entity;
+			
+		}
+	
+		public Entity CreateMainHeroEntity(Vector3 position)
+		{
+			PlayerConfig config = _configService.GetConfig<PlayerConfig>();
+>>>>>>> Stashed changes
 
 			
 			return entity;
