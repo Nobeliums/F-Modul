@@ -75,4 +75,9 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 	{
 		public ICompositeCondition Value;
 	}
+
+	public class TeleportRequest : IEntityComponent
+	{
+		public ReactiveEvent<Vector3> Value;
+	}
 }

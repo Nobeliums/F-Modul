@@ -101,6 +101,13 @@ namespace _Project.Develop.Editor
 			builder.AppendLine("\t\t\tAddComponent(component);");
 			builder.AppendLine("\t\t\treturn this;");
 			builder.AppendLine("\t\t}");
+			builder.AppendLine();
+			builder.AppendLine($"\t\tpublic bool TryGet{componentName}(out {valueTypeName} component)");
+			builder.AppendLine("\t\t{");
+			builder.AppendLine($"\t\t\tbool result = TryGetComponent<{componentTypeName}>(out {componentTypeName} rawComponent);");
+			builder.AppendLine("\t\t\tcomponent = result ? rawComponent.Value : default;");
+			builder.AppendLine("\t\t\treturn result;");
+			builder.AppendLine("\t\t}");
 		}
 
 		private static void AppendSystemApi(StringBuilder builder, Type systemType)

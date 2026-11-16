@@ -1,6 +1,7 @@
 ﻿using System;
 using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
+using _Project.Develop.Runtime.Gameplay.Features.AI;
 using _Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
 using _Project.Develop.Runtime.Gameplay.Features.Attack;
 using _Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage;
@@ -143,7 +144,8 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 				.AddAttackCanceledEvent()
 				.AddAttackCooldownInitialTime(new ReactiveVariable<float>(config.AttackConfig.AttackCooldownInitialTime))
 				.AddAttackCooldownCurrentTime()
-				.AddInAttackCooldown(new ReactiveVariable<bool>(false));
+				.AddInAttackCooldown(new ReactiveVariable<bool>(false))
+				.AddCurrentTarget();
 
 			ICompositeCondition canMove = new CompositeCondition()
 				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
@@ -157,10 +159,10 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			ICompositeCondition mustRelease = new CompositeCondition()
 				.AddCondition(new FuncCondition(() => entity.IsDead.Value))
 				.AddCondition(new FuncCondition(() => entity.InDeathProcess.Value == false));
-			
+
 			ICompositeCondition canApplyDamage = new CompositeCondition()
 				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
-			
+
 			ICompositeCondition canStartAttack = new CompositeCondition()
 				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false))
 				.AddCondition(new FuncCondition(() => entity.InAttackProcess.Value == false))
@@ -279,8 +281,10 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 				.AddTakeDamageEvent()
 				.AddCurrentEnergy(new ReactiveVariable<float>(config.EnergyConfig.StartEnergy))
 				.AddMaxEnergy(new ReactiveVariable<float>(config.EnergyConfig.MaxEnergy))
-				.AddPercentByMaxRegenerationEnergy(new ReactiveVariable<float>(config.EnergyConfig.EnergyRegenerationPercentByMax))
-				.AddRegenerationEnergyInitialTime(new ReactiveVariable<float>(config.EnergyConfig.EnergyRegeneretionPeriodInitialTime))
+				.AddPercentByMaxRegenerationEnergy(
+					new ReactiveVariable<float>(config.EnergyConfig.EnergyRegenerationPercentByMax))
+				.AddRegenerationEnergyInitialTime(
+					new ReactiveVariable<float>(config.EnergyConfig.EnergyRegeneretionPeriodInitialTime))
 				.AddRegenerationEnergyCurrentTime()
 				.AddSpendEnergyRequest()
 				.AddSpendEnergyEvent()
@@ -290,12 +294,12 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 				.AddTeleportEnergyCost(new ReactiveVariable<float>(config.TeleportConfig.TeleportEnergyCost))
 				.AddTeleportEvent()
 				.AddTeleportCooldownInitialTime(new ReactiveVariable<float>(config.TeleportConfig.TeleportCooldown))
-				.AddTeleportCooldownCurrentTime()
 				.AddInTeleportCooldown()
 				.AddTeleportDamage(new ReactiveVariable<float>(config.AttackConfig.Damage))
 				.AddTeleportTakeDamageRadius(new ReactiveVariable<float>(config.AttackConfig.TeleportTakeDamageRadius))
 				.AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
-				.AddTeleportTakeDamageColliderBuffer(new Buffer<Collider>(BufferSize));
+				.AddTeleportTakeDamageColliderBuffer(new Buffer<Collider>(BufferSize))
+				.AddTeleportRequest();
 
 			ICompositeCondition mustDie = new CompositeCondition()
 				.AddCondition(new FuncCondition(() => entity.CurrentHealth.Value <= 0f));
@@ -334,7 +338,6 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			entity
 				.AddSpendEnergySystem()
 				.AddTeleportMovementSystem()
-				.AddTeleportCooldownSystem()
 				.AddEnergyRegenerationSystem()
 				.AddEnergyRegenerationTimerSystem()
 				.AddApplyDamageSystem()
@@ -344,6 +347,16 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 				.AddTeleportTakeDamageSystem(_collidersRegistryService);
 			
 			_entitiesContext.Add(entity);
+			
+			return entity;
+		}
+		
+		public Entity CreateTeleportToTargetGhost(Vector3 position)
+		{
+			Entity entity = CreateTeleportGhost(position);
+
+			entity.AddCurrentTarget();
+			entity.AddMinPercentOfEnergyToTeleport(new ReactiveVariable<float>(40));
 			
 			return entity;
 		}

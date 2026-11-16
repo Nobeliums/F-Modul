@@ -10,6 +10,16 @@ namespace _Project.Develop.Runtime.Utilities.Reactive
 		private readonly List<Subscriber<T, T>> _toRemove = new();
 
 		private T _value;
+		private IEqualityComparer<T> _comparer;
+		
+		public ReactiveVariable() : this(default) { }
+		public ReactiveVariable(T value) : this(value, EqualityComparer<T>.Default) { }
+
+		public ReactiveVariable(T value, IEqualityComparer<T> comparer)
+		{
+			_value = value;
+			_comparer = comparer;
+		}
 	
 		public T Value
 		{
@@ -24,17 +34,10 @@ namespace _Project.Develop.Runtime.Utilities.Reactive
 
 				_value = value;
 				
-				if (_value.Equals(oldValue) == false)
+				if (_comparer.Equals(oldValue, value) == false)
 					Invoke(oldValue, value);
 			}
 		}
-
-		public ReactiveVariable(T value)
-		{
-			_value = value;
-		}
-
-		public ReactiveVariable() => _value = default;
 
 		public IDisposable Subscribe(Action<T, T> action)
 		{

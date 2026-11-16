@@ -1,6 +1,8 @@
 ﻿using System;
 using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore;
+using _Project.Develop.Runtime.Gameplay.Features.AI;
+using _Project.Develop.Runtime.Gameplay.Features.AI.States;
 using _Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
 using _Project.Develop.Runtime.Gameplay.Features.Attack;
 using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
@@ -13,7 +15,6 @@ using _Project.Develop.Runtime.Meta.Features.GameStatistics;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Utilities.DataManagment;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
-using _Project.Develop.Runtime.Utilities.Input;
 using _Project.Develop.Runtime.Utilities.Reactive;
 using UnityEngine;
 
@@ -32,9 +33,12 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 		private bool _isRunning;
 		private DIContainer _container; // контейнер тут для теста чтобы проще и быстрее было
 
+		private BrainsFactory _brainsFactory;
+
 		private Entity _rigidbodyEntity;
-		private Entity _characterControllerEntity;
 		private Entity _playerEntity;
+		private Entity _teleportEntity;
+		private Entity _teleportToTargetEntity;
 
 		public GameplayCycle(
 			GameStatisticsService gameStatistics,
@@ -46,6 +50,7 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 			_playerDataProvider = playerDataProvider;
 			_coroutinePerformer = coroutinePerformer;
 			_container = container;
+			_brainsFactory = _container.Resolve<BrainsFactory>();
 		}
 		
 		public bool IsWin { get; private set; }
@@ -65,25 +70,22 @@ namespace _Project.Develop.Runtime.Features.Gamecycle
 		{
 			_isRunning = true;
 
-			_container.Resolve<EntitiesFactory>().CreateGhostEntity(Vector3.left);
-			_container.Resolve<EntitiesFactory>().CreateGhostEntity(Vector3.right);
-			_rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateTeleportGhost(Vector3.back * 3);
-			_playerEntity =  _container.Resolve<EntitiesFactory>().CreateMainCharacterEntity(Vector3.forward * 3);
+			// _rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateGhostEntity(Vector3.right);
+			_teleportEntity = _container.Resolve<EntitiesFactory>().CreateTeleportGhost(Vector3.back * 3);
+			_playerEntity = _container.Resolve<EntitiesFactory>().CreateMainCharacterEntity(Vector3.forward * 3);
+			_teleportToTargetEntity = _container.Resolve<EntitiesFactory>().CreateTeleportToTargetGhost(Vector3.forward * 6);
+			_brainsFactory.CreateMainHeroBrainWithManualAttack(_playerEntity);
+			// _brainsFactory.CreateGhostBrain(_rigidbodyEntity);
+			_brainsFactory.CreateGhostTeleportToRandomPointBrain(_teleportEntity);
+			_brainsFactory.CreateGhostTeleportToTargetBrain(_teleportToTargetEntity, new LowHpTargetSelector(_teleportToTargetEntity));
+
+
 		}
-		
+
 		public void ProcessUpdate()
 		{
 			if (_isRunning == false)
 				return;
-
-			_playerEntity.MoveDirection.Value = InputService.GetMovementDirection();
-			_playerEntity.RotateDirection.Value = InputService.GetMovementDirection();
-			// _characterControllerEntity.MoveDirection.Value = InputService.GetMovementDirection();
-
-			if (Input.GetKeyDown(KeyCode.R))
-			{
-				_playerEntity.StartAttackRequest.Invoke();
-			}
 		}
 
 		private void OnWinGame()

@@ -58,4 +58,9 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy
 	{
 		public ICompositeCondition Value;
 	}
+
+	public class MinPercentOfEnergyToTeleport : IEntityComponent
+	{
+		public ReactiveVariable<float> Value;
+	}
 }

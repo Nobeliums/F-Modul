@@ -4,7 +4,7 @@ using _Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 
 namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 {
-	public partial class Entity
+	public partial class Entity : IDisposable
 	{
 		private readonly Dictionary<Type, IEntityComponent> _components = new();
 
@@ -24,6 +24,8 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			_isInit = true;
 		}
 
+		public bool IsInit => _isInit;
+
 		public void OnUpdate(float dt)
 		{
 			if (_isInit == false)
@@ -37,6 +39,8 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 		{
 			foreach (IDisposableSystem disposableSystem in _disposables)
 				disposableSystem.OnDispose();
+
+			_isInit = false;
 		}
 		
 		public Entity AddComponent<TComponent>(TComponent component) where TComponent : class, IEntityComponent
@@ -104,7 +108,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 
 		public void RemoveSystem(IEntitySystem system)
 		{
-			
+			if (_systems.Contains(system))
+			{
+				if (system is IDisposableSystem initializableSystem)
+					initializableSystem.OnDispose();
+
+				_systems.Remove(system);
+			}
 		}
 	}
 }

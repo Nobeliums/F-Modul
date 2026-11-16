@@ -177,7 +177,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5477787468135089317}
   - component: {fileID: 3781344466869899400}
-  - component: {fileID: 4061903189904013496}
+  - component: {fileID: 4316831893329473356}
+  - component: {fileID: 1697914168678907850}
   - component: {fileID: 4683616327687466766}
   m_Layer: 6
   m_Name: EntityBase
@@ -214,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817b963255e04a6793b1686fe7114a02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4061903189904013496
+--- !u!114 &4316831893329473356
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,6 +228,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 4683616327687466766}
+--- !u!114 &1697914168678907850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496071532578806503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 451cc0efd4874c06a1e9b747b954d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &4683616327687466766
 CapsuleCollider:
   m_ObjectHideFlags: 0

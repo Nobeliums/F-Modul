@@ -5,7 +5,7 @@ using _Project.Develop.Runtime.Utilities.Reactive;
 
 namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 {
-	public class TeleportCooldownSystem : IInitializableSystem, IUpdatableSystem, IDisposableSystem
+	public class TeleportCooldownStartSystem : IInitializableSystem, IDisposableSystem
 	{
 		private ReactiveVariable<float> _cooldownCurrentTime;
 		private ReactiveVariable<float> _coodownInitialTime;
@@ -25,17 +25,6 @@ namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 			_teleportEvent = entity.TeleportEvent;
 
 			_teleportEventDisposable = _teleportEvent.Subscribe(OnTeleport);
-		}
-
-		public void OnUpdate(float dt)
-		{
-			if (_inTeleportCooldown.Value == false)
-				return;
-			
-			_cooldownCurrentTime.Value -= dt;
-			
-			if (_cooldownCurrentTime.Value <= 0)
-				_inTeleportCooldown.Value = false;
 		}
 
 		private void OnTeleport()

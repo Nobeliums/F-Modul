@@ -13,6 +13,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetAttackCanceledEvent(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackCanceledEvent>(out _Project.Develop.Runtime.Gameplay.Features.Attack.AttackCanceledEvent rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.AttackCooldownCurrentTime AttackCooldownCurrentTimeC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackCooldownCurrentTime>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> AttackCooldownCurrentTime => AttackCooldownCurrentTimeC.Value;
 		public Entity AddAttackCooldownCurrentTime(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
@@ -21,6 +28,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetAttackCooldownCurrentTime(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackCooldownCurrentTime>(out _Project.Develop.Runtime.Gameplay.Features.Attack.AttackCooldownCurrentTime rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.AttackCooldownInitialTime AttackCooldownInitialTimeC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackCooldownInitialTime>();
@@ -33,6 +47,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetAttackCooldownInitialTime(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackCooldownInitialTime>(out _Project.Develop.Runtime.Gameplay.Features.Attack.AttackCooldownInitialTime rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.AttackDelayEndEvent AttackDelayEndEventC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackDelayEndEvent>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent AttackDelayEndEvent => AttackDelayEndEventC.Value;
 		public Entity AddAttackDelayEndEvent(_Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent value = default)
@@ -41,6 +62,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetAttackDelayEndEvent(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackDelayEndEvent>(out _Project.Develop.Runtime.Gameplay.Features.Attack.AttackDelayEndEvent rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.AttackDelayTime AttackDelayTimeC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackDelayTime>();
@@ -53,6 +81,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetAttackDelayTime(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackDelayTime>(out _Project.Develop.Runtime.Gameplay.Features.Attack.AttackDelayTime rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.AttackProcessCurrentTime AttackProcessCurrentTimeC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackProcessCurrentTime>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> AttackProcessCurrentTime => AttackProcessCurrentTimeC.Value;
 		public Entity AddAttackProcessCurrentTime(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
@@ -61,6 +96,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetAttackProcessCurrentTime(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackProcessCurrentTime>(out _Project.Develop.Runtime.Gameplay.Features.Attack.AttackProcessCurrentTime rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.AttackProcessInitialTime AttackProcessInitialTimeC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackProcessInitialTime>();
@@ -73,6 +115,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetAttackProcessInitialTime(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.AttackProcessInitialTime>(out _Project.Develop.Runtime.Gameplay.Features.Attack.AttackProcessInitialTime rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.Sensors.BodyCollider BodyColliderC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.BodyCollider>();
 		public UnityEngine.CapsuleCollider BodyCollider => BodyColliderC.Value;
 		public Entity AddBodyCollider(UnityEngine.CapsuleCollider value = default)
@@ -81,6 +130,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value;
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetBodyCollider(out UnityEngine.CapsuleCollider component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.BodyCollider>(out _Project.Develop.Runtime.Gameplay.Features.Sensors.BodyCollider rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage.BodyContactDamage BodyContactDamageC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage.BodyContactDamage>();
@@ -93,6 +149,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetBodyContactDamage(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage.BodyContactDamage>(out _Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage.BodyContactDamage rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.ApplyDamage.CanApplyDamage CanApplyDamageC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.ApplyDamage.CanApplyDamage>();
 		public _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition CanApplyDamage => CanApplyDamageC.Value;
 		public Entity AddCanApplyDamage(_Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition value = default)
@@ -101,6 +164,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value;
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetCanApplyDamage(out _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.ApplyDamage.CanApplyDamage>(out _Project.Develop.Runtime.Gameplay.Features.ApplyDamage.CanApplyDamage rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.CanMove CanMoveC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.CanMove>();
@@ -113,6 +183,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetCanMove(out _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.CanMove>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.CanMove rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.CanRegenerateEnergy CanRegenerateEnergyC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.CanRegenerateEnergy>();
 		public _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition CanRegenerateEnergy => CanRegenerateEnergyC.Value;
 		public Entity AddCanRegenerateEnergy(_Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition value = default)
@@ -121,6 +198,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value;
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetCanRegenerateEnergy(out _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.CanRegenerateEnergy>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.CanRegenerateEnergy rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.CanRotate CanRotateC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.CanRotate>();
@@ -133,6 +217,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetCanRotate(out _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.CanRotate>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.CanRotate rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.CanSpendEnergy CanSpendEnergyC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.CanSpendEnergy>();
 		public _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition CanSpendEnergy => CanSpendEnergyC.Value;
 		public Entity AddCanSpendEnergy(_Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition value = default)
@@ -141,6 +232,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value;
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetCanSpendEnergy(out _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.CanSpendEnergy>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.CanSpendEnergy rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.CanStartAttack CanStartAttackC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.CanStartAttack>();
@@ -153,6 +251,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetCanStartAttack(out _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.CanStartAttack>(out _Project.Develop.Runtime.Gameplay.Features.Attack.CanStartAttack rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.CanTeleport CanTeleportC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.CanTeleport>();
 		public _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition CanTeleport => CanTeleportC.Value;
 		public Entity AddCanTeleport(_Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition value = default)
@@ -161,6 +266,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value;
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetCanTeleport(out _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.CanTeleport>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.CanTeleport rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Common.CharacterControllerComponent CharacterControllerComponentC => GetComponent<_Project.Develop.Runtime.Gameplay.Common.CharacterControllerComponent>();
@@ -173,6 +285,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetCharacterControllerComponent(out UnityEngine.CharacterController component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Common.CharacterControllerComponent>(out _Project.Develop.Runtime.Gameplay.Common.CharacterControllerComponent rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.Sensors.ContactColliderBuffer ContactColliderBufferC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.ContactColliderBuffer>();
 		public _Project.Develop.Runtime.Utilities.Buffer<UnityEngine.Collider> ContactColliderBuffer => ContactColliderBufferC.Value;
 		public Entity AddContactColliderBuffer(_Project.Develop.Runtime.Utilities.Buffer<UnityEngine.Collider> value = default)
@@ -181,6 +300,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value;
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetContactColliderBuffer(out _Project.Develop.Runtime.Utilities.Buffer<UnityEngine.Collider> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.ContactColliderBuffer>(out _Project.Develop.Runtime.Gameplay.Features.Sensors.ContactColliderBuffer rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.Sensors.ContactEntitiesBuffer ContactEntitiesBufferC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.ContactEntitiesBuffer>();
@@ -193,6 +319,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetContactEntitiesBuffer(out _Project.Develop.Runtime.Utilities.Buffer<_Project.Develop.Runtime.Gameplay.EntitiesCore.Entity> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.ContactEntitiesBuffer>(out _Project.Develop.Runtime.Gameplay.Features.Sensors.ContactEntitiesBuffer rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.Sensors.ContactsDetectingMask ContactsDetectingMaskC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.ContactsDetectingMask>();
 		public UnityEngine.LayerMask ContactsDetectingMask => ContactsDetectingMaskC.Value;
 		public Entity AddContactsDetectingMask(UnityEngine.LayerMask value = default)
@@ -201,6 +334,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value;
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetContactsDetectingMask(out UnityEngine.LayerMask component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.ContactsDetectingMask>(out _Project.Develop.Runtime.Gameplay.Features.Sensors.ContactsDetectingMask rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.CurrentEnergy CurrentEnergyC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.CurrentEnergy>();
@@ -213,6 +353,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetCurrentEnergy(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.CurrentEnergy>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.CurrentEnergy rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.CurrentHealth CurrentHealthC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.CurrentHealth>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> CurrentHealth => CurrentHealthC.Value;
 		public Entity AddCurrentHealth(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
@@ -221,6 +368,30 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetCurrentHealth(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.CurrentHealth>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.CurrentHealth rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
+		public _Project.Develop.Runtime.Gameplay.Features.AI.CurrentTarget CurrentTargetC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.AI.CurrentTarget>();
+		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<_Project.Develop.Runtime.Gameplay.EntitiesCore.Entity> CurrentTarget => CurrentTargetC.Value;
+		public Entity AddCurrentTarget(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<_Project.Develop.Runtime.Gameplay.EntitiesCore.Entity> value = default)
+		{
+			var component = new _Project.Develop.Runtime.Gameplay.Features.AI.CurrentTarget();
+			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<_Project.Develop.Runtime.Gameplay.EntitiesCore.Entity>();
+			AddComponent(component);
+			return this;
+		}
+
+		public bool TryGetCurrentTarget(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<_Project.Develop.Runtime.Gameplay.EntitiesCore.Entity> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.AI.CurrentTarget>(out _Project.Develop.Runtime.Gameplay.Features.AI.CurrentTarget rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.Sensors.DeathMask DeathMaskC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.DeathMask>();
@@ -233,6 +404,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetDeathMask(out UnityEngine.LayerMask component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.DeathMask>(out _Project.Develop.Runtime.Gameplay.Features.Sensors.DeathMask rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.DeathProcessCurrentTime DeathProcessCurrentTimeC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.DeathProcessCurrentTime>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> DeathProcessCurrentTime => DeathProcessCurrentTimeC.Value;
 		public Entity AddDeathProcessCurrentTime(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
@@ -241,6 +419,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetDeathProcessCurrentTime(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.DeathProcessCurrentTime>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.DeathProcessCurrentTime rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.DeathProcessInitialTime DeathProcessInitialTimeC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.DeathProcessInitialTime>();
@@ -253,6 +438,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetDeathProcessInitialTime(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.DeathProcessInitialTime>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.DeathProcessInitialTime rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.DisableCollidersOnDeath DisableCollidersOnDeathC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.DisableCollidersOnDeath>();
 		public System.Collections.Generic.List<UnityEngine.Collider> DisableCollidersOnDeath => DisableCollidersOnDeathC.Value;
 		public Entity AddDisableCollidersOnDeath(System.Collections.Generic.List<UnityEngine.Collider> value = default)
@@ -261,6 +453,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new System.Collections.Generic.List<UnityEngine.Collider>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetDisableCollidersOnDeath(out System.Collections.Generic.List<UnityEngine.Collider> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.DisableCollidersOnDeath>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.DisableCollidersOnDeath rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.EndAttackEvent EndAttackEventC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.EndAttackEvent>();
@@ -273,6 +472,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetEndAttackEvent(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.EndAttackEvent>(out _Project.Develop.Runtime.Gameplay.Features.Attack.EndAttackEvent rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.InAttackCooldown InAttackCooldownC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.InAttackCooldown>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> InAttackCooldown => InAttackCooldownC.Value;
 		public Entity AddInAttackCooldown(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> value = default)
@@ -281,6 +487,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetInAttackCooldown(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.InAttackCooldown>(out _Project.Develop.Runtime.Gameplay.Features.Attack.InAttackCooldown rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.InAttackProcess InAttackProcessC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.InAttackProcess>();
@@ -293,6 +506,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetInAttackProcess(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.InAttackProcess>(out _Project.Develop.Runtime.Gameplay.Features.Attack.InAttackProcess rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.InDeathProcess InDeathProcessC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.InDeathProcess>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> InDeathProcess => InDeathProcessC.Value;
 		public Entity AddInDeathProcess(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> value = default)
@@ -301,6 +521,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetInDeathProcess(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.InDeathProcess>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.InDeathProcess rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.InstantAttackDamage InstantAttackDamageC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.InstantAttackDamage>();
@@ -313,6 +540,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetInstantAttackDamage(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.InstantAttackDamage>(out _Project.Develop.Runtime.Gameplay.Features.Attack.InstantAttackDamage rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.InTeleportCooldown InTeleportCooldownC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.InTeleportCooldown>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> InTeleportCooldown => InTeleportCooldownC.Value;
 		public Entity AddInTeleportCooldown(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> value = default)
@@ -321,6 +555,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetInTeleportCooldown(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.InTeleportCooldown>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.InTeleportCooldown rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.IsDead IsDeadC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.IsDead>();
@@ -333,6 +574,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetIsDead(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.IsDead>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.IsDead rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.IsMoving IsMovingC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.IsMoving>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> IsMoving => IsMovingC.Value;
 		public Entity AddIsMoving(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> value = default)
@@ -341,6 +589,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetIsMoving(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.IsMoving>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.IsMoving rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.Sensors.IsTouchDeathMask IsTouchDeathMaskC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.IsTouchDeathMask>();
@@ -353,6 +608,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetIsTouchDeathMask(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.IsTouchDeathMask>(out _Project.Develop.Runtime.Gameplay.Features.Sensors.IsTouchDeathMask rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.MaxEnergy MaxEnergyC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.MaxEnergy>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> MaxEnergy => MaxEnergyC.Value;
 		public Entity AddMaxEnergy(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
@@ -361,6 +623,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetMaxEnergy(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.MaxEnergy>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.MaxEnergy rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.MaxHealth MaxHealthC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.MaxHealth>();
@@ -373,6 +642,30 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetMaxHealth(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.MaxHealth>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.MaxHealth rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
+		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.MinPercentOfEnergyToTeleport MinPercentOfEnergyToTeleportC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.MinPercentOfEnergyToTeleport>();
+		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> MinPercentOfEnergyToTeleport => MinPercentOfEnergyToTeleportC.Value;
+		public Entity AddMinPercentOfEnergyToTeleport(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
+		{
+			var component = new _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.MinPercentOfEnergyToTeleport();
+			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>();
+			AddComponent(component);
+			return this;
+		}
+
+		public bool TryGetMinPercentOfEnergyToTeleport(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.MinPercentOfEnergyToTeleport>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.MinPercentOfEnergyToTeleport rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.MoveDirection MoveDirectionC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.MoveDirection>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3> MoveDirection => MoveDirectionC.Value;
 		public Entity AddMoveDirection(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3> value = default)
@@ -381,6 +674,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetMoveDirection(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.MoveDirection>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.MoveDirection rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.MoveSpeed MoveSpeedC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.MoveSpeed>();
@@ -393,6 +693,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetMoveSpeed(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.MoveSpeed>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.MoveSpeed rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.MustCancelAttack MustCancelAttackC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.MustCancelAttack>();
 		public _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition MustCancelAttack => MustCancelAttackC.Value;
 		public Entity AddMustCancelAttack(_Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition value = default)
@@ -401,6 +708,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value;
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetMustCancelAttack(out _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.MustCancelAttack>(out _Project.Develop.Runtime.Gameplay.Features.Attack.MustCancelAttack rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.MustDie MustDieC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.MustDie>();
@@ -413,6 +727,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetMustDie(out _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.MustDie>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.MustDie rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.MustSelfRelease MustSelfReleaseC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.MustSelfRelease>();
 		public _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition MustSelfRelease => MustSelfReleaseC.Value;
 		public Entity AddMustSelfRelease(_Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition value = default)
@@ -421,6 +742,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value;
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetMustSelfRelease(out _Project.Develop.Runtime.Utilities.Conditions.ICompositeCondition component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.MustSelfRelease>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.MustSelfRelease rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.PercentByMaxRegenerationEnergy PercentByMaxRegenerationEnergyC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.PercentByMaxRegenerationEnergy>();
@@ -433,6 +761,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetPercentByMaxRegenerationEnergy(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.PercentByMaxRegenerationEnergy>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.PercentByMaxRegenerationEnergy rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyCurrentTime RegenerationEnergyCurrentTimeC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyCurrentTime>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> RegenerationEnergyCurrentTime => RegenerationEnergyCurrentTimeC.Value;
 		public Entity AddRegenerationEnergyCurrentTime(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
@@ -441,6 +776,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetRegenerationEnergyCurrentTime(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyCurrentTime>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyCurrentTime rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyEvent RegenerationEnergyEventC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyEvent>();
@@ -453,6 +795,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetRegenerationEnergyEvent(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyEvent>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyEvent rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyInitialTime RegenerationEnergyInitialTimeC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyInitialTime>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> RegenerationEnergyInitialTime => RegenerationEnergyInitialTimeC.Value;
 		public Entity AddRegenerationEnergyInitialTime(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
@@ -461,6 +810,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetRegenerationEnergyInitialTime(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyInitialTime>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyInitialTime rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyRequest RegenerationEnergyRequestC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyRequest>();
@@ -473,6 +829,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetRegenerationEnergyRequest(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyRequest>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.RegenerationEnergyRequest rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Common.RigidbodyComponent RigidbodyComponentC => GetComponent<_Project.Develop.Runtime.Gameplay.Common.RigidbodyComponent>();
 		public UnityEngine.Rigidbody RigidbodyComponent => RigidbodyComponentC.Value;
 		public Entity AddRigidbodyComponent(UnityEngine.Rigidbody value = default)
@@ -481,6 +844,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value;
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetRigidbodyComponent(out UnityEngine.Rigidbody component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Common.RigidbodyComponent>(out _Project.Develop.Runtime.Gameplay.Common.RigidbodyComponent rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.RotateDirection RotateDirectionC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.RotateDirection>();
@@ -493,6 +863,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetRotateDirection(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<UnityEngine.Vector3> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.RotateDirection>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.RotateDirection rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.RotateSpeed RotateSpeedC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.RotateSpeed>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> RotateSpeed => RotateSpeedC.Value;
 		public Entity AddRotateSpeed(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
@@ -501,6 +878,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetRotateSpeed(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.RotateSpeed>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.RotateSpeed rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.ShootPoint ShootPointC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.ShootPoint>();
@@ -513,6 +897,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetShootPoint(out UnityEngine.Transform component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.ShootPoint>(out _Project.Develop.Runtime.Gameplay.Features.Attack.ShootPoint rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.SpendEnergyEvent SpendEnergyEventC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.SpendEnergyEvent>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<System.Single> SpendEnergyEvent => SpendEnergyEventC.Value;
 		public Entity AddSpendEnergyEvent(_Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<System.Single> value = default)
@@ -521,6 +912,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetSpendEnergyEvent(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.SpendEnergyEvent>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.SpendEnergyEvent rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.SpendEnergyRequest SpendEnergyRequestC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.SpendEnergyRequest>();
@@ -533,6 +931,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetSpendEnergyRequest(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.SpendEnergyRequest>(out _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy.SpendEnergyRequest rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.StartAttackEvent StartAttackEventC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.StartAttackEvent>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent StartAttackEvent => StartAttackEventC.Value;
 		public Entity AddStartAttackEvent(_Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent value = default)
@@ -541,6 +946,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetStartAttackEvent(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.StartAttackEvent>(out _Project.Develop.Runtime.Gameplay.Features.Attack.StartAttackEvent rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.Attack.StartAttackRequest StartAttackRequestC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.StartAttackRequest>();
@@ -553,6 +965,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetStartAttackRequest(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Attack.StartAttackRequest>(out _Project.Develop.Runtime.Gameplay.Features.Attack.StartAttackRequest rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.ApplyDamage.TakeDamageEvent TakeDamageEventC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.ApplyDamage.TakeDamageEvent>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<System.Single> TakeDamageEvent => TakeDamageEventC.Value;
 		public Entity AddTakeDamageEvent(_Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<System.Single> value = default)
@@ -561,6 +980,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetTakeDamageEvent(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.ApplyDamage.TakeDamageEvent>(out _Project.Develop.Runtime.Gameplay.Features.ApplyDamage.TakeDamageEvent rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.ApplyDamage.TakeDamageRequest TakeDamageRequestC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.ApplyDamage.TakeDamageRequest>();
@@ -573,6 +999,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetTakeDamageRequest(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.ApplyDamage.TakeDamageRequest>(out _Project.Develop.Runtime.Gameplay.Features.ApplyDamage.TakeDamageRequest rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportCooldownCurrentTime TeleportCooldownCurrentTimeC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportCooldownCurrentTime>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> TeleportCooldownCurrentTime => TeleportCooldownCurrentTimeC.Value;
 		public Entity AddTeleportCooldownCurrentTime(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
@@ -581,6 +1014,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetTeleportCooldownCurrentTime(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportCooldownCurrentTime>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportCooldownCurrentTime rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportCooldownInitialTime TeleportCooldownInitialTimeC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportCooldownInitialTime>();
@@ -593,6 +1033,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetTeleportCooldownInitialTime(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportCooldownInitialTime>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportCooldownInitialTime rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage.TeleportDamage TeleportDamageC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage.TeleportDamage>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> TeleportDamage => TeleportDamageC.Value;
 		public Entity AddTeleportDamage(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
@@ -601,6 +1048,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetTeleportDamage(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage.TeleportDamage>(out _Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage.TeleportDamage rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportEnergyCost TeleportEnergyCostC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportEnergyCost>();
@@ -613,6 +1067,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetTeleportEnergyCost(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportEnergyCost>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportEnergyCost rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportEvent TeleportEventC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportEvent>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent TeleportEvent => TeleportEventC.Value;
 		public Entity AddTeleportEvent(_Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent value = default)
@@ -621,6 +1082,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetTeleportEvent(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportEvent>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportEvent rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportRadius TeleportRadiusC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportRadius>();
@@ -633,6 +1101,30 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetTeleportRadius(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportRadius>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportRadius rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
+		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportRequest TeleportRequestC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportRequest>();
+		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<UnityEngine.Vector3> TeleportRequest => TeleportRequestC.Value;
+		public Entity AddTeleportRequest(_Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<UnityEngine.Vector3> value = default)
+		{
+			var component = new _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportRequest();
+			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<UnityEngine.Vector3>();
+			AddComponent(component);
+			return this;
+		}
+
+		public bool TryGetTeleportRequest(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveEvent<UnityEngine.Vector3> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportRequest>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportRequest rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage.TeleportTakeDamageColliderBuffer TeleportTakeDamageColliderBufferC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage.TeleportTakeDamageColliderBuffer>();
 		public _Project.Develop.Runtime.Utilities.Buffer<UnityEngine.Collider> TeleportTakeDamageColliderBuffer => TeleportTakeDamageColliderBufferC.Value;
 		public Entity AddTeleportTakeDamageColliderBuffer(_Project.Develop.Runtime.Utilities.Buffer<UnityEngine.Collider> value = default)
@@ -643,6 +1135,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public bool TryGetTeleportTakeDamageColliderBuffer(out _Project.Develop.Runtime.Utilities.Buffer<UnityEngine.Collider> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage.TeleportTakeDamageColliderBuffer>(out _Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage.TeleportTakeDamageColliderBuffer rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage.TeleportTakeDamageRadius TeleportTakeDamageRadiusC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage.TeleportTakeDamageRadius>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> TeleportTakeDamageRadius => TeleportTakeDamageRadiusC.Value;
 		public Entity AddTeleportTakeDamageRadius(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
@@ -651,6 +1150,30 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single>();
 			AddComponent(component);
 			return this;
+		}
+
+		public bool TryGetTeleportTakeDamageRadius(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage.TeleportTakeDamageRadius>(out _Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage.TeleportTakeDamageRadius rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
+		public _Project.Develop.Runtime.Gameplay.Common.TransformComponent TransformComponentC => GetComponent<_Project.Develop.Runtime.Gameplay.Common.TransformComponent>();
+		public UnityEngine.Transform TransformComponent => TransformComponentC.Value;
+		public Entity AddTransformComponent(UnityEngine.Transform value = default)
+		{
+			var component = new _Project.Develop.Runtime.Gameplay.Common.TransformComponent();
+			component.Value = value;
+			AddComponent(component);
+			return this;
+		}
+
+		public bool TryGetTransformComponent(out UnityEngine.Transform component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Common.TransformComponent>(out _Project.Develop.Runtime.Gameplay.Common.TransformComponent rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
 		}
 
 		public Entity AddApplyDamageSystem()
@@ -791,9 +1314,15 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
-		public Entity AddTeleportCooldownSystem()
+		public Entity AddTeleportByConditionRequestSystem()
 		{
-			AddSystem(new _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportCooldownSystem());
+			AddSystem(new _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportByConditionRequestSystem());
+			return this;
+		}
+
+		public Entity AddTeleportCooldownStartSystem()
+		{
+			AddSystem(new _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportCooldownStartSystem());
 			return this;
 		}
 

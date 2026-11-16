@@ -10,60 +10,36 @@ using Random = UnityEngine.Random;
 
 namespace _Project.Develop.Runtime.Gameplay.Features.MovementFeuture
 {
-	public class TeleportMovementSystem : IInitializableSystem, IUpdatableSystem
+	public class TeleportMovementSystem : IInitializableSystem, IDisposableSystem
 	{
-		private ReactiveVariable<float> _teleportRadius;
-		private ReactiveVariable<float> _energyCost;
 		private Rigidbody _rigidbody;
 
 		private ReactiveEvent _teleportEvent;
-		private ReactiveEvent<float> _spendEnergyRequest;
-
-		private ICompositeCondition _canTeleport;
+		private ReactiveEvent<Vector3> _teleportRequest; 
+		
+		private IDisposable _teleportRequestDisposable;
 		
 		public void OnInit(Entity entity)
 		{
-			_teleportRadius = entity.TeleportRadius;
-			_energyCost = entity.TeleportEnergyCost;
-			_canTeleport = entity.CanTeleport;
 			_rigidbody = entity.RigidbodyComponent;
-			_spendEnergyRequest = entity.SpendEnergyRequest;
 
+			_teleportRequest = entity.TeleportRequest;
 			_teleportEvent = entity.TeleportEvent;
+			_teleportRequestDisposable = _teleportRequest.Subscribe(TeleportProcess);
 		}
 
-		public void OnUpdate(float dt)
+		private void TeleportProcess(Vector3 teleportPoint)
 		{
-			if (_canTeleport.Evaluate())
-			{
-				TeleportProcess();
-			}
-		}
-
-		private void TeleportProcess()
-		{
-			Vector3 teleportDirection = GetRandomTeleportDirection();
-			float teleportRadius = GetRandomTeleportRadius();
-				
-			Vector3 newPosition = _rigidbody.position + (teleportDirection * teleportRadius);
+			Vector3 newPosition = _rigidbody.position + teleportPoint;
 				
 			_rigidbody.Move(newPosition, _rigidbody.rotation);
-				
-			_spendEnergyRequest.Invoke(_energyCost.Value);
+			
 			_teleportEvent.Invoke();
 		}
 
-		private float GetRandomTeleportRadius()
-			=> Random.Range(0f, _teleportRadius.Value);
-
-		private Vector3 GetRandomTeleportDirection()
+		public void OnDispose()
 		{
-			float randomXDirection = Random.Range(-1f, 1f);
-			float randomZDirection = Random.Range(-1f, 1f);
-			
-			return new Vector3(randomXDirection, 0f, randomZDirection).normalized;
+			_teleportRequestDisposable.Dispose();
 		}
-
-
 	}
 }
