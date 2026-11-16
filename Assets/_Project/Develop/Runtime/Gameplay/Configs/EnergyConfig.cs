@@ -5,13 +5,13 @@ namespace _Project.Develop.Runtime.Gameplay.Configs
 	[CreateAssetMenu(menuName = "Project/EnergyConfig", fileName = "EnergyConfig")]
 	public class EnergyConfig : ScriptableObject
 	{
-		[field: SerializeField]
+		[field: SerializeField, Min(0)]
 		public float MaxEnergy { get; private set; }
 		
-		[field: SerializeField]
+		[field: SerializeField, Min(0)]
 		public float StartEnergy { get; private set; }
 		
-		[field: SerializeField]
+		[field: SerializeField, Min(0)]
 		public float EnergyRegeneretionPeriodInitialTime { get; private set; }
 		
 		[field: SerializeField, Range(0f, 1f)]

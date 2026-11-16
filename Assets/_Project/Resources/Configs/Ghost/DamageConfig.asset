@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: DamageConfig
   m_EditorClassIdentifier: 
   <Damage>k__BackingField: 25
+  <InitialAttackTime>k__BackingField: 3
+  <AttackDelayTime>k__BackingField: 1
+  <AttackCooldownInitialTime>k__BackingField: 2

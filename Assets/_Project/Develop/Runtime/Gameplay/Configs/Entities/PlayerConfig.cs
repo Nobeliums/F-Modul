@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using _Project.Develop.Runtime.Gameplay.Configs.Entities;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace _Project.Develop.Runtime.Gameplay.Configs
 {
-	[CreateAssetMenu(menuName = "Project/GhostConfig", fileName = "GhostConfig", order = 0)]
-	public class GhostConfig : ScriptableObject
+	[CreateAssetMenu(menuName = "Project/PlayerConfig", fileName = "PlayerConfig")]
+	public class PlayerConfig : EntityConfig
 	{
 		[field: SerializeField]
 		public MovementConfig MovementConfig { get; private set; }

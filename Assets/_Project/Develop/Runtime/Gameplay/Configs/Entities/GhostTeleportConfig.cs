@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using _Project.Develop.Runtime.Gameplay.Configs.Entities;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace _Project.Develop.Runtime.Gameplay.Configs
 {
 	[CreateAssetMenu(menuName = "Project/TeleportGhostConfig", fileName = "TeleportGhostConfig", order = 0)]
-	public class GhostTeleportConfig : ScriptableObject
+	public class GhostTeleportConfig : EntityConfig
 	{
 		[field: SerializeField]
 		public TeleportConfig TeleportConfig { get; private set; }
