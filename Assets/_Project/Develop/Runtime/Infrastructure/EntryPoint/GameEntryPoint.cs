@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.Infrastructure;
 using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using _Project.Develop.Runtime.Infrastructure.DI;
@@ -42,16 +41,16 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 			bool isExists = false;
 			
 			container.Resolve<ICoroutinePerformer>()
-				.StartPerform(playerDataProvider.Exists(result => isExists = result));
+				.StartPerform(playerDataProvider.ExistsAsync(result => isExists = result));
 			
 			if (isExists)
-				container.Resolve<ICoroutinePerformer>().StartPerform(playerDataProvider.Load());
+				container.Resolve<ICoroutinePerformer>().StartPerform(playerDataProvider.LoadAsync());
 			else
 				container.Resolve<ICoroutinePerformer>().StartPerform(playerDataProvider.Reset());
 
 			yield return container.Resolve<ConfigService>().LoadAsync();
 
-			yield return container.Resolve<SceneSwitcherService>().ProcessSceneSwitchTo(Scenes.Gameplay, new GameplayInputArgs(GameCharsSequenceType.Digits));
+			yield return container.Resolve<SceneSwitcherService>().ProcessSceneSwitchTo(Scenes.MainMenu);
 
 			yield return new WaitForSeconds(1f);
 			

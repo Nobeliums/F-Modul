@@ -1,15 +1,6 @@
-﻿using System;
-using _Project.Develop.Runtime.Gameplay.Configs;
+﻿using _Project.Develop.Runtime.Gameplay.Configs;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
-using _Project.Develop.Runtime.Gameplay.Features.AI;
-using _Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
-using _Project.Develop.Runtime.Gameplay.Features.Attack;
-using _Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage;
-using _Project.Develop.Runtime.Gameplay.Features.LIfeCycle;
-using _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy;
-using _Project.Develop.Runtime.Gameplay.Features.MovementFeuture;
-using _Project.Develop.Runtime.Gameplay.Features.Sensors;
-using _Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage;
+using _Project.Develop.Runtime.Gameplay.Features.TeamsFeutere;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Utilities;
 using _Project.Develop.Runtime.Utilities.Conditions;
@@ -39,10 +30,8 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			_collidersRegistryService = _container.Resolve<CollidersRegistryService>();
 		}
 
-		public Entity CreateGhostEntity(Vector3 position)
+		public Entity CreateGhostEntity(Vector3 position, GhostConfig config)
 		{
-			GhostConfig config = _configService.GetConfig<GhostConfig>();
-
 			Entity entity = CreateEmpty();
 
 			MonoEntity monoEntity =
@@ -64,7 +53,7 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 				.AddDeathProcessCurrentTime()
 				.AddTakeDamageRequest()
 				.AddTakeDamageEvent()
-				.AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
+				.AddContactsDetectingMask(Layers.CharacterMask)
 				.AddContactColliderBuffer(new Buffer<Collider>(BufferSize))
 				.AddContactEntitiesBuffer(new Buffer<Entity>(BufferSize))
 				.AddBodyContactDamage(new ReactiveVariable<float>(config.AttackConfig.Damage));
@@ -109,10 +98,8 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			
 		}
 	
-		public Entity CreateMainCharacterEntity(Vector3 position)
+		public Entity CreateMainHeroEntity(Vector3 position, PlayerConfig config)
 		{
-			PlayerConfig config = _configService.GetConfig<PlayerConfig>();
-
 			Entity entity = CreateEmpty();
 
 			MonoEntity monoEntity =
@@ -197,12 +184,34 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 				.AddDeathProcessTimerSystem()
 				.AddSelfReleaseSystem(_entitiesContext);
 			
-			_entitiesContext.Add(entity);
-			
 			return entity;
 		}
 		
-		public Entity CreateProjectile(Vector3 position, Vector3 direction, float damage)
+		public Entity CreateContactTrigger(Vector3 position)
+		{
+			GhostConfig config = _configService.GetConfig<GhostConfig>();
+
+			Entity entity = CreateEmpty();
+
+			MonoEntity monoEntity =
+				_monoEntitiesFactory.Create(entity, position, "Prefabs/Gameplay/Entity/Projectiles/ContactTrigger");
+
+			entity
+				.AddContactsDetectingMask(Layers.CharacterMask)
+				.AddContactColliderBuffer(new Buffer<Collider>(BufferSize))
+				.AddContactEntitiesBuffer(new Buffer<Entity>(BufferSize));
+
+			entity
+				.AddBodyContactsDetectingSystem()
+				.AddBodyContactsEntitiesFilterSystem(_collidersRegistryService);
+			
+			_entitiesContext.Add(entity);
+			
+			return entity;
+			
+		}
+		
+				public Entity CreateProjectile(Vector3 position, Vector3 direction, float damage, Entity owner)
 		{
 			GhostConfig config = _configService.GetConfig<GhostConfig>();
 
@@ -210,8 +219,6 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 
 			MonoEntity monoEntity =
 				_monoEntitiesFactory.Create(entity, position, "Prefabs/Gameplay/Entity/Projectiles/Projectile");
-			
-			Debug.Log(entity.ToString());
 
 			entity
 				.AddMoveDirection(new ReactiveVariable<Vector3>(direction))
@@ -220,12 +227,14 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 				.AddIsMoving()
 				.AddRotateSpeed(new ReactiveVariable<float>(99999))
 				.AddIsDead(new ReactiveVariable<bool>(false))
-				.AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
+				.AddContactsDetectingMask(Layers.CharacterMask | Layers.EnvironmentMask)
 				.AddContactColliderBuffer(new Buffer<Collider>(BufferSize))
 				.AddContactEntitiesBuffer(new Buffer<Entity>(BufferSize))
 				.AddBodyContactDamage(new ReactiveVariable<float>(damage))
-				.AddDeathMask(1 << LayerMask.NameToLayer("Characters"))
-				.AddIsTouchDeathMask();
+				.AddDeathMask(Layers.EnvironmentMask)
+				.AddIsTouchDeathMask()
+				.AddTeam(new ReactiveVariable<Teams>(owner.Team.Value))
+				.AddIsTouchAnotherTeam();
 
 			ICompositeCondition canMove = new CompositeCondition()
 				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
@@ -233,8 +242,9 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			ICompositeCondition canRotate = new CompositeCondition()
 				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
 
-			ICompositeCondition mustDie = new CompositeCondition()
-				.AddCondition(new FuncCondition(() => entity.IsTouchDeathMask.Value));
+			ICompositeCondition mustDie = new CompositeCondition(LogicOperations.Or)
+				.AddCondition(new FuncCondition(() => entity.IsTouchDeathMask.Value))
+				.AddCondition(new FuncCondition(() => entity.IsTouchAnotherTeam.Value));
 
 			ICompositeCondition mustRelease = new CompositeCondition()
 				.AddCondition(new FuncCondition(() => entity.IsDead.Value));
@@ -252,6 +262,7 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 				.AddBodyContactsEntitiesFilterSystem(_collidersRegistryService)
 				.AddDealDamageOnContactSystem()
 				.AddDeathMaskTouchDetectorSystem()
+				.AddAnotherTeamTouchDetectorSystem()
 				.AddDeathSystem()
 				.AddSelfReleaseSystem(_entitiesContext);
 			
@@ -260,11 +271,10 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return entity;
 			
 		}
-		
-		public Entity CreateTeleportGhost(Vector3 position)
-		{
-			GhostTeleportConfig config = _configService.GetConfig<GhostTeleportConfig>();
 
+		
+		public Entity CreateTeleportGhost(Vector3 position, GhostTeleportConfig config)
+		{
 			Entity entity = CreateEmpty();
 
 			MonoEntity monoEntity =
@@ -297,7 +307,7 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 				.AddInTeleportCooldown()
 				.AddTeleportDamage(new ReactiveVariable<float>(config.AttackConfig.Damage))
 				.AddTeleportTakeDamageRadius(new ReactiveVariable<float>(config.AttackConfig.TeleportTakeDamageRadius))
-				.AddContactsDetectingMask(1 << LayerMask.NameToLayer("Characters"))
+				.AddContactsDetectingMask(Layers.CharacterMask)
 				.AddTeleportTakeDamageColliderBuffer(new Buffer<Collider>(BufferSize))
 				.AddTeleportRequest();
 
@@ -351,12 +361,12 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return entity;
 		}
 		
-		public Entity CreateTeleportToTargetGhost(Vector3 position)
+		public Entity CreateTeleportToTargetGhost(Vector3 position, GhostTeleportConfig config)
 		{
-			Entity entity = CreateTeleportGhost(position);
+			Entity entity = CreateTeleportGhost(position, config);
 
 			entity.AddCurrentTarget();
-			entity.AddMinPercentOfEnergyToTeleport(new ReactiveVariable<float>(40));
+			entity.AddMinPercentOfEnergyToTeleport(new ReactiveVariable<float>(config.TeleportConfig.MinPercentOfEnergyToTeleport));
 			
 			return entity;
 		}

@@ -12,11 +12,14 @@ namespace _Project.Develop.Runtime.Gameplay.Features.LIfeCycle
 		
 		private ICompositeCondition _deathCondition;
 
+		private Entity _entity;
+
 
 		public void OnInit(Entity entity)
 		{
 			_isDead = entity.IsDead;
 			_deathCondition = entity.MustDie;
+			_entity =  entity;
 		}
 
 		public void OnUpdate(float dt)

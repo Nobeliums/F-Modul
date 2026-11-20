@@ -71,9 +71,8 @@ namespace _Project.Develop.Runtime.Gameplay.Features.TeleportTakeDamage
 			for (int i = _colliderBuffer.Count - 1; i >= 0; i--)
 			{
 				Entity entity = _collidersRegistry.GetBy(_colliderBuffer.Items[i]);
-
-				if (entity != null && entity != _selfEntity && entity.HasComponent<TakeDamageRequest>())
-					entity.TakeDamageRequest.Invoke(_damage.Value);
+				
+				EntitiesHelper.TryTakeDamageFrom(_selfEntity, entity, _damage.Value);
 			}
 		}
 

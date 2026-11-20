@@ -1,16 +1,16 @@
-﻿using _Project.Develop.Runtime.Gameplay.Configs;
-using _Project.Develop.Runtime.Utilities.SceneManagment;
+﻿using _Project.Develop.Runtime.Utilities.SceneManagment;
 
 namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 {
 	public class GameplayInputArgs : IInputSceneArgs
 	{
-		private readonly GameCharsSequenceType _gameCharsSequenceType;
-		public GameplayInputArgs(GameCharsSequenceType gameCharsSequenceType)
+		private readonly int _levelNumber;
+
+		public GameplayInputArgs(int levelNumber)
 		{
-			_gameCharsSequenceType = gameCharsSequenceType;
+			_levelNumber = levelNumber;
 		}
 
-		public GameCharsSequenceType GameCharsSequenceType => _gameCharsSequenceType;
+		public int LevelNumber => _levelNumber;
 	}
 }

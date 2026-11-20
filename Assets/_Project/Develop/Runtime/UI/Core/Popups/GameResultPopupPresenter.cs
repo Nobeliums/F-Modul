@@ -43,15 +43,6 @@ namespace _Project.Develop.Runtime.UI.Core.Popups
 			base.Initialize();
 
 			_gameResultPopup.GameEndButton.ClickEvent += OnGameEndClicked;
-
-			if (_gameplayCycle.IsWin)
-			{
-				OnGameWin();
-			}
-			else
-			{
-				OnLoseGame();
-			}
 		}
 
 		public override void Dispose()
@@ -77,14 +68,7 @@ namespace _Project.Develop.Runtime.UI.Core.Popups
 
 		private void OnGameEndClicked()
 		{
-			if (_gameplayCycle.IsWin)
-			{
-				_coroutinePerformer.StartPerform(_sceneSwitcher.ProcessSceneSwitchTo(Scenes.MainMenu));
-			}
-			else
-			{
-				_coroutinePerformer.StartPerform(_sceneSwitcher.ProcessSceneSwitchTo(Scenes.Gameplay, _gameplayAgr));
-			}
+			_coroutinePerformer.StartPerform(_sceneSwitcher.ProcessSceneSwitchTo(Scenes.MainMenu));
 		}
 	}
 }

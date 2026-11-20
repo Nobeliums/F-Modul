@@ -1,7 +1,8 @@
-﻿using _Project.Develop.Runtime.Gameplay.Configs;
+﻿using _Project.Develop.Runtime.Gameplay.Configs.Levels;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Meta.Configs;
 using _Project.Develop.Runtime.Meta.Features.GameStatistics;
+using _Project.Develop.Runtime.Meta.Features.LevelsProgression;
 using _Project.Develop.Runtime.Meta.Features.Wallet;
 using _Project.Develop.Runtime.UI.Core;
 using _Project.Develop.Runtime.UI.Core.Popups;
@@ -62,23 +63,25 @@ namespace _Project.Develop.Runtime.UI.Presenters
 				textBoxListView);
 		}
 
-		public SelectCharsGameTypePopupViewPresenter CreateSelectCharsGameTypePopupViewPresenter(SelectCharsGameTypePopupView view)
+		public SelectLevelPopupViewPresenter CreateSelectLevelPopupViewPresenter(SelectLevelPopupView view)
 		{
-			return new SelectCharsGameTypePopupViewPresenter(
-				view, 
+			return new SelectLevelPopupViewPresenter(
+				view,
 				_container.Resolve<ICoroutinePerformer>(),
 				_container.Resolve<ViewFactory>(),
-				_container.Resolve<ProjectPresenterFactory>());
+				_container.Resolve<ProjectPresenterFactory>(),
+				_container.Resolve<ConfigService>().GetConfig<LevelListConfig>());
 		}
 
-		public StartGameButtonPresenter CreateStartGameButtonPresenter(
-			GameCharsSequenceType gameCharsSequenceType,
+		public LevelButtonPresenter CreateLevelButtonPresenter(
+			int levelNumber,
 			ButtonView buttonView)
 		{
-			return new StartGameButtonPresenter(
-				gameCharsSequenceType, 
+			return new LevelButtonPresenter(
+				_container.Resolve<LevelsProgressionService>(),
 				_container.Resolve<SceneSwitcherService>(),
 				_container.Resolve<ICoroutinePerformer>(),
+				levelNumber,
 				buttonView);
 		}
 	}

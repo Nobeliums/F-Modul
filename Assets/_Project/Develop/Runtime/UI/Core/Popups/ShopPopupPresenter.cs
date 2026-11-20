@@ -92,7 +92,7 @@ namespace _Project.Develop.Runtime.UI.Core.Popups
 
 		private void OnSucessBuy(ShopItemType shopItemType)
 		{
-			_coroutinePerformer.StartPerform(_playerDataProvider.Save());
+			_coroutinePerformer.StartPerform(_playerDataProvider.SaveAsync());
 
 			ShopItemPrice price = _shopService.GetPriceFor(shopItemType);
 			int currencyAmount = _walletService.GetCurrency(price.Currency).Value;

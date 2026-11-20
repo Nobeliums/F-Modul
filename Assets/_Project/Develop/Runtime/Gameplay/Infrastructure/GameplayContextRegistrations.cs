@@ -1,10 +1,12 @@
 ﻿using _Project.Develop.Runtime.Features.Gamecycle;
-using _Project.Develop.Runtime.Gameplay.Configs;
+using _Project.Develop.Runtime.Gameplay.Configs.Levels;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore.Mono;
 using _Project.Develop.Runtime.Gameplay.Features.AI;
-using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
-using _Project.Develop.Runtime.Gameplay.Features.Gamecycle.Condition;
+using _Project.Develop.Runtime.Gameplay.Features.Enemies;
+using _Project.Develop.Runtime.Gameplay.Features.MainHero;
+using _Project.Develop.Runtime.Gameplay.Features.StageFeature;
+using _Project.Develop.Runtime.Gameplay.States;
 using _Project.Develop.Runtime.Meta.Features.Wallet;
 using UnityEngine;
 using _Project.Develop.Runtime.Infrastructure.DI;
@@ -25,7 +27,6 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 		public static void Process(DIContainer container, GameplayInputArgs gameplayAgrs)
 		{
 			container.RegistryAsSingle((container) => gameplayAgrs);
-			container.RegistryAsSingle(CreateGameCharsSelector);
 			container.RegistryAsSingle(CreateGameplayCycle);
 			container.RegistryAsSingle(CreateGameplayPresenterFactory);
 			container.RegistryAsSingle(CreateGameplayCanvasRoot).NonLazy();
@@ -38,7 +39,48 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 			container.RegistryAsSingle(CreateBrainsFactory);
 			container.RegistryAsSingle(CreateAIBrainsContext);
 			container.RegistryAsSingle(CreateDesktopInputService);
+			container.RegistryAsSingle(CreateEnemiesFactory);
+			container.RegistryAsSingle(CreateMainHeroFactory);
+			container.RegistryAsSingle(CreateStageFactory);
+			container.RegistryAsSingle(CreateStageProviderService);
+			container.RegistryAsSingle(CreatePreparationTriggerService);
+			container.RegistryAsSingle(CreateMainHeroHolderService).NonLazy();
+			container.RegistryAsSingle(CreateGameplayStatesFactory);
 		}
+
+		private static EnemiesFactory CreateEnemiesFactory(DIContainer c)
+			=> new EnemiesFactory(c);
+
+		private static StageFactory CreateStageFactory(DIContainer c)
+			=> new StageFactory(c);
+
+		private static StageProviderService CreateStageProviderService(DIContainer c)
+		{
+			LevelListConfig levelListConfig = c.Resolve<ConfigService>().GetConfig<LevelListConfig>();
+			LevelConfig levelConfig = levelListConfig.GetBy(c.Resolve<GameplayInputArgs>().LevelNumber);
+
+			return new StageProviderService(levelConfig, c.Resolve<StageFactory>());
+		}
+
+		private static PreparationTriggerService CreatePreparationTriggerService(DIContainer c)
+		{
+			return new PreparationTriggerService(
+				c.Resolve<EntitiesFactory>(),
+				c.Resolve<EntitiesLifeContext>());
+		}
+
+		private static MainHeroHolderService CreateMainHeroHolderService(DIContainer c)
+		{
+			return new MainHeroHolderService(c.Resolve<EntitiesLifeContext>());
+		}
+
+		private static GameplayStatesFactory CreateGameplayStatesFactory(DIContainer c)
+		{
+			return new GameplayStatesFactory(c);
+		}
+
+		private static MainHeroFactory CreateMainHeroFactory(DIContainer c)
+			=> new MainHeroFactory(c);
 
 		private static IInputService CreateDesktopInputService(DIContainer c)
 			=> new DesktopInputService();
@@ -99,28 +141,12 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 			return Object.Instantiate(canvasRoot);
 		}
 
-		private static IGameCharsSelector CreateGameCharsSelector(DIContainer c)
-		{
-			GameModeConfig config = c.Resolve<ConfigService>().GetConfig<GameModeConfig>();
-
-			string sequence = config.GetGameCharsBy(c.Resolve<GameplayInputArgs>().GameCharsSequenceType);
-
-			return new GameCharsSelector(sequence);
-		}
-
 		private static GameplayCycle CreateGameplayCycle(DIContainer c)
 		{
-			IGameCharsSelector charsSelector = c.Resolve<IGameCharsSelector>();
-			ConfigService configService = c.Resolve<ConfigService>();
-			GameModeConfig config = configService.GetConfig<GameModeConfig>();
-			GameStatisticsService gameStatisticsService = c.Resolve<GameStatisticsService>();
-			WalletService walletService = c.Resolve<WalletService>();
-			PlayerDataProvider playerDataProvider = c.Resolve<PlayerDataProvider>();
-			ICoroutinePerformer coroutinePerformer = c.Resolve<ICoroutinePerformer>();
-	
-			Gamemode gamemode = new Gamemode(new AllCharsEqualsCondition(), new CharNotEqualCondition());
+			GameplayStateMachine stateMachine = c.Resolve<GameplayStatesFactory>()
+				.CreateGameplayStateMachine(c.Resolve<GameplayInputArgs>());
 
-			return new GameplayCycle(gameStatisticsService, playerDataProvider, coroutinePerformer, c);
+			return new GameplayCycle(stateMachine);
 		}
 	}
 }

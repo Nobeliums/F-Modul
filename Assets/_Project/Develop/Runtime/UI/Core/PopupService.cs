@@ -22,13 +22,13 @@ namespace _Project.Develop.Runtime.UI.Core
 		
 		protected abstract Transform PopupLayer { get; }
 
-		public SelectCharsGameTypePopupViewPresenter CreateStartGamePopup(Action closeCallback = null)
+		public SelectLevelPopupViewPresenter CreateStartGamePopup(Action closeCallback = null)
 		{
-			SelectCharsGameTypePopupView view = _viewFactory
-				.Create<SelectCharsGameTypePopupView>(ViewIds.SelectGameCharsPopupView, PopupLayer);
+			SelectLevelPopupView view = _viewFactory
+				.Create<SelectLevelPopupView>(ViewIds.SelectGameCharsPopupView, PopupLayer);
 
-			SelectCharsGameTypePopupViewPresenter presenter =
-				_projectPresenterFactory.CreateSelectCharsGameTypePopupViewPresenter(view);
+			SelectLevelPopupViewPresenter presenter =
+				_projectPresenterFactory.CreateSelectLevelPopupViewPresenter(view);
 
 			OnPopupCreated(presenter, view);
 

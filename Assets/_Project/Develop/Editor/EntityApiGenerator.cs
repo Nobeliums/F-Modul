@@ -74,9 +74,15 @@ namespace _Project.Develop.Editor
 
 			FieldInfo valueField = componentType.GetField("Value", BindingFlags.Public | BindingFlags.Instance);
 
+			builder.AppendLine($"\t\tpublic {componentTypeName} {componentName}C => GetComponent<{componentTypeName}>();");
+
 			if (valueField == null)
 			{
-				Debug.LogWarning($"EntityApiGenerator: component {componentTypeName} has no public 'Value' field, skipped");
+				builder.AppendLine($"\t\tpublic Entity Add{componentName}()");
+				builder.AppendLine("\t\t{");
+				builder.AppendLine($"\t\t\tAddComponent(new {componentTypeName}());");
+				builder.AppendLine("\t\t\treturn this;");
+				builder.AppendLine("\t\t}");
 				return;
 			}
 
@@ -87,7 +93,6 @@ namespace _Project.Develop.Editor
 				&& typeof(UnityEngine.Object).IsAssignableFrom(valueType) == false
 				&& valueType.GetConstructor(Type.EmptyTypes) != null;
 
-			builder.AppendLine($"\t\tpublic {componentTypeName} {componentName}C => GetComponent<{componentTypeName}>();");
 			builder.AppendLine($"\t\tpublic {valueTypeName} {componentName} => {componentName}C.Value;");
 			builder.AppendLine($"\t\tpublic Entity Add{componentName}({valueTypeName} value = default)");
 			builder.AppendLine("\t\t{");

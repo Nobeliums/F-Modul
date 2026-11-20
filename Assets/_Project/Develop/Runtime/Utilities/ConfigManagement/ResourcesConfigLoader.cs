@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Project.Develop.Runtime.Gameplay.Configs;
+using _Project.Develop.Runtime.Gameplay.Configs.Levels;
+using _Project.Develop.Runtime.Gameplay.Configs.Stages;
 using _Project.Develop.Runtime.Meta.Configs;
 using _Project.Develop.Runtime.Utilities.ResourcesManagement;
 using UnityEngine;
@@ -14,13 +16,14 @@ namespace _Project.Develop.Runtime.Utilities.ConfigManagement
 
         private Dictionary<Type, string> _configsPaths = new()
         {
-            {typeof(GameModeConfig), "Configs/GameModeConfig"},
             {typeof(StartWalletConfig), "Configs/StartWalletConfig"},
             {typeof(ShopConfig), "Configs/ShopConfig"},
             {typeof(StartWalletViewConfig), "Configs/StartWalletViewConfig"},
             {typeof(PlayerConfig), "Configs/Player/PlayerConfig"},
             {typeof(GhostConfig), "Configs/Ghost/GhostConfig"},
-            {typeof(GhostTeleportConfig), "Configs/TeleportGhost/TeleportGhostConfig"}
+            {typeof(GhostTeleportConfig), "Configs/TeleportGhost/TeleportGhostConfig"},
+            {typeof(ClearAllEnemiesStageConfig), "Configs/Stages/ClearAllEnemiesStageConfig"},
+            {typeof(LevelListConfig), "Configs/Levels/LevelListConfig"}
         };
         
         public ResourcesConfigLoader(ResourceLoadService resources)

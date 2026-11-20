@@ -9,6 +9,8 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 	public class InstantShootSystem : IInitializableSystem, IDisposableSystem
 	{
 		private readonly EntitiesFactory _entitiesFactory;
+
+		private Entity _entity;
 		
 		private ReactiveEvent _attackDelayEndEvent;
 		private ReactiveVariable<float> _damage;
@@ -26,13 +28,14 @@ namespace _Project.Develop.Runtime.Gameplay.Features.Attack
 			_attackDelayEndEvent = entity.AttackDelayEndEvent;
 			_damage = entity.InstantAttackDamage;
 			_shootPoint = entity.ShootPoint;
+			_entity = entity;
 
 			_attackDelayEndDisposable = _attackDelayEndEvent.Subscribe(OnAttackDelayEnd);
 		}
 
 		private void OnAttackDelayEnd()
 		{
-			_entitiesFactory.CreateProjectile(_shootPoint.position, _shootPoint.forward, _damage.Value);
+			_entitiesFactory.CreateProjectile(_shootPoint.position, _shootPoint.forward, _damage.Value, _entity);
 		}
 
 		public void OnDispose()

@@ -9,5 +9,7 @@ namespace _Project.Develop.Runtime.Utilities.DataManagment
 
 		public int WinsCount;
 		public int LoseCount;
+
+		public List<int> CompletedLevels = new();
 	}
 }

@@ -29,7 +29,7 @@ namespace _Project.Develop.Runtime.Utilities.DataManagment.DataRepository
 			yield break;
 		}
 
-		public IEnumerator Exists(string key, Action<bool> onExist)
+		public IEnumerator ExistsAsync(string key, Action<bool> onExist)
 		{
 			PlayerPrefs.HasKey(key);
 			

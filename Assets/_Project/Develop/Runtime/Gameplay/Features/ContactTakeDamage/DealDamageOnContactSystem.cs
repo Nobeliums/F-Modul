@@ -3,6 +3,7 @@ using _Project.Develop.Runtime.Gameplay.EntitiesCore;
 using _Project.Develop.Runtime.Gameplay.EntitiesCore.Systems;
 using _Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
 using _Project.Develop.Runtime.Gameplay.Features.Sensors;
+using _Project.Develop.Runtime.Gameplay.Features.TeamsFeutere;
 using _Project.Develop.Runtime.Utilities;
 using _Project.Develop.Runtime.Utilities.Reactive;
 using Unity.VisualScripting;
@@ -14,6 +15,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage
 	{
 		private Buffer<Entity> _contacts;
 		private ReactiveVariable<float> _damage;
+		private Entity _entity;
 
 		private List<Entity> _processedEntities;
 		
@@ -21,6 +23,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage
 		{
 			_contacts = entity.ContactEntitiesBuffer;
 			_damage = entity.BodyContactDamage;
+			_entity = entity;
 			
 			_processedEntities = new List<Entity>(_contacts.Items.Length);
 		}
@@ -35,11 +38,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.ContactTakeDamage
 				{
 					_processedEntities.Add(contactEntity);
 
-					if (contactEntity.HasComponent<TakeDamageRequest>())
-					{
-						contactEntity.TakeDamageRequest.Invoke(_damage.Value);
-						Debug.Log($"Damaged {_damage.Value}");
-					}
+					EntitiesHelper.TryTakeDamageFrom(_entity, contactEntity, _damage.Value);
 				}
 			}
 

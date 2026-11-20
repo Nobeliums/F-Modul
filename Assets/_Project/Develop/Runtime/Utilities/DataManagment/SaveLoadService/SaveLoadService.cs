@@ -23,7 +23,7 @@ namespace _Project.Develop.Runtime.Utilities.DataManagment.SaveLoadService
 		}
 
 
-		public IEnumerator Save<TData>(TData data) where TData : ISaveData
+		public IEnumerator SaveAsync<TData>(TData data) where TData : ISaveData
 		{
 			string key = _dataKeysStorage.GetKeyFor<TData>();
 			
@@ -32,7 +32,7 @@ namespace _Project.Develop.Runtime.Utilities.DataManagment.SaveLoadService
 			yield return _dataRepository.Write(key, serialized);
 		}
 
-		public IEnumerator Load<TData>(Action<TData> onLoad) where TData : ISaveData
+		public IEnumerator LoadAsync<TData>(Action<TData> onLoad) where TData : ISaveData
 		{
 			string key =  _dataKeysStorage.GetKeyFor<TData>();
 
@@ -51,11 +51,11 @@ namespace _Project.Develop.Runtime.Utilities.DataManagment.SaveLoadService
 			yield return _dataRepository.Remove(key);
 		}
 
-		public IEnumerator Exists<TData>(Action<bool> onExist) where TData : ISaveData
+		public IEnumerator ExistsAsync<TData>(Action<bool> onExist) where TData : ISaveData
 		{
 			string key = _dataKeysStorage.GetKeyFor<TData>();
 			
-			yield return _dataRepository.Exists(key,  result => onExist?.Invoke(result));
+			yield return _dataRepository.ExistsAsync(key,  result => onExist?.Invoke(result));
 		}
 	}
 }

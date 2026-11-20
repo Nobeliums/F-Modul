@@ -5,6 +5,7 @@ using _Project.Develop.Runtime.Utilities.ConfigManagement;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
 using _Project.Develop.Runtime.Infrastructure.DI;
 using _Project.Develop.Runtime.Meta.Features.GameStatistics;
+using _Project.Develop.Runtime.Meta.Features.LevelsProgression;
 using _Project.Develop.Runtime.UI.Core;
 using _Project.Develop.Runtime.UI.Presenters;
 using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
@@ -36,6 +37,7 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 			container.RegistryAsSingle(CreateWalletService).NonLazy();
 			container.RegistryAsSingle(CreateSaveLoadService);
 			container.RegistryAsSingle(CreateGameStatisticsService).NonLazy();
+			container.RegistryAsSingle(CreateLevelsProgressionService).NonLazy();
 			container.RegistryAsSingle(CreateViewFactory);
 			container.RegistryAsSingle(CreateProjectPresenterFactory);
 			container.RegistryAsSingle(CreateTimerServiceFactory);
@@ -55,6 +57,11 @@ namespace _Project.Develop.Runtime.Infrastructure.EntryPoint
 		private static GameStatisticsService CreateGameStatisticsService(DIContainer c)
 		{
 			return new GameStatisticsService(c.Resolve<PlayerDataProvider>());
+		}
+
+		private static LevelsProgressionService CreateLevelsProgressionService(DIContainer c)
+		{
+			return new LevelsProgressionService(c.Resolve<PlayerDataProvider>());
 		}
 
 		private static WalletService CreateWalletService(DIContainer c)

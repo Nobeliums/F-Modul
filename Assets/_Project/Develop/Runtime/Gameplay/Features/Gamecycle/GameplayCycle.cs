@@ -1,109 +1,30 @@
 ﻿using System;
-using _Project.Develop.Runtime.Gameplay.Configs;
-using _Project.Develop.Runtime.Gameplay.EntitiesCore;
-using _Project.Develop.Runtime.Gameplay.Features.AI;
-using _Project.Develop.Runtime.Gameplay.Features.AI.States;
-using _Project.Develop.Runtime.Gameplay.Features.ApplyDamage;
-using _Project.Develop.Runtime.Gameplay.Features.Attack;
-using _Project.Develop.Runtime.Gameplay.Features.CharsSelector;
-using _Project.Develop.Runtime.Gameplay.Features.LIfeCycle;
-using _Project.Develop.Runtime.Gameplay.Features.LIfeCycle.Energy;
-using _Project.Develop.Runtime.Gameplay.Features.MovementFeuture;
-using _Project.Develop.Runtime.Infrastructure.DI;
-using _Project.Develop.Runtime.Meta.Features.Wallet;
-using _Project.Develop.Runtime.Meta.Features.GameStatistics;
-using _Project.Develop.Runtime.Utilities.CoroutineManagement;
-using _Project.Develop.Runtime.Utilities.DataManagment;
-using _Project.Develop.Runtime.Utilities.DataManagment.DataProvider;
-using _Project.Develop.Runtime.Utilities.Reactive;
-using UnityEngine;
+using _Project.Develop.Runtime.Gameplay.States;
 
 namespace _Project.Develop.Runtime.Features.Gamecycle
 {
 	public class GameplayCycle : IDisposable
 	{
-		public event Action WinGame;
-		public event Action LoseGame;
-		public event Action GameEnd;
-		
-		private GameStatisticsService _gameStatistics;
-		private PlayerDataProvider _playerDataProvider;
-		private ICoroutinePerformer _coroutinePerformer;
-		
-		private bool _isRunning;
-		private DIContainer _container; // контейнер тут для теста чтобы проще и быстрее было
+		private readonly GameplayStateMachine _stateMachine;
 
-		private BrainsFactory _brainsFactory;
-
-		private Entity _rigidbodyEntity;
-		private Entity _playerEntity;
-		private Entity _teleportEntity;
-		private Entity _teleportToTargetEntity;
-
-		public GameplayCycle(
-			GameStatisticsService gameStatistics,
-			PlayerDataProvider playerDataProvider,
-			ICoroutinePerformer coroutinePerformer,
-			DIContainer container)
+		public GameplayCycle(GameplayStateMachine stateMachine)
 		{
-			_gameStatistics = gameStatistics;
-			_playerDataProvider = playerDataProvider;
-			_coroutinePerformer = coroutinePerformer;
-			_container = container;
-			_brainsFactory = _container.Resolve<BrainsFactory>();
-		}
-		
-		public bool IsWin { get; private set; }
-		public bool IsLose { get; private set; }
-
-		public void Initialize()
-		{
-
-		}
-
-		public void Dispose()
-		{
-
+			_stateMachine = stateMachine;
 		}
 
 		public void Run()
 		{
-			_isRunning = true;
-
-			// _rigidbodyEntity = _container.Resolve<EntitiesFactory>().CreateGhostEntity(Vector3.right);
-			_teleportEntity = _container.Resolve<EntitiesFactory>().CreateTeleportGhost(Vector3.back * 3);
-			_playerEntity = _container.Resolve<EntitiesFactory>().CreateMainCharacterEntity(Vector3.forward * 3);
-			_teleportToTargetEntity = _container.Resolve<EntitiesFactory>().CreateTeleportToTargetGhost(Vector3.forward * 6);
-			_brainsFactory.CreateMainHeroBrainWithManualAttack(_playerEntity);
-			// _brainsFactory.CreateGhostBrain(_rigidbodyEntity);
-			_brainsFactory.CreateGhostTeleportToRandomPointBrain(_teleportEntity);
-			_brainsFactory.CreateGhostTeleportToTargetBrain(_teleportToTargetEntity, new LowHpTargetSelector(_teleportToTargetEntity));
-
-
+			_stateMachine.Enter();
 		}
 
-		public void ProcessUpdate()
+		public void Update(float deltaTime)
 		{
-			if (_isRunning == false)
-				return;
+			_stateMachine.Update(deltaTime);
 		}
 
-		private void OnWinGame()
+		public void Dispose()
 		{
-			WinGame?.Invoke();
-			GameEnd?.Invoke();
-			_gameStatistics.OnWinGame();
-			
-			_coroutinePerformer.StartPerform(_playerDataProvider.Save());
-		}
-
-		private void OnLoseGame()
-		{
-			LoseGame?.Invoke();
-			GameEnd?.Invoke();
-			_gameStatistics.OnLoseGame();
-
-			_coroutinePerformer.StartPerform(_playerDataProvider.Save());
+			_stateMachine.Dispose();
 		}
 	}
 }

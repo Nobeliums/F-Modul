@@ -581,6 +581,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return result;
 		}
 
+		public _Project.Develop.Runtime.Gameplay.Features.MainHero.IsMainHero IsMainHeroC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MainHero.IsMainHero>();
+		public Entity AddIsMainHero()
+		{
+			AddComponent(new _Project.Develop.Runtime.Gameplay.Features.MainHero.IsMainHero());
+			return this;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.IsMoving IsMovingC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.IsMoving>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> IsMoving => IsMovingC.Value;
 		public Entity AddIsMoving(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> value = default)
@@ -594,6 +601,23 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 		public bool TryGetIsMoving(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> component)
 		{
 			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.IsMoving>(out _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.IsMoving rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
+		public _Project.Develop.Runtime.Gameplay.Features.Sensors.IsTouchAnotherTeam IsTouchAnotherTeamC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.IsTouchAnotherTeam>();
+		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> IsTouchAnotherTeam => IsTouchAnotherTeamC.Value;
+		public Entity AddIsTouchAnotherTeam(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> value = default)
+		{
+			var component = new _Project.Develop.Runtime.Gameplay.Features.Sensors.IsTouchAnotherTeam();
+			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean>();
+			AddComponent(component);
+			return this;
+		}
+
+		public bool TryGetIsTouchAnotherTeam(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.Sensors.IsTouchAnotherTeam>(out _Project.Develop.Runtime.Gameplay.Features.Sensors.IsTouchAnotherTeam rawComponent);
 			component = result ? rawComponent.Value : default;
 			return result;
 		}
@@ -1006,6 +1030,23 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return result;
 		}
 
+		public _Project.Develop.Runtime.Gameplay.Features.TeamsFeutere.Team TeamC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.TeamsFeutere.Team>();
+		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<_Project.Develop.Runtime.Gameplay.Features.TeamsFeutere.Teams> Team => TeamC.Value;
+		public Entity AddTeam(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<_Project.Develop.Runtime.Gameplay.Features.TeamsFeutere.Teams> value = default)
+		{
+			var component = new _Project.Develop.Runtime.Gameplay.Features.TeamsFeutere.Team();
+			component.Value = value ?? new _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<_Project.Develop.Runtime.Gameplay.Features.TeamsFeutere.Teams>();
+			AddComponent(component);
+			return this;
+		}
+
+		public bool TryGetTeam(out _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<_Project.Develop.Runtime.Gameplay.Features.TeamsFeutere.Teams> component)
+		{
+			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Features.TeamsFeutere.Team>(out _Project.Develop.Runtime.Gameplay.Features.TeamsFeutere.Team rawComponent);
+			component = result ? rawComponent.Value : default;
+			return result;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportCooldownCurrentTime TeleportCooldownCurrentTimeC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.TeleportCooldownCurrentTime>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> TeleportCooldownCurrentTime => TeleportCooldownCurrentTimeC.Value;
 		public Entity AddTeleportCooldownCurrentTime(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Single> value = default)
@@ -1174,6 +1215,12 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			bool result = TryGetComponent<_Project.Develop.Runtime.Gameplay.Common.TransformComponent>(out _Project.Develop.Runtime.Gameplay.Common.TransformComponent rawComponent);
 			component = result ? rawComponent.Value : default;
 			return result;
+		}
+
+		public Entity AddAnotherTeamTouchDetectorSystem()
+		{
+			AddSystem(new _Project.Develop.Runtime.Gameplay.Features.Sensors.AnotherTeamTouchDetectorSystem());
+			return this;
 		}
 
 		public Entity AddApplyDamageSystem()

@@ -28,18 +28,14 @@ namespace _Project.Develop.Runtime.UI.Core.Gameplay
 		{
 			// _disposables.Add(_gameplayCycle.GamePhrase.Subscribe(OnGamePhraseChanged));
 			// _disposables.Add(_gameplayCycle.PlayerInputPhrase.Subscribe(OnPlayerPhraseChanged));
-
-			_gameplayCycle.GameEnd += OnGameEnd;
 		}
-		
+
 		public void Dispose()
 		{
 			foreach (IDisposable disposable in _disposables)
 			{
 				disposable.Dispose();
 			}
-			
-			_gameplayCycle.GameEnd -= OnGameEnd;
 		}
 
 		private void OnPlayerPhraseChanged(string oldValue, string newValue)
@@ -50,11 +46,6 @@ namespace _Project.Develop.Runtime.UI.Core.Gameplay
 		private void OnGamePhraseChanged(string oldValue, string newValue)
 		{
 			_gameplayView.SetTargetPhrase(newValue);
-		}
-		
-		private void OnGameEnd()
-		{
-			_gameplayPopupService.CreateGameResultPopup();
 		}
 	}
 }

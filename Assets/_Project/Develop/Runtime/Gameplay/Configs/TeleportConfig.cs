@@ -13,5 +13,8 @@ namespace _Project.Develop.Runtime.Gameplay.Configs
 		
 		[field: SerializeField, Min(0)]
 		public float TeleportEnergyCost { get; private set; }
+		
+		[field: SerializeField, Range(0, 100f)]
+		public float MinPercentOfEnergyToTeleport { get; private set; }
 	}
 }

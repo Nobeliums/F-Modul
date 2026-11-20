@@ -19,23 +19,23 @@ namespace _Project.Develop.Runtime.Utilities.DataManagment.DataProvider
 			_saveLoadService = saveLoadService;
 		}
 
-		public IEnumerator Load()
+		public IEnumerator LoadAsync()
 		{
-			yield return _saveLoadService.Load<TData>(result => _data = result);
+			yield return _saveLoadService.LoadAsync<TData>(result => _data = result);
 			
 			SendDataToReaders();
 		}
 
-		public IEnumerator Save()
+		public IEnumerator SaveAsync()
 		{
 			UpdateDataFromWriters();
 			
-			yield return _saveLoadService.Save(_data);
+			yield return _saveLoadService.SaveAsync(_data);
 		}
 
-		public IEnumerator Exists(Action<bool> onExists)
+		public IEnumerator ExistsAsync(Action<bool> onExists)
 		{
-			yield return _saveLoadService.Exists<TData>(result => onExists?.Invoke(result));
+			yield return _saveLoadService.ExistsAsync<TData>(result => onExists?.Invoke(result));
 		}
 
 		public IEnumerator Reset()

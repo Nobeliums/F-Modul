@@ -265,7 +265,7 @@ namespace _Project.Develop.Runtime.Gameplay.Features.AI
 						Quaternion.LookRotation(
 							target.GetComponent<TransformComponent>().Value.position -  transform.position));
 
-					return angleToTarget <= 1f;
+					return angleToTarget <= 3f;
 				}));
 			
 			ReactiveVariable<bool> inAttackProcess = entity.GetComponent<InAttackProcess>().Value;
