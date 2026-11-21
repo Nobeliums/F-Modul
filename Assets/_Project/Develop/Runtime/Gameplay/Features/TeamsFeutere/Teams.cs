@@ -3,6 +3,7 @@
 	public enum Teams
 	{
 		MainHero,
-		Enemy
+		Enemy,
+		Player
 	}
 }

@@ -588,6 +588,13 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return this;
 		}
 
+		public _Project.Develop.Runtime.Gameplay.Features.Tower.IsTower IsTowerC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.Tower.IsTower>();
+		public Entity AddIsTower()
+		{
+			AddComponent(new _Project.Develop.Runtime.Gameplay.Features.Tower.IsTower());
+			return this;
+		}
+
 		public _Project.Develop.Runtime.Gameplay.Features.MovementFeuture.IsMoving IsMovingC => GetComponent<_Project.Develop.Runtime.Gameplay.Features.MovementFeuture.IsMoving>();
 		public _Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> IsMoving => IsMovingC.Value;
 		public Entity AddIsMoving(_Project.Develop.Runtime.Utilities.Reactive.ReactiveVariable<System.Boolean> value = default)

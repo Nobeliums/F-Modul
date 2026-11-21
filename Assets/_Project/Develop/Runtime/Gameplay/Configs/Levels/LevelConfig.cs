@@ -10,6 +10,9 @@ namespace _Project.Develop.Runtime.Gameplay.Configs.Levels
 		[SerializeField]
 		private List<StageConfig> _stages;
 
+		[field: SerializeField, Min(1f)]
+		public float TowerMaxHealth { get; private set; } = 100f;
+
 		public IReadOnlyList<StageConfig> Stages => _stages;
 	}
 }

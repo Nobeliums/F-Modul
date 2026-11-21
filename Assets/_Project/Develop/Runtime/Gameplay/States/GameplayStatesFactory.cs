@@ -1,8 +1,11 @@
+using System;
+using System.Collections.Generic;
 using _Project.Develop.Runtime.Gameplay.Configs.Stages;
 using _Project.Develop.Runtime.Gameplay.Features.MainHero;
 using _Project.Develop.Runtime.Gameplay.Features.StageFeature;
 using _Project.Develop.Runtime.Gameplay.Infrastructure;
 using _Project.Develop.Runtime.Infrastructure.DI;
+using _Project.Develop.Runtime.Features.Gamecycle;
 using _Project.Develop.Runtime.Meta.Features.LevelsProgression;
 using _Project.Develop.Runtime.Utilities.Conditions;
 using _Project.Develop.Runtime.Utilities.CoroutineManagement;
@@ -77,11 +80,18 @@ namespace _Project.Develop.Runtime.Gameplay.States
 
 		public GameplayStateMachine CreateGameplayStateMachine(GameplayInputArgs args)
 		{
-			GameplayStateMachine stateMachine = new GameplayStateMachine();
+			List<IDisposable> disposables = new List<IDisposable>();
+
+			GameplayStateMachine stateMachine = new GameplayStateMachine(disposables);
 
 			GameplayStateMachine coreLoopState = CreateCoreLoopState();
 			WinState winState = CreateWinState(args);
 			DefeatState defeatState = CreateDefeatState();
+
+			GameResultHandler gameResultHandler = _container.Resolve<GameResultHandler>();
+
+			disposables.Add(winState.Entered.Subscribe(gameResultHandler.OnWin));
+			disposables.Add(defeatState.Entered.Subscribe(gameResultHandler.OnDefeat));
 
 			stateMachine.AddState(coreLoopState);
 			stateMachine.AddState(winState);

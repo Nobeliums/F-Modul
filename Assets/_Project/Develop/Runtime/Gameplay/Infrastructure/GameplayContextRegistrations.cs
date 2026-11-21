@@ -6,6 +6,7 @@ using _Project.Develop.Runtime.Gameplay.Features.AI;
 using _Project.Develop.Runtime.Gameplay.Features.Enemies;
 using _Project.Develop.Runtime.Gameplay.Features.MainHero;
 using _Project.Develop.Runtime.Gameplay.Features.StageFeature;
+using _Project.Develop.Runtime.Gameplay.Features.Tower;
 using _Project.Develop.Runtime.Gameplay.States;
 using _Project.Develop.Runtime.Meta.Features.Wallet;
 using UnityEngine;
@@ -46,6 +47,19 @@ namespace _Project.Develop.Runtime.Gameplay.Infrastructure
 			container.RegistryAsSingle(CreatePreparationTriggerService);
 			container.RegistryAsSingle(CreateMainHeroHolderService).NonLazy();
 			container.RegistryAsSingle(CreateGameplayStatesFactory);
+			container.RegistryAsSingle(CreateGameResultHandler);
+			container.RegistryAsSingle(CreateTowerFactory);
+		}
+
+		private static TowerFactory CreateTowerFactory(DIContainer c)
+			=> new TowerFactory(c);
+
+		private static GameResultHandler CreateGameResultHandler(DIContainer c)
+		{
+			return new GameResultHandler(
+				c.Resolve<GameStatisticsService>(),
+				c.Resolve<PlayerDataProvider>(),
+				c.Resolve<ICoroutinePerformer>());
 		}
 
 		private static EnemiesFactory CreateEnemiesFactory(DIContainer c)

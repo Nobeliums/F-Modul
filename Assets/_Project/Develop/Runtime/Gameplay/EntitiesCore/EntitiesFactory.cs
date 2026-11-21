@@ -187,6 +187,36 @@ namespace _Project.Develop.Runtime.Gameplay.EntitiesCore
 			return entity;
 		}
 		
+		public Entity CreateTowerEntity(Vector3 position, float maxHealth)
+		{
+			Entity entity = CreateEmpty();
+
+			_monoEntitiesFactory.Create(entity, position, "Prefabs/Gameplay/Entity/Tower");
+
+			entity
+				.AddMaxHealth(new ReactiveVariable<float>(maxHealth))
+				.AddCurrentHealth(new ReactiveVariable<float>(maxHealth))
+				.AddIsDead(new ReactiveVariable<bool>(false))
+				.AddTakeDamageRequest()
+				.AddTakeDamageEvent();
+
+			ICompositeCondition mustDie = new CompositeCondition()
+				.AddCondition(new FuncCondition(() => entity.CurrentHealth.Value <= 0f));
+
+			ICompositeCondition canApplyDamage = new CompositeCondition()
+				.AddCondition(new FuncCondition(() => entity.IsDead.Value == false));
+
+			entity
+				.AddMustDie(mustDie)
+				.AddCanApplyDamage(canApplyDamage);
+
+			entity
+				.AddApplyDamageSystem()
+				.AddDeathSystem();
+
+			return entity;
+		}
+
 		public Entity CreateContactTrigger(Vector3 position)
 		{
 			GhostConfig config = _configService.GetConfig<GhostConfig>();
